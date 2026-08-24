@@ -11,22 +11,22 @@ const links = [
 ];
 ---
 
-<header class="fixed top-2 z-999 md:min-h-[10dvh] min-h-[15dvh]   w-max grid place-content-center transition-transform duration-300">
+<header class="fixed inset-x-0 top-0 z-999 md:top-2 md:inset-auto md:left-1/2 md:-translate-x-1/2 md:w-max md:grid md:place-content-center transition-transform duration-300">
+  <button
+    id="menu-btn"
+    type="button"
+    class="lg:hidden fixed top-3 right-3 z-60 p-2 cursor-pointer inline-flex items-center justify-center w-11 h-11 rounded-full bg-angie-noir/60 backdrop-blur-md border border-white/20 text-white shadow-lg"
+    aria-label="Menu"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+  >
+    <MorphIcon icon={Menu} id="menu-icon" size={24} strokeWidth={2.5} />
+  </button>
+
   <nav
-    class="lg:max-w-200 font-Frauce relative text-white  flex justify-center gap-1  px-4 rounded-full bg-angie-noir/40 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/30 "
+    class="md:flex lg:max-w-200 font-Frauce relative text-white md:justify-center md:gap-1 md:px-4 md:rounded-full md:bg-angie-noir/40 md:backdrop-blur-xl md:border md:border-white/10 md:shadow-2xl md:shadow-black/30"
     aria-label="main navigation"
   >
-    <button
-      id="menu-btn"
-      type="button"
-      class="lg:hidden absolute top-2 right-2 z-50 p-2 cursor-pointer inline-flex items-center justify-center w-10 h-10 text-white"
-      aria-label="Menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <MorphIcon icon={Menu} id="menu-icon" size={24} strokeWidth={2.5} />
-    </button>
-
     <ul
       id="mobile-menu"
       data-open="false"
@@ -94,86 +94,106 @@ const links = [
   import { Menu, X } from "lucide";
   import type { MorphIconElement } from "morphicons/element";
 
-  const btn = document.querySelector<HTMLButtonElement>("#menu-btn")!;
-  const menu = document.getElementById("mobile-menu")!;
-  const iconEl = document.querySelector<MorphIconElement>("#menu-icon")!;
-  const servicesBtn = document.getElementById("services-btn")!;
-  const servicesMenu = document.getElementById("services-menu")!;
-  const servicesLi = document.getElementById("Services")!;
+  // Astro usa <ClientRouter /> (View Transitions) en MainLayout.
+  // Eso significa que al navegar entre paginas NO se recarga la pagina:
+  // el DOM se actualiza in-place. Por eso envolvemos toda la logica
+  // en initNav() y la re-ejecutamos en cada navegacion via
+  // el evento "astro:page-load". Si no, los event listeners se
+  // quedan atados al DOM viejo y desaparecen al navegar.
+  function initNav() {
+    const btn = document.querySelector<HTMLButtonElement>("#menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    const iconEl = document.querySelector<MorphIconElement>("#menu-icon");
+    const servicesBtn = document.getElementById("services-btn");
+    const servicesMenu = document.getElementById("services-menu");
+    const servicesLi = document.getElementById("Services");
 
-  let open = false;
-  let servicesToggled = false;
-  // Detectar si el dispositivo soporta hover real (mouse/trackpad).
-  // En touch puro (mobile/tablet) el :hover no aplica de forma persistente,
-  // así que el click en services-btn debe actuar como toggle.
-  const hasHover = window.matchMedia("(hover: hover)").matches;
-
-  const setOpen = (next: boolean) => {
-    open = next;
-    menu.dataset.open = String(open);
-    btn.setAttribute("aria-expanded", String(open));
-    iconEl.morphTo(open ? X : Menu);
-    if (!open) {
-      // Al cerrar el menu principal, reseteamos tambien el dropdown de services
-      servicesToggled = false;
-      syncServicesExpanded();
+    // Si los elementos requeridos no existen en esta pagina, salir.
+    // (Todos deberian existir porque el NavBar esta en MainLayout, pero
+    // es defensivo por si el NavBar se reusa sin la <ul> mobile-menu.)
+    if (!btn || !menu || !iconEl || !servicesBtn || !servicesMenu || !servicesLi) {
+      return;
     }
-  };
 
-  btn.addEventListener("click", () => setOpen(!open));
+    let open = false;
+    let servicesToggled = false;
+    // Detectar si el dispositivo soporta hover real (mouse/trackpad).
+    // En touch puro (mobile/tablet) el :hover no aplica de forma persistente,
+    // asi que el click en services-btn debe actuar como toggle.
+    const hasHover = window.matchMedia("(hover: hover)").matches;
 
-  menu.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => {
-      if (open) setOpen(false);
+    const setOpen = (next: boolean) => {
+      open = next;
+      menu.dataset.open = String(open);
+      btn.setAttribute("aria-expanded", String(open));
+      iconEl.morphTo(open ? X : Menu);
+      if (!open) {
+        // Al cerrar el menu principal, reseteamos tambien el dropdown de services
+        servicesToggled = false;
+        syncServicesExpanded();
+      }
+    };
+
+    btn.addEventListener("click", () => setOpen(!open));
+
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        if (open) setOpen(false);
+      });
     });
-  });
 
-  const syncServicesExpanded = () => {
-    const hovered =
-      servicesMenu.matches(":hover") || servicesBtn.matches(":hover");
-    const focused =
-      servicesBtn.matches(":focus") || servicesMenu.matches(":focus-within");
-    const opened = hovered || focused || servicesToggled;
-    servicesBtn.setAttribute("aria-expanded", String(opened));
-    servicesMenu.dataset.servicesOpen = String(opened);
-  };
+    const syncServicesExpanded = () => {
+      const hovered =
+        servicesMenu.matches(":hover") || servicesBtn.matches(":hover");
+      const focused =
+        servicesBtn.matches(":focus") || servicesMenu.matches(":focus-within");
+      const opened = hovered || focused || servicesToggled;
+      servicesBtn.setAttribute("aria-expanded", String(opened));
+      servicesMenu.dataset.servicesOpen = String(opened);
+    };
 
-  // Click en services-btn: en desktop el hover ya abre el menu,
-  // asi que el click es no-op. En mobile (sin hover) toggle persistente.
-  servicesBtn.addEventListener("click", (e) => {
-    if (hasHover) return;
-    e.preventDefault();
-    e.stopPropagation();
-    servicesToggled = !servicesToggled;
-    syncServicesExpanded();
-  });
-
-  servicesBtn.addEventListener("focus", syncServicesExpanded);
-  servicesBtn.addEventListener("blur", () =>
-    queueMicrotask(syncServicesExpanded),
-  );
-  servicesMenu.addEventListener("mouseenter", syncServicesExpanded);
-  servicesMenu.addEventListener("mouseleave", syncServicesExpanded);
-  servicesMenu.addEventListener("focusin", syncServicesExpanded);
-  servicesMenu.addEventListener("focusout", () =>
-    queueMicrotask(syncServicesExpanded),
-  );
-
-  // Click fuera del LI de services cierra el dropdown (mobile)
-  document.addEventListener("click", (e) => {
-    if (!servicesLi.contains(e.target as Node)) {
-      servicesToggled = false;
-      syncServicesExpanded();
-    }
-  });
-
-  // Click en un link del menu de services cierra el dropdown
-  servicesMenu.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => {
-      servicesToggled = false;
+    // Click en services-btn: en desktop el hover ya abre el menu,
+    // asi que el click es no-op. En mobile (sin hover) toggle persistente.
+    servicesBtn.addEventListener("click", (e) => {
+      if (hasHover) return;
+      e.preventDefault();
+      e.stopPropagation();
+      servicesToggled = !servicesToggled;
       syncServicesExpanded();
     });
-  });
+
+    servicesBtn.addEventListener("focus", syncServicesExpanded);
+    servicesBtn.addEventListener("blur", () =>
+      queueMicrotask(syncServicesExpanded),
+    );
+    servicesMenu.addEventListener("mouseenter", syncServicesExpanded);
+    servicesMenu.addEventListener("mouseleave", syncServicesExpanded);
+    servicesMenu.addEventListener("focusin", syncServicesExpanded);
+    servicesMenu.addEventListener("focusout", () =>
+      queueMicrotask(syncServicesExpanded),
+    );
+
+    // Click fuera del LI de services cierra el dropdown (mobile)
+    document.addEventListener("click", (e) => {
+      if (!servicesLi.contains(e.target as Node)) {
+        servicesToggled = false;
+        syncServicesExpanded();
+      }
+    });
+
+    // Click en un link del menu de services cierra el dropdown
+    servicesMenu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        servicesToggled = false;
+        syncServicesExpanded();
+      });
+    });
+  }
+
+  // Carga inicial
+  initNav();
+  // Re-init en cada navegacion SPA (Astro View Transitions)
+  document.addEventListener("astro:page-load", initNav);
 </script>
 
 <style is:global>

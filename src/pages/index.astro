@@ -79,7 +79,7 @@ const services = await getCollection("services");
     >
       <div
         id="hero-social"
-        class="flex flex-row gap-3 opacity-0 translate-y-4 transition-all duration-500 ease-out transform"
+        class="flex flex-row gap-3 hero-fade-up"
       >
         <a
           href="https://www.instagram.com/angie.p.speaks"
@@ -158,11 +158,35 @@ const services = await getCollection("services");
       >
         Christian Speaker &amp; Life Coach · Lemoyne, PA · A.L.I.G.N. Framework · English &amp; Spanish
       </p>
+
+      <a
+        href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="md:hidden self-start group inline-flex items-center gap-2 px-5 py-2.5 bg-transparent text-white border border-white rounded-full font-medium text-sm transition-all duration-300 hover:bg-white hover:text-angie-noir hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 hero-fade-up"
+        style="animation-delay: 0.4s;"
+      >
+        Book a call
+        <svg
+          class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 12h14M13 5l7 7-7 7"></path>
+        </svg>
+      </a>
     </div>
     <div
       id="hero-cta"
-      class="absolute flex z-60 bottom-0 right-0 m-5 md:m-10 md:mb-12
-             opacity-0 translate-y-4 transition-all duration-500 ease-out transform"
+      class="hidden md:flex absolute z-60 bottom-0 right-0 m-5 md:m-10 md:mb-12
+             hero-fade-up hero-fade-up-delay"
     >
       <a
         href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
@@ -294,7 +318,7 @@ const services = await getCollection("services");
                 <img
                   src={`/images/services/${image}`}
                   alt={title}
-                  class="absolute inset-0 w-full h-full object-cover object-center"
+                  class="absolute inset-0 w-full h-full  object-contain object-center md:object-cover"
                 />
                 <div
                   aria-hidden="true"
@@ -366,18 +390,23 @@ const services = await getCollection("services");
   >
     <h2 class="sr-only">About Angie Pichardo</h2>
 
-    <div class="flex justify-between w-full flex-1 h-full max-w-[80dvw] mx-auto">
-      <div class="relative w-100 aspect-3/4 flex flex-col items-center justify-center">
+    <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-16 w-full max-w-5xl mx-auto py-12 md:py-0">
+      <div class="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 shrink-0 rounded-full overflow-hidden">
         <span
           aria-hidden="true"
           class="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,#C4658A_0%,#8A2654_45%,transparent_80%)] blur-2xl scale-110 z-0"
         ></span>
-           <img class="relative mt-4 md:mt-7 z-10 w-full h-full object-cover rounded-full" src="/images/about/angie-aboutme-relaxed.jpg" alt="Angie Pichardo">
-
-
+        <img
+          class="relative z-10 w-full h-full object-cover object-top "
+          src="/images/about/angie-aboutme-relaxed.jpg"
+          alt="Angie Pichardo — Christian speaker and life coach in Lemoyne, PA"
+          width="400"
+          height="400"
+          loading="lazy"
+        />
       </div>
-      <div class="flex flex-col justify-center max-w-xl gap-5">
-        <h3 class="font-Frauce text-5xl md:text-6xl text-angie-noir leading-[0.95]">You're still here<br/>for a reason.</h3>
+      <div class="flex flex-col justify-center max-w-xl gap-5 text-center md:text-left mt-7">
+        <h3 class="font-Frauce text-4xl sm:text-5xl md:text-6xl text-angie-noir leading-[0.95]">You're still here<br/>for a reason.</h3>
         <p class="text-angie-noir/80 text-base md:text-lg leading-relaxed font-Grotesk">
           I'm Angie — a Christian speaker, life coach, and living proof that God can rewrite any story. For years I was smiling on the outside but fighting battles no one could see. Then came the moment I almost didn't survive — and that's where my real story began.
         </p>
@@ -386,7 +415,7 @@ const services = await getCollection("services");
         </p>
         <a
           href="/aboutme"
-          class="group relative inline-flex items-center justify-center overflow-hidden self-start mt-2 px-5 py-2.5 bg-angie-noir text-white rounded-full font-Grotesk-bold text-sm transition-all duration-300 hover:shadow-lg"
+          class="group relative inline-flex items-center justify-center overflow-hidden self-center md:self-start mt-2 px-5 py-2.5 bg-angie-noir text-white rounded-full font-Grotesk-bold text-sm transition-all duration-300 hover:shadow-lg"
         >
           <span aria-hidden="true" class="absolute inset-0 bg-angie-rose transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0"></span>
           <span class="relative">Read my full story →</span>
@@ -780,23 +809,12 @@ const services = await getCollection("services");
 </style>
 
 <script>
-  // Hero CTAs (social icons + Book a call) arrancan ocultos y aparecen
-  // con un fade+slide-up cuando el usuario scrollea aunque sea un poco.
-  const SCROLL_THRESHOLD = 50;
-  const targets = [
-    document.getElementById("hero-info"),
-    document.getElementById("hero-cta"),
-  ].filter((el): el is HTMLElement => el !== null);
-
-  function onScroll() {
-    const revealed = window.scrollY > SCROLL_THRESHOLD;
-    for (const el of targets) {
-      el.style.opacity = revealed ? "1" : "0";
-      el.style.transform = revealed ? "translateY(0)" : "translateY(16px)";
-    }
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  // Hero CTAs (social icons + Book a call) ya tienen la animacion CSS
+  // hero-fade-up al cargar. No necesitamos scroll reveal — eso rompia
+  // cuando el usuario navegaba a otra pagina y volvia con scroll=0.
+  // Mantenemos las referencias por si queremos re-disparar en el futuro.
+  const heroInfo = document.getElementById("hero-info");
+  const heroCta = document.getElementById("hero-cta");
 
   // Testimonials: detectar si el texto está truncado y mostrar/ocultar "Read more"
   function setupReadMore() {
