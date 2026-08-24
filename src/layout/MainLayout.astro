@@ -3,6 +3,7 @@ import MainHead from "../components/MainHead.astro";
 import "../styles/global.css";
 import MainFooter from "../components/MainFooter.astro";
 import NavBar from "../components/NavBar.astro";
+import ClientRouter from "astro/components/ClientRouter.astro";
 
 const {
   title,
@@ -21,6 +22,7 @@ const {
       canonicalPath={canonicalPath}
       noindex={noindex}
     />
+    <ClientRouter />
   </head>
   <body
     class="bg-linear-to-b from-angie-rose to-angie-noir bg-fixed flex flex-col items-center font-Grotesk min-h-dvh"
