@@ -1,0 +1,32 @@
+---
+import MainHead from "../components/MainHead.astro";
+import "../styles/global.css";
+import MainFooter from "../components/MainFooter.astro";
+import NavBar from "../components/NavBar.astro";
+
+const {
+  title,
+  description,
+  canonicalPath,
+  noindex = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <MainHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      noindex={noindex}
+    />
+  </head>
+  <body
+    class="bg-linear-to-b from-angie-rose to-angie-noir bg-fixed flex flex-col items-center font-Grotesk min-h-dvh"
+  >
+    <NavBar />
+    <slot />
+    <MainFooter />
+  </body>
+</html>

@@ -1,1 +1,29 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@font-face {
+    font-family: 'Frauce-italic';
+    src: url("../../public/fonts/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.ttf") 
+}
+@font-face {
+    font-family: "Grotesk";
+    src: url("../../public/fonts/SpaceGrotesk-Regular.ttf");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "Grotesk-bold";
+    src: url("../../public/fonts/SpaceGrotesk-Bold.ttf");
+}
+
+@theme {
+    --font-Grotesk: Grotesk, sans-serif;
+    --font-Grotesk-bold: Grotesk-bold, sans-serif;
+    --font-Frauce: Frauce-italic, sans-serif;
+
+    --color-pink-nav: oklch(0.72 0.16 354);
+    --color-pink-nav-soft: oklch(0.93 0.04 354);
+    --color-angie-noir: #1F0612;
+    --color-angie-wine: #4A0D28;
+    --color-angie-burgundy: #8A2654;
+    --color-angie-rose: #C4658A;
+    --color-angie-cream: #FFF5FA;
+}

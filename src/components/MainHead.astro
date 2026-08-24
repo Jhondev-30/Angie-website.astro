@@ -1,0 +1,282 @@
+---
+/**
+ * MainHead.astro — SEO/GEO optimized meta tags component
+ *
+ * @prop title         - Page title (required). Will be suffixed with site name
+ *                       if not already present.
+ * @prop description   - Meta description (required, max 160 chars recommended)
+ * @prop canonicalPath - Canonical URL path (default: current pathname)
+ * @prop image         - OG image path (default: /og/og-default.jpg — to be created)
+ * @prop type          - Open Graph type (default: "website")
+ * @prop noindex       - If true, applies noindex,nofollow
+ * @prop publishedTime - ISO 8601 datetime (for type="article")
+ * @prop modifiedTime  - ISO 8601 datetime (for type="article")
+ * @prop author        - Author name (default: "Angie Pichardo")
+ * @prop keywords      - Array of additional meta keywords
+ *
+ * NOTE: All favicon/OG assets referenced below will 404 until created.
+ *       User confirmed OG + favicon will be added later.
+ */
+
+export interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  image?: string;
+  type?: "website" | "article" | "profile";
+  noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  keywords?: string[];
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  image = "/og/og-default.jpg",
+  type = "website",
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+  author = "Angie Pichardo",
+  keywords = [],
+} = Astro.props;
+
+// ── Site constants ────────────────────────────────────────────────────────────
+const SITE_URL = "https://graceafterthegrave.com";
+const SITE_NAME = "Angie Pichardo";
+const LOCALE = "en_US";
+const TWITTER_HANDLE = "@angie.p.speaks";
+
+// ── Title & description helpers ──────────────────────────────────────────────
+const fullTitle =
+  title === "Home" || title.includes(SITE_NAME)
+    ? title
+    : `${title} — ${SITE_NAME}`;
+
+const truncatedTitle =
+  fullTitle.length > 60 ? fullTitle.substring(0, 57) + "..." : fullTitle;
+
+const truncatedDescription =
+  description.length > 160
+    ? description.substring(0, 157) + "..."
+    : description;
+
+const canonicalURL = new URL(canonicalPath, SITE_URL).toString();
+const imageURL = new URL(image, SITE_URL).toString();
+const heroImageURL = new URL("/images/angie-hero-1600.webp", SITE_URL).toString();
+
+// ── Person JSON-LD schema (rendered on every page) ───────────────────────────
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Angie Pichardo",
+  url: SITE_URL,
+  image: heroImageURL,
+  jobTitle: "Christian Motivational Speaker · Life Coach",
+  description:
+    "Christian motivational speaker and life coach helping women move from stuck to purpose through the A.L.I.G.N. framework. Serving Lemoyne, Harrisburg, and Central PA — in person and virtually, in English and Spanish.",
+  knowsAbout: [
+    "Christian Life Coaching",
+    "Motivational Speaking",
+    "A.L.I.G.N. Framework",
+    "Women's Ministry",
+    "Faith-Based Leadership",
+    "Recovery & Sobriety",
+    "Resilience & Purpose",
+    "Bilingual Coaching (English & Spanish)",
+  ],
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "Les Brown Speaking for a Living",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Lemoyne",
+    addressRegion: "PA",
+    addressCountry: "US",
+  },
+  workLocation: {
+    "@type": "Place",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Lemoyne",
+      addressRegion: "PA",
+      addressCountry: "US",
+    },
+  },
+  areaServed: [
+    { "@type": "City", name: "Lemoyne" },
+    { "@type": "City", name: "Harrisburg" },
+    { "@type": "City", name: "Mechanicsburg" },
+    { "@type": "City", name: "Camp Hill" },
+    { "@type": "City", name: "Carlisle" },
+    { "@type": "AdministrativeArea", name: "Pennsylvania" },
+    { "@type": "Country", name: "United States" },
+  ],
+  knowsLanguage: [
+    { "@type": "Language", name: "English" },
+    { "@type": "Language", name: "Spanish" },
+  ],
+  sameAs: [
+    "https://www.linkedin.com/in/angie-pichardo",
+    "https://www.instagram.com/angie.p.speaks",
+    "https://www.facebook.com/people/Angie-Pichardo/61579911753681/",
+    "https://www.youtube.com/@angie.p.speaks",
+  ],
+};
+---
+
+<!-- ============================================================ -->
+<!-- CORE META                                                   -->
+<!-- ============================================================ -->
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#FDF7F1" />
+<meta name="color-scheme" content="light" />
+
+<!-- ============================================================ -->
+<!-- PRIMARY SEO                                                 -->
+<!-- ============================================================ -->
+<title>{truncatedTitle}</title>
+<meta name="title" content={truncatedTitle} />
+<meta name="description" content={truncatedDescription} />
+<link rel="canonical" href={canonicalURL} />
+
+{
+  noindex ? (
+    <meta name="robots" content="noindex, nofollow" />
+  ) : (
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+  )
+}
+
+{keywords.length > 0 && (
+  <meta name="keywords" content={keywords.join(", ")} />
+)}
+
+<meta name="author" content={author} />
+<meta name="language" content="English" />
+
+<!-- Geo meta tags for local SEO (Lemoyne / Central PA) -->
+<meta name="geo.region" content="US-PA" />
+<meta name="geo.placename" content="Lemoyne, Pennsylvania" />
+<meta name="geo.position" content="40.2412;-76.8941" />
+<meta name="ICBM" content="40.2412, -76.8941" />
+
+<!-- ============================================================ -->
+<!-- OPEN GRAPH (Facebook, LinkedIn, WhatsApp, iMessage)        -->
+<!-- ============================================================ -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:locale" content={LOCALE} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={truncatedTitle} />
+<meta property="og:description" content={truncatedDescription} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta
+  property="og:image:alt"
+  content={title}
+/>
+<meta property="og:locale:alternate" content="es_ES" />
+
+<!-- ============================================================ -->
+<!-- TWITTER / X CARDS                                           -->
+<!-- ============================================================ -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={TWITTER_HANDLE} />
+<meta name="twitter:creator" content={TWITTER_HANDLE} />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={truncatedTitle} />
+<meta name="twitter:description" content={truncatedDescription} />
+<meta name="twitter:image" content={imageURL} />
+<meta
+  name="twitter:image:alt"
+  content={title}
+/>
+
+{
+  type === "article" && publishedTime && (
+    <meta property="article:published_time" content={publishedTime} />
+  )
+}
+{
+  type === "article" && modifiedTime && (
+    <meta property="article:modified_time" content={modifiedTime} />
+  )
+}
+{type === "article" && <meta property="article:author" content={author} />}
+
+<!-- ============================================================ -->
+<!-- FAVICON & APP ICONS                                         -->
+<!-- (Files to be created later — currently 404)                -->
+<!-- ============================================================ -->
+<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="/favicon/favicon-32x32.png"
+/>
+<link
+  rel="icon"
+  type="image/png"
+  sizes="16x16"
+  href="/favicon/favicon-16x16.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href="/favicon/apple-touch-icon.png"
+/>
+<link rel="manifest" href="/favicon/site.webmanifest" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content={SITE_NAME} />
+<meta name="application-name" content={SITE_NAME} />
+<meta name="msapplication-TileColor" content="#FDF7F1" />
+
+<!-- ============================================================ -->
+<!-- PERFORMANCE HINTS                                           -->
+<!-- ============================================================ -->
+<link rel="preconnect" href="https://tidycal.com" />
+<link rel="dns-prefetch" href="https://www.youtube.com" />
+<link rel="dns-prefetch" href="https://www.linkedin.com" />
+<link rel="dns-prefetch" href="https://www.instagram.com" />
+<link rel="dns-prefetch" href="https://www.facebook.com" />
+
+<!-- ============================================================ -->
+<!-- RSS / SITEMAP DISCOVERY                                     -->
+<!-- (To be created later)                                       -->
+<!-- ============================================================ -->
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={`${SITE_NAME} — RSS`}
+  href="/rss.xml"
+/>
+<link
+  rel="sitemap"
+  type="application/xml"
+  title="Sitemap"
+  href="/sitemap-index.xml"
+/>
+
+<!-- ============================================================ -->
+<!-- STRUCTURED DATA: PERSON                                     -->
+<!-- ============================================================ -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(personSchema)}
+/>

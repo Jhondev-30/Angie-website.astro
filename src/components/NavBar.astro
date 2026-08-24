@@ -1,0 +1,199 @@
+---
+import MorphIcon from "morphicons/astro";
+import { Menu } from "lucide";
+
+const currentPath = Astro.url.pathname;
+const links = [
+  { href: "/", label: "home" },
+  { href: "/store", label: "store" },
+  { href: "/yoga", label: "yoga" },
+  { href: "/aboutme", label: "about me" },
+];
+---
+
+<header class="fixed top-2 z-999 md:min-h-[10dvh] min-h-[15dvh]   w-max grid place-content-center transition-transform duration-300">
+  <nav
+    class="lg:max-w-200 font-Frauce relative text-white  flex justify-center gap-1  px-4 rounded-full bg-angie-noir/40 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/30 "
+    aria-label="main navigation"
+  >
+    <button
+      id="menu-btn"
+      type="button"
+      class="lg:hidden absolute top-2 right-2 z-50 p-2 cursor-pointer inline-flex items-center justify-center w-10 h-10 text-white"
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <MorphIcon icon={Menu} id="menu-icon" size={24} strokeWidth={2.5} />
+    </button>
+
+    <ul
+      id="mobile-menu"
+      data-open="false"
+      class="hidden md:flex flex-col items-center py-6 px-6 *:py-2 justify-center gap-3 fixed inset-0 bg-pink-nav-soft z-40
+                   md:flex-row md:static md:justify-center md:gap-5 md:py-1 md:px-2 md:bg-transparent md:z-auto md:w-auto md:h-auto md:inset-auto
+                   data-[open=true]:flex data-[open=true]:bg-pink-950
+                    "
+    >
+      {
+        links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              aria-current={currentPath === href ? "page" : undefined}
+              class:list={["text-sm px-3 py-2 rounded-full transition",
+              "text-white  hover:bg-white/5",
+              currentPath === href && " bg-white/10",]}
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+
+      <li id="Services" class="relative group/services rounded-full">
+        <button
+          type="button"
+          id="services-btn"
+          class="text-sm px-3 py-2 rounded-full transition cursor-pointer flex items-center gap-1 hover:bg-white/10"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="services-menu"
+        >
+          services
+        </button>
+        <div
+          id="services-menu"
+          role="menu"
+          tabindex="-1"
+          class="invisible opacity-0 -translate-y-1 flex flex-col items-stretch px-1.5 py-1.5 gap-1 rounded-2xl
+                 absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50
+                 bg-angie-noir/95 backdrop-blur-xl border border-white/10 shadow-2xl text-white
+                 transition-all duration-200
+                 group-hover/services:visible group-hover/services:opacity-100 group-hover/services:translate-y-0 group-hover/services:translate-x-[-50%]
+                 group-focus-within/services:visible group-focus-within/services:opacity-100 group-focus-within/services:translate-y-0 group-focus-within/services:translate-x-[-50%]
+                 data-[services-open=true]:visible data-[services-open=true]:opacity-100 data-[services-open=true]:translate-y-0 data-[services-open=true]:translate-x-[-50%]
+                 md:flex-row md:items-center md:rounded-full
+                 *:text-sm *:px-3 *:py-2 *:rounded-full *:hover:bg-white/10 *:transition *:whitespace-nowrap *:text-center"
+        >
+          <a href="/services/coaching" role="menuitem">coaching</a>
+          <a href="/services/keynote-speaking" role="menuitem">keynote</a>
+          <a href="/services/podcast-guest" role="menuitem" class="text-balance">podcast guest</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+<style>
+    /* El control de visibilidad del mobile menu y del dropdown de services
+       se hace 100% con data-attribute selectors de Tailwind v4 en el markup.
+       No se necesita CSS adicional aquí. */
+</style>
+
+<script>
+  import { actions } from "astro:actions";
+  import { Menu, X } from "lucide";
+  import type { MorphIconElement } from "morphicons/element";
+
+  const btn = document.querySelector<HTMLButtonElement>("#menu-btn")!;
+  const menu = document.getElementById("mobile-menu")!;
+  const iconEl = document.querySelector<MorphIconElement>("#menu-icon")!;
+  const servicesBtn = document.getElementById("services-btn")!;
+  const servicesMenu = document.getElementById("services-menu")!;
+  const servicesLi = document.getElementById("Services")!;
+
+  let open = false;
+  let servicesToggled = false;
+  // Detectar si el dispositivo soporta hover real (mouse/trackpad).
+  // En touch puro (mobile/tablet) el :hover no aplica de forma persistente,
+  // así que el click en services-btn debe actuar como toggle.
+  const hasHover = window.matchMedia("(hover: hover)").matches;
+
+  const setOpen = (next: boolean) => {
+    open = next;
+    menu.dataset.open = String(open);
+    btn.setAttribute("aria-expanded", String(open));
+    iconEl.morphTo(open ? X : Menu);
+    if (!open) {
+      // Al cerrar el menu principal, reseteamos tambien el dropdown de services
+      servicesToggled = false;
+      syncServicesExpanded();
+    }
+  };
+
+  btn.addEventListener("click", () => setOpen(!open));
+
+  menu.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      if (open) setOpen(false);
+    });
+  });
+
+  const syncServicesExpanded = () => {
+    const hovered =
+      servicesMenu.matches(":hover") || servicesBtn.matches(":hover");
+    const focused =
+      servicesBtn.matches(":focus") || servicesMenu.matches(":focus-within");
+    const opened = hovered || focused || servicesToggled;
+    servicesBtn.setAttribute("aria-expanded", String(opened));
+    servicesMenu.dataset.servicesOpen = String(opened);
+  };
+
+  // Click en services-btn: en desktop el hover ya abre el menu,
+  // asi que el click es no-op. En mobile (sin hover) toggle persistente.
+  servicesBtn.addEventListener("click", (e) => {
+    if (hasHover) return;
+    e.preventDefault();
+    e.stopPropagation();
+    servicesToggled = !servicesToggled;
+    syncServicesExpanded();
+  });
+
+  servicesBtn.addEventListener("focus", syncServicesExpanded);
+  servicesBtn.addEventListener("blur", () =>
+    queueMicrotask(syncServicesExpanded),
+  );
+  servicesMenu.addEventListener("mouseenter", syncServicesExpanded);
+  servicesMenu.addEventListener("mouseleave", syncServicesExpanded);
+  servicesMenu.addEventListener("focusin", syncServicesExpanded);
+  servicesMenu.addEventListener("focusout", () =>
+    queueMicrotask(syncServicesExpanded),
+  );
+
+  // Click fuera del LI de services cierra el dropdown (mobile)
+  document.addEventListener("click", (e) => {
+    if (!servicesLi.contains(e.target as Node)) {
+      servicesToggled = false;
+      syncServicesExpanded();
+    }
+  });
+
+  // Click en un link del menu de services cierra el dropdown
+  servicesMenu.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      servicesToggled = false;
+      syncServicesExpanded();
+    });
+  });
+</script>
+
+<style is:global>
+  #menu-btn morph-icon {
+    color: white;
+  }
+  /* morphicons puede renderizar un <span> con el label del icono
+     (aunque la prop label="" evite el texto, el span vacio se ve
+     como una barrita arriba del icono). Lo ocultamos por defensa. */
+  #menu-btn morph-icon > span {
+    display: none !important;
+  }
+  /* CRÍTICO: backdrop-filter en el nav crea un nuevo containing block
+     para position:fixed de sus hijos. Eso hace que el UL mobile-menu
+     con fixed inset-0 se posicione relativo al nav (chiquito) y no
+     al viewport. Cuando el menu está abierto, quitamos el backdrop
+     del nav para que el UL pueda cubrir toda la pantalla. */
+  nav[aria-label="main navigation"]:has(> #mobile-menu[data-open="true"]) {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+</style>

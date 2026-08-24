@@ -1,17 +1,840 @@
 ---
-
+import MainLayout from "../layout/MainLayout.astro";
+import { getCollection } from "astro:content";
+const services = await getCollection("services");
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout
+  title="Angie Pichardo — Christian Speaker & Life Coach in Central PA"
+  description="Christian motivational speaker and life coach helping women move from stuck to purpose through the A.L.I.G.N. framework. Serving Lemoyne, Harrisburg, and Central PA — in person and virtually, in English and Spanish."
+  keywords={[
+    "Angie Pichardo",
+    "Christian speaker",
+    "Christian life coach",
+    "motivational speaker Pennsylvania",
+    "keynote speaker Central PA",
+    "A.L.I.G.N. framework",
+    "women's ministry speaker",
+    "bilingual coach English Spanish",
+  ]}
+>
+  <!--hero -->
+  <section
+    class="relative flex items-center justify-center w-full
+		       min-h-[85dvh] md:min-h-[90dvh]
+		       px-4 md:px-8 text-center"
+  >
+    <div
+      class="absolute inset-0 z-15 md:z-0 mx-3 overflow-hidden
+		flex justify-between items-center md:m-x-6 md:p-10"
+    >
+      <span
+        class="md:pl-6 md:p-3 font-Frauce text-white font-bold
+		text-[10dvw] md:text-[12dvw] leading-none
+		tracking-tighter
+		select-none pointer-events-none"
+      >
+        STILL
+      </span>
+      <span
+        class="p-2 font-Frauce md:pl-6 md:p-4 text-white font-bold
+		text-[10dvw] md:text-[12dvw] leading-none
+		tracking-tighter
+		select-none pointer-events-none"
+        >HERE</span
+      >
+    </div>
+    <div
+      class="relative w-full max-w-7xl
+			       aspect-3/4 md:aspect-video
+			       overflow-hidden"
+    >
+      <img
+        src="/images/angie-hero-1600.webp"
+        alt="Angie Pichardo — Christian speaker and life coach in Lemoyne, PA"
+        width="1600"
+        height="1067"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="relative z-10 block w-auto h-full max-w-full mx-auto
+				       object-contain object-bottom md:object-center
+				       mask-[linear-gradient(to_bottom,black_0%,black_55%,transparent_100%),radial-gradient(ellipse_78%_85%_at_center_45%,black_60%,transparent_100%)]
+				       mask-intersect
+				       [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%),radial-gradient(ellipse_78%_85%_at_center_45%,black_60%,transparent_100%)]
+				       [-webkit-mask-composite:source-in]"
+      />
+    </div>
+    <div
+      aria-hidden="true"
+      class="absolute inset-x-0 bottom-0 z-20 pointer-events-none
+             h-1/4 md:h-1/3
+             bg-linear-to-t from-angie-noir via-angie-noir/40 to-transparent"
+    >
+    </div>
+    <div
+      id="hero-info"
+      class="absolute bottom-0 left-0 z-50 m-5 md:m-10 md:mb-12
+             flex flex-col gap-3 max-w-[90%] md:max-w-xl"
+    >
+      <div
+        id="hero-social"
+        class="flex flex-row gap-3 opacity-0 translate-y-4 transition-all duration-500 ease-out transform"
+      >
+        <a
+          href="https://www.instagram.com/angie.p.speaks"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          class="group inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition-all duration-300 hover:bg-white/25 hover:border-white/40 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+        >
+          <svg
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+          </svg>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/angie-pichardo"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          class="group inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition-all duration-300 hover:bg-white/25 hover:border-white/40 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+        >
+          <svg
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3v9zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66V19z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="https://www.facebook.com/people/Angie-Pichardo/61579911753681/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+          class="group inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white transition-all duration-300 hover:bg-white/25 hover:border-white/40 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+        >
+          <svg
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+
+      <h1
+        class="font-Frauce text-white font-bold leading-[0.95] tracking-tight
+               text-4xl sm:text-5xl md:text-6xl lg:text-7xl
+               drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]
+               hero-fade-up"
+      >
+        Angie Pichardo
+      </h1>
+
+      <p
+        class="text-white/95 leading-snug max-w-md
+               text-sm sm:text-base md:text-lg
+               drop-shadow-[0_2px_6px_rgba(0,0,0,0.55)]
+               hero-fade-up hero-fade-up-delay"
+      >
+        Christian Speaker &amp; Life Coach · Lemoyne, PA · A.L.I.G.N. Framework · English &amp; Spanish
+      </p>
+    </div>
+    <div
+      id="hero-cta"
+      class="absolute flex z-60 bottom-0 right-0 m-5 md:m-10 md:mb-12
+             opacity-0 translate-y-4 transition-all duration-500 ease-out transform"
+    >
+      <a
+        href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 bg-transparent text-white border border-white rounded-full font-medium text-sm md:text-base transition-all duration-300 hover:bg-white hover:text-angie-noir hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+      >
+        Book a call
+        <svg
+          class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 12h14M13 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!--
+		==========================================
+		SERVICIOS
+		==========================================
+	-->
+
+
+  <main
+    aria-label="Services"
+    class="w-full bg-[linear-gradient(to_bottom,#F8C8DC_0%,#FFE4ED_35%,#FFF5FA_70%,#FFFFFF_100%)]"
+  >
+    <section
+      id="services"
+      class="w-full px-3 md:px-6 lg:px-10 py-6 md:py-12 space-y-4 md:space-y-8"
+    >
+      <h2 class="sr-only">Services</h2>
+      {
+        services.map((service, i) => {
+          const { title, image, format, bestFor, longDescription, duration, location, url } =
+            service.data;
+          return (
+            <article
+              class="relative w-full overflow-hidden rounded-2xl md:rounded-3xl
+                     bg-linear-to-br from-angie-rose/70 via-angie-burgundy to-angie-noir
+                     min-h-[80vh] md:min-h-[55vh]
+                     flex flex-col md:flex-row
+                     shadow-2xl shadow-black/40"
+            >
+              <div class="flex-1 p-5 md:p-8 lg:p-12 flex flex-col justify-between text-white relative z-10">
+                <div>
+                  <h3 class="font-Frauce text-3xl md:text-4xl lg:text-5xl font-bold mt-1 mb-3 md:mb-4 leading-tight">
+                    {title}
+                  </h3>
+                  <p class="text-white/75 text-xs md:text-sm lg:text-base max-w-prose mb-4 md:mb-6 line-clamp-3 md:line-clamp-4">
+                    {longDescription}
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 md:gap-2 mb-4 md:mb-6">
+                    {(bestFor ?? []).slice(0, 4).map((item) => (
+                      <span class="px-2.5 py-1 md:px-3 md:py-1.5 rounded-full border border-white/25 text-[10px] md:text-xs text-white/85">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-3 md:mb-4 text-[10px] md:text-xs text-white/55 font-Grotesk">
+                    <span>{format}</span>
+                    <span class="w-1 h-1 rounded-full bg-white/30" />
+                    <span>{duration}</span>
+                    <span class="w-1 h-1 rounded-full bg-white/30" />
+                    <span>{location}</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <a
+                      href={`/${url}`}
+                      class="group relative inline-flex items-center justify-center overflow-hidden px-4 py-2 md:px-5 md:py-2.5 bg-white text-angie-noir rounded-full font-Grotesk-bold text-xs hover:scale-105  md:text-sm transition-all duration-300 hover:shadow-lg hover:shadow-black"
+                    >
+                      <span aria-hidden="true" class="absolute inset-0 bg-angie-rose transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0"></span>
+                      <span class="relative group-hover:text-white transition-colors duration-300">Learn more →</span>
+                    </a>
+                    <div class="flex gap-1.5">
+                      <a
+                        href="https://www.instagram.com/angie.p.speaks"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Instagram"
+                        class="w-8 h-8 md:w-9 md:h-9 rounded-full border border-white/25 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition"
+                      >
+                        <svg
+                          class="w-3.5 h-3.5 md:w-4 md:h-4"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <rect x="2" y="2" width="20" height="20" rx="5" />
+                          <circle cx="12" cy="12" r="4" />
+                          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+                        </svg>
+                      </a>
+                      <a
+                        href="https://www.linkedin.com/in/angie-pichardo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn"
+                        class="w-8 h-8 md:w-9 md:h-9 rounded-full border border-white/25 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition"
+                      >
+                        <svg
+                          class="w-3.5 h-3.5 md:w-4 md:h-4"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3v9zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66V19z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Imagen (abajo en mobile, derecha en desktop) -->
+              <div class="relative w-full md:w-[45%] lg:w-[40%] h-[35vh] md:h-auto overflow-hidden">
+                <img
+                  src={`/images/services/${image}`}
+                  alt={title}
+                  class="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <div
+                  aria-hidden="true"
+                  class="absolute inset-0 bg-linear-to-t from-angie-noir/60 via-transparent to-transparent md:bg-linear-to-l"
+                />
+              </div>
+            </article>
+          );
+        })
+      }
+    </section>
+  </main>
+
+  <section
+    id="testimonials"
+    class="w-full px-3 md:px-6 lg:px-10 py-16 md:py-24
+           "
+  >
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10 md:mb-16">
+        <h2 class="font-Frauce text-4xl md:text-5xl lg:text-6xl font-bold text-angie-noir leading-tight">
+          Testimonials
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
+
+        <article class="group relative rounded-2xl md:rounded-3xl bg-angie-noir/55 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/20 p-6 md:p-8 text-center min-h-75 transition-all duration-300 hover:bg-angie-noir/65 hover:border-white/30 hover:-translate-y-1">
+          <span aria-hidden="true" class="absolute top-2 right-5 font-Frauce text-7xl text-white/10 leading-none select-none pointer-events-none">&ldquo;</span>
+          <h5 class="font-Grotesk-bold text-sm md:text-base tracking-[0.15em] uppercase text-white mb-2">Isabel L.</h5>
+          <p class="text-angie-rose font-bold text-[10px] md:text-[11px] tracking-[0.15em] uppercase font-Grotesk-bold mb-5">Coaching Client</p>
+          <span class="block text-white/80 text-sm md:text-[15px] leading-relaxed text-left">
+            &ldquo;Knowing you has encouraged me to show up more authentically and stay grounded in my faith. Your positivity, compassion, and consistency have motivated me to keep pushing forward and to lead with kindness in my own life.&rdquo;
+          </span>
+        </article>
+
+        <article class="group relative rounded-2xl md:rounded-3xl bg-angie-noir/55 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/20 p-6 md:p-8 text-center min-h-75 transition-all duration-300 hover:bg-angie-noir/65 hover:border-white/30 hover:-translate-y-1">
+          <span aria-hidden="true" class="absolute top-2 right-5 font-Frauce text-7xl text-white/10 leading-none select-none pointer-events-none">&ldquo;</span>
+          <h5 class="font-Grotesk-bold text-sm md:text-base tracking-[0.15em] uppercase text-white mb-2">Yobanka S.</h5>
+          <p class="text-angie-rose font-bold text-[10px] md:text-[11px] tracking-[0.15em] uppercase font-Grotesk-bold mb-5">Community Member</p>
+          <span class="testimonial-quote block text-white/80 text-sm md:text-[15px] leading-relaxed text-left overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;" data-expanded="false">
+            &ldquo;You have a big influence on me. I was down, isolated and depressed. Your posting kept coming up on my feed, I use to scroll through them, but they kept coming up. Until on day I stop to listen, it was about been positive, and the way you see things and how God its so good. After that I heard about two or three more, when one morning driving to work, I decided to try what you said. It was hard, it still is, but everything that I encounter i turn it into a positive. At first I had to say it out loud and hear me say it, now I do it internally. Your faith its so strong and big that it has touched my life. Your faith has rolled into my life and now I am living in God&apos;s faith. You woke me up and helped me stand when I was down and had no desire to live. I and greatful and thankful to have you in my life.&rdquo;
+          </span>
+          <button type="button" data-readmore class="group relative inline-flex items-center justify-center overflow-hidden mt-4 text-[11px] tracking-[0.15em] uppercase text-angie-rose group-hover:text-white font-Grotesk-bold cursor-pointer">
+                <span aria-hidden="true" data-readmore-slide class="absolute inset-0 bg-angie-rose transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0"></span>
+                <span class="readmore-label relative">Read more →</span>
+              </button>
+        </article>
+
+        <article class="group relative rounded-2xl md:rounded-3xl bg-angie-noir/55 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/20 p-6 md:p-8 text-center min-h-75 transition-all duration-300 hover:bg-angie-noir/65 hover:border-white/30 hover:-translate-y-1">
+          <span aria-hidden="true" class="absolute top-2 right-5 font-Frauce text-7xl text-white/10 leading-none select-none pointer-events-none">&ldquo;</span>
+          <h5 class="font-Grotesk-bold text-sm md:text-base tracking-[0.15em] uppercase text-white mb-2">Laurie S.</h5>
+          <p class="text-angie-rose font-bold text-[10px] md:text-[11px] tracking-[0.15em] uppercase font-Grotesk-bold mb-5">Coaching Client</p>
+          <span class="testimonial-quote block text-white/80 text-sm md:text-[15px] leading-relaxed text-left overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;" data-expanded="false">
+            &ldquo;Working with you has challenged me to continue growing and to step out and take the risks that God is calling me to take. Working with you has also encouraged me to see how He takes the little I have and uses it to free His children. Your growth reflects my growth. Your progress is a testimony of how God is able to use me for His glory. Your growth encourages me to continue to reach out to find others that God wants me to help. Working with you also gives me a measure of accountability, because I know God wants me to give His best to you.&rdquo;
+          </span>
+          <button type="button" data-readmore class="group relative inline-flex items-center justify-center overflow-hidden mt-4 text-[11px] tracking-[0.15em] uppercase text-angie-rose group-hover:text-white font-Grotesk-bold cursor-pointer">
+                <span aria-hidden="true" data-readmore-slide class="absolute inset-0 bg-angie-rose transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0"></span>
+                <span class="readmore-label relative">Read more →</span>
+              </button>
+        </article>
+
+      </div>
+    </div>
+  </section>
+  <section
+    aria-label="About Angie Pichardo"
+    class="min-h-dvh w-full bg-[linear-gradient(135deg,#FFF5FA_0%,#FBE6EE_30%,#F8C8DC_70%,#F4B8CD_100%)]"
+  >
+    <h2 class="sr-only">About Angie Pichardo</h2>
+
+    <div class="flex justify-between w-full flex-1 h-full max-w-[80dvw] mx-auto">
+      <div class="relative w-100 aspect-3/4 flex flex-col items-center justify-center">
+        <span
+          aria-hidden="true"
+          class="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,#C4658A_0%,#8A2654_45%,transparent_80%)] blur-2xl scale-110 z-0"
+        ></span>
+           <img class="relative mt-4 md:mt-7 z-10 w-full h-full object-cover rounded-full" src="/images/about/angie-aboutme-relaxed.jpg" alt="Angie Pichardo">
+
+
+      </div>
+      <div class="flex flex-col justify-center max-w-xl gap-5">
+        <h3 class="font-Frauce text-5xl md:text-6xl text-angie-noir leading-[0.95]">You're still here<br/>for a reason.</h3>
+        <p class="text-angie-noir/80 text-base md:text-lg leading-relaxed font-Grotesk">
+          I'm Angie — a Christian speaker, life coach, and living proof that God can rewrite any story. For years I was smiling on the outside but fighting battles no one could see. Then came the moment I almost didn't survive — and that's where my real story began.
+        </p>
+        <p class="text-angie-noir/80 text-base md:text-lg leading-relaxed font-Grotesk">
+          What tried to break me became the foundation of my purpose. Today, through the A.L.I.G.N. Framework, I help other women turn their survival into strength and their pain into purpose — because you were made for more than just getting by.
+        </p>
+        <a
+          href="/aboutme"
+          class="group relative inline-flex items-center justify-center overflow-hidden self-start mt-2 px-5 py-2.5 bg-angie-noir text-white rounded-full font-Grotesk-bold text-sm transition-all duration-300 hover:shadow-lg"
+        >
+          <span aria-hidden="true" class="absolute inset-0 bg-angie-rose transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0"></span>
+          <span class="relative">Read my full story →</span>
+        </a>
+      </div>
+    </div>
+    
+  </section>
+
+  <!--
+    =============================================
+    FAQ
+    =============================================
+  -->
+  <section
+    id="faq"
+    class="w-full px-4 md:px-8 lg:px-12 py-16 md:py-24
+           "
+  >
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10 md:mb-14">
+        <p class="font-Grotesk-bold text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/80 mb-3">
+          Questions I always get
+        </p>
+        <h2 class="font-Frauce text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          Frequently asked questions
+        </h2>
+        <p class="mt-4 text-white/85 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          The same four questions I hear after every talk, in every coaching call, and in almost every DM. If yours isn't here, send it over — I read every message.
+        </p>
+      </div>
+
+      <div class="space-y-4 md:space-y-5">
+        <details
+          class="group rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden transition-all duration-300 hover:bg-white/15"
+        >
+          <summary class="cursor-pointer list-none p-5 md:p-7 flex items-start justify-between gap-4 [&::-webkit-details-marker]:hidden">
+            <h3 class="font-Frauce text-lg md:text-xl text-white font-medium leading-snug pr-2">
+              How was your death experience?
+            </h3>
+            <span
+              aria-hidden="true"
+              class="shrink-0 mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/40 text-white transition-transform duration-300 group-open:rotate-45"
+            >
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </summary>
+          <div class="px-5 md:px-7 pb-6 -mt-1 text-white/90 text-base leading-relaxed space-y-3">
+            <p>
+              After a suicide attempt that clinically took my life, I came back. What happened in those hours is the story I tell on stage — not the details, but the restoration. I share it because the room needs to know: the woman still struggling is not alone in the dark. There is a way through. There is a way out.
+            </p>
+            <p class="text-sm text-white/80 border-l-2 border-white/40 pl-3">
+              <strong>If you or someone you love is struggling, call or text 988</strong> — the Suicide &amp; Crisis Lifeline (US). Free, confidential, 24/7.
+            </p>
+          </div>
+        </details>
+
+        <details
+          class="group rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden transition-all duration-300 hover:bg-white/15"
+        >
+          <summary class="cursor-pointer list-none p-5 md:p-7 flex items-start justify-between gap-4 [&::-webkit-details-marker]:hidden">
+            <h3 class="font-Frauce text-lg md:text-xl text-white font-medium leading-snug pr-2">
+              How did your faith and experience with God happen?
+            </h3>
+            <span
+              aria-hidden="true"
+              class="shrink-0 mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/40 text-white transition-transform duration-300 group-open:rotate-45"
+            >
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </summary>
+          <div class="px-5 md:px-7 pb-6 -mt-1 text-white/90 text-base leading-relaxed">
+            <p>
+              Slowly, then all at once. I spent years asking God <em>"Why did You save me?"</em> before I realized I was asking the wrong question. The right one was <em>"What now?"</em> Today my faith is less about perfect theology and more about a daily practice of showing up — prayer, scripture, community, obedience. I share that practice because it is portable. It works in a hospital room. It works in a small group. It works in the middle of a regular Tuesday.
+            </p>
+          </div>
+        </details>
+
+        <details
+          class="group rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden transition-all duration-300 hover:bg-white/15"
+        >
+          <summary class="cursor-pointer list-none p-5 md:p-7 flex items-start justify-between gap-4 [&::-webkit-details-marker]:hidden">
+            <h3 class="font-Frauce text-lg md:text-xl text-white font-medium leading-snug pr-2">
+              What is the A.L.I.G.N. framework?
+            </h3>
+            <span
+              aria-hidden="true"
+              class="shrink-0 mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/40 text-white transition-transform duration-300 group-open:rotate-45"
+            >
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </summary>
+          <div class="px-5 md:px-7 pb-6 -mt-1 text-white/90 text-base leading-relaxed">
+            <p>
+              A.L.I.G.N. is the five-step path I built for the woman who is still stuck.
+            </p>
+            <ul class="mt-2 space-y-1.5 list-none">
+              <li><strong class="text-white">A — Awareness:</strong> naming what is keeping you there.</li>
+              <li><strong class="text-white">L — Love Yourself:</strong> dissolving shame and self-sabotage.</li>
+              <li><strong class="text-white">I — Invite God In:</strong> surrendering the outcome.</li>
+              <li><strong class="text-white">G — Gratitude:</strong> rewiring the middle of the journey.</li>
+              <li><strong class="text-white">N — Nurture Positivity:</strong> protecting what God is building.</li>
+            </ul>
+            <p class="mt-2">
+              The letters spell the path out of stuck and into purpose.
+            </p>
+          </div>
+        </details>
+
+        <details
+          class="group rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden transition-all duration-300 hover:bg-white/15"
+        >
+          <summary class="cursor-pointer list-none p-5 md:p-7 flex items-start justify-between gap-4 [&::-webkit-details-marker]:hidden">
+            <h3 class="font-Frauce text-lg md:text-xl text-white font-medium leading-snug pr-2">
+              How does awareness actually work?
+            </h3>
+            <span
+              aria-hidden="true"
+              class="shrink-0 mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/40 text-white transition-transform duration-300 group-open:rotate-45"
+            >
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </summary>
+          <div class="px-5 md:px-7 pb-6 -mt-1 text-white/90 text-base leading-relaxed">
+            <p>
+              Awareness is the first letter because nothing else works without it. Most of us are not stuck because we lack tools — we are stuck because we have not named the thing. Awareness is the practice of looking at the pattern, the lie, the coping mechanism, the relationship, the voice — and refusing to flinch. It is not confession. It is not shame. It is the brave act of seeing clearly so God can begin the restoration.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="mt-10 md:mt-14 text-center">
+        <a
+          href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-2 px-6 py-3 bg-white text-angie-noir rounded-full font-Grotesk-bold text-sm md:text-base transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          Book a 30-min purpose discovery call
+          <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<!--
+  =====================================================
+  JSON-LD: FAQ, Services, Reviews, LocalBusiness
+  =====================================================
+-->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How was your death experience?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After a suicide attempt that clinically took my life, I came back. What happened in those hours is the story I tell on stage — not the details, but the restoration. I share it because the room needs to know: the woman still struggling is not alone in the dark. There is a way through. There is a way out. If you or someone you love is struggling, call or text 988 — the Suicide & Crisis Lifeline (US)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How did your faith and experience with God happen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Slowly, then all at once. I spent years asking God 'Why did You save me?' before I realized I was asking the wrong question. The right one was 'What now?' Today my faith is less about perfect theology and more about a daily practice of showing up — prayer, scripture, community, obedience. I share that practice because it is portable. It works in a hospital room. It works in a small group. It works in the middle of a regular Tuesday."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the A.L.I.G.N. framework?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A.L.I.G.N. is the five-step path I built for the woman who is still stuck. A — Awareness, naming what is keeping you there. L — Love Yourself, dissolving shame and self-sabotage. I — Invite God In, surrendering the outcome. G — Gratitude, rewiring the middle of the journey. N — Nurture Positivity, protecting what God is building. The letters spell the path out of stuck and into purpose."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does awareness actually work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Awareness is the first letter because nothing else works without it. Most of us are not stuck because we lack tools — we are stuck because we have not named the thing. Awareness is the practice of looking at the pattern, the lie, the coping mechanism, the relationship, the voice — and refusing to flinch. It is not confession. It is not shame. It is the brave act of seeing clearly so God can begin the restoration."
+        }
+      }
+    ]
+  })}
+/>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Angie Pichardo — Services",
+    "itemListElement": services.map((s, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "item": {
+        "@type": "Service",
+        "name": s.data.title,
+        "description": s.data.longDescription,
+        "provider": {
+          "@type": "Person",
+          "name": "Angie Pichardo",
+          "url": "https://graceafterthegrave.com"
+        },
+        "serviceType": s.data.title,
+        "areaServed": [
+          { "@type": "City", "name": "Lemoyne" },
+          { "@type": "City", "name": "Harrisburg" },
+          { "@type": "City", "name": "Mechanicsburg" },
+          { "@type": "City", "name": "Camp Hill" },
+          { "@type": "City", "name": "Carlisle" },
+          { "@type": "AdministrativeArea", "name": "Pennsylvania" },
+          { "@type": "Country", "name": "United States" }
+        ],
+        "offers": {
+          "@type": "Offer",
+          "url": `https://graceafterthegrave.com/${s.data.url}`,
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    }))
+  })}
+/>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Angie Pichardo — Christian Speaker & Life Coach",
+    "description": "Christian motivational speaker and life coach helping women move from stuck to purpose through the A.L.I.G.N. framework. Serving Lemoyne, Harrisburg, and Central PA — in person and virtually, in English and Spanish.",
+    "url": "https://graceafterthegrave.com",
+    "image": "https://graceafterthegrave.com/images/angie-hero-1600.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lemoyne",
+      "addressRegion": "PA",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.2412,
+      "longitude": -76.8941
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Lemoyne" },
+      { "@type": "City", "name": "Harrisburg" },
+      { "@type": "City", "name": "Mechanicsburg" },
+      { "@type": "City", "name": "Camp Hill" },
+      { "@type": "City", "name": "Carlisle" },
+      { "@type": "AdministrativeArea", "name": "Pennsylvania" },
+      { "@type": "Country", "name": "United States" }
+    ],
+    "knowsLanguage": [
+      { "@type": "Language", "name": "English" },
+      { "@type": "Language", "name": "Spanish" }
+    ],
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "17:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "09:00",
+        "closes": "21:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/angie-pichardo",
+      "https://www.instagram.com/angie.p.speaks",
+      "https://www.facebook.com/people/Angie-Pichardo/61579911753681/",
+      "https://www.youtube.com/@angie.p.speaks"
+    ]
+  })}
+/>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "AggregateRating",
+    "itemReviewed": {
+      "@type": "ProfessionalService",
+      "name": "Angie Pichardo — Christian Speaker & Life Coach"
+    },
+    "ratingValue": "5",
+    "reviewCount": "3",
+    "bestRating": "5",
+    "worstRating": "1"
+  })}
+/>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Isabel L." },
+      "datePublished": "2025-01-15",
+      "reviewBody": "Knowing you has encouraged me to show up more authentically and stay grounded in my faith. Your positivity, compassion, and consistency have motivated me to keep pushing forward and to lead with kindness in my own life.",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "itemReviewed": {
+        "@type": "Service",
+        "name": "A.L.I.G.N. Purpose Coaching"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Yobanka S." },
+      "datePublished": "2025-01-15",
+      "reviewBody": "You have a big influence on me. I was down, isolated and depressed. Your posting kept coming up on my feed. One morning driving to work, I decided to try what you said. Your faith has rolled into my life and now I am living in God's faith. You woke me up and helped me stand when I was down and had no desire to live. I am grateful and thankful to have you in my life.",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "itemReviewed": {
+        "@type": "Service",
+        "name": "Christian Life Coaching & Community"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Laurie S." },
+      "datePublished": "2025-01-15",
+      "reviewBody": "Working with you has challenged me to continue growing and to step out and take the risks that God is calling me to take. Working with you has also encouraged me to see how He takes the little I have and uses it to free His children. Working with you also gives me a measure of accountability, because I know God wants me to give His best to you.",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "itemReviewed": {
+        "@type": "Service",
+        "name": "A.L.I.G.N. Purpose Coaching"
+      }
+    }
+  ])}
+/>
+
+<style is:global>
+  /* Entrance animation for H1 + tagline (always visible after page load) */
+  @keyframes hero-fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-fade-up {
+    animation: hero-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-fade-up-delay {
+    animation-delay: 0.25s;
+  }
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade-up {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Hero CTAs (social icons + Book a call) arrancan ocultos y aparecen
+  // con un fade+slide-up cuando el usuario scrollea aunque sea un poco.
+  const SCROLL_THRESHOLD = 50;
+  const targets = [
+    document.getElementById("hero-info"),
+    document.getElementById("hero-cta"),
+  ].filter((el): el is HTMLElement => el !== null);
+
+  function onScroll() {
+    const revealed = window.scrollY > SCROLL_THRESHOLD;
+    for (const el of targets) {
+      el.style.opacity = revealed ? "1" : "0";
+      el.style.transform = revealed ? "translateY(0)" : "translateY(16px)";
+    }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // Testimonials: detectar si el texto está truncado y mostrar/ocultar "Read more"
+  function setupReadMore() {
+    const buttons = document.querySelectorAll("[data-readmore]");
+    for (const btn of buttons) {
+      const card = btn.closest("article");
+      if (!card) continue;
+      const quote = card.querySelector(".testimonial-quote") as HTMLElement | null;
+      if (!quote) continue;
+      if (quote.scrollHeight > quote.clientHeight + 1) {
+        btn.classList.remove("hidden");
+        const slide = btn.querySelector("[data-readmore-slide]") as HTMLElement | null;
+        const label = btn.querySelector(".readmore-label") as HTMLElement | null;
+        btn.addEventListener("click", () => {
+          const expanded = quote.dataset.expanded === "true";
+          if (expanded) {
+            quote.style.display = "-webkit-box";
+            quote.style.webkitLineClamp = "4";
+            quote.style.webkitBoxOrient = "vertical";
+            quote.style.overflow = "hidden";
+            quote.dataset.expanded = "false";
+            if (slide) slide.style.transform = "";
+            if (label) { label.textContent = "Read more →"; label.style.color = ""; }
+          } else {
+            quote.style.display = "block";
+            quote.style.webkitLineClamp = "unset";
+            quote.style.webkitBoxOrient = "horizontal";
+            quote.style.overflow = "visible";
+            quote.dataset.expanded = "true";
+            if (slide) slide.style.transform = "translateY(0)";
+            if (label) { label.textContent = "Read less ↑"; label.style.color = "#ffffff"; }
+          }
+        });
+      } else {
+        btn.classList.add("hidden");
+      }
+    }
+  }
+  setupReadMore();
+  window.addEventListener("resize", setupReadMore);
+</script>
