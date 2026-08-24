@@ -1,0 +1,17 @@
+{
+  "name": "Angie Pichardo",
+  "short_name": "Angie P.",
+  "description": "Christian motivational speaker and life coach — A.L.I.G.N. Framework creator",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF5FA",
+  "theme_color": "#C4658A",
+  "icons": [
+    {
+      "src": "/favicon/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
