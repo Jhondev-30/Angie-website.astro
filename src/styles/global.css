@@ -13,7 +13,9 @@
     font-family: "Grotesk-bold";
     src: url("../../public/fonts/SpaceGrotesk-Bold.ttf");
 }
-
+@utility gradient-services {
+    background-image: linear-gradient(180deg, #f693a4 0, #e9829a 25%, #d86c8f 50%, #c65785 75%, #b7457e 100%);
+}
 @theme {
     --font-Grotesk: Grotesk, sans-serif;
     --font-Grotesk-bold: Grotesk-bold, sans-serif;
@@ -26,4 +28,6 @@
     --color-angie-burgundy: #8A2654;
     --color-angie-rose: #C4658A;
     --color-angie-cream: #FFF5FA;
+    --color-gradient-blue:#A6C1EE;
+    --color-gradient-rose: #FBC2EB;
 }

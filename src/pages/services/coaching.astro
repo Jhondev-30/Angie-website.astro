@@ -1,16 +1,496 @@
 ---
-import MainLayout from "../../layout/MainLayout.astro";
+import ServicesHeroLayout from "../../layout/ServicesHeroLayout.astro";
+import ServicesLayout from "../../layout/ServicesLayout.astro";
+import ServicesMainLayout from "../../layout/ServicesMainLayout.astro";
 ---
 
-<MainLayout
-  title="A.L.I.G.N. Purpose Coaching — 1:1 Christian Life Coaching"
-  description="A.L.I.G.N. Purpose Coaching — 1:1 Christian life coaching with Angie Pichardo. 60-minute sessions in Lemoyne, PA or virtually, in English and Spanish."
+<ServicesLayout
+  title="1:1 A.L.I.G.N. Coaching for Christian Women | Angie Pichardo"
+  description="Faith-based 1:1 life coaching for Christian women using the A.L.I.G.N. framework. 60-minute sessions in-person in Lemoyne, PA or via Zoom. Book a free discovery call."
+  canonicalPath="/services/coaching/"
   keywords={[
-    "Christian life coaching",
-    "A.L.I.G.N. Purpose Coaching",
-    "life coach Lemoyne PA",
-    "biblical counseling Pennsylvania",
-    "Christian coach English Spanish",
+    "1:1 Christian life coach",
+    "A.L.I.G.N. coaching",
+    "faith-based life coach",
+    "Christian coaching for women",
+    "Christian life coach Lemoyne PA",
+    "biblical life coaching",
+    "Christian coach bilingual",
+    "virtual Christian coaching",
   ]}
 >
-</MainLayout>
+  <ServicesHeroLayout>
+    <h1 class="relative bottom-10">
+      1:1 A.L.I.G.N. <br />
+      Coaching for Christian Women
+    </h1>
+  </ServicesHeroLayout>
+
+  <ServicesMainLayout>
+    <!-- ── mission-intro ──────────────────────────────────────── -->
+    <Fragment slot="mission-intro">
+      Personalized 1:1 Christian life coaching using the A.L.I.G.N. Framework —
+      designed for women ready to move from stuck to purpose.
+    </Fragment>
+
+    <!-- ── mission-image ──────────────────────────────────────── -->
+    <img
+      slot="mission-image"
+      src="/images/services/coach.jpg"
+      alt="Angie Pichardo in a 1:1 A.L.I.G.N. Christian life coaching session"
+      width="800"
+      height="600"
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-cover"
+    />
+
+    <!-- ── mission-text ───────────────────────────────────────── -->
+    <Fragment slot="mission-text">
+      <p>
+        <strong>A.L.I.G.N. coaching is a space for honest, faith-rooted transformation.</strong>
+        Whether you are navigating a life transition, battling limiting beliefs, or
+        simply feeling stuck, this work meets you exactly where you are — no
+        performance required.
+      </p>
+      <p>
+        Each session is built around the A.L.I.G.N. framework:
+        <strong>A</strong>wareness, <strong>L</strong>ove Yourself,
+        <strong>I</strong>nvite God In, <strong>G</strong>ratitude,
+        <strong>N</strong>urture Positivity — and tailored to your specific
+        season, struggles, and goals.
+      </p>
+      <p>
+        If you have ever felt like you are "still here for a reason" but cannot
+        quite name it — this is where that reason starts to take shape.
+      </p>
+      <p class="text-sm text-angie-noir/70 italic border-l-2 border-angie-rose pl-3">
+        Note: Angie is not a licensed therapist. Coaching is not a substitute
+        for clinical mental health care. If you are in crisis, call or text
+        <strong>988</strong> (Suicide & Crisis Lifeline).
+      </p>
+    </Fragment>
+
+    <!-- ── best-for (4 cards) ─────────────────────────────────── -->
+    <Fragment slot="best-for">
+      <div
+        class="group bg-angie-cream p-6 md:p-8 rounded-2xl border border-angie-rose/20 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-rose/20 hover:-translate-y-1 transition-all duration-300"
+      >
+        <div
+          class="w-14 h-14 rounded-full bg-angie-rose/20 group-hover:bg-angie-rose/40 flex items-center justify-center mb-4 text-angie-burgundy group-hover:scale-110 transition-all duration-300"
+          aria-hidden="true"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 8v4"></path>
+            <path d="M12 16h.01"></path>
+          </svg>
+        </div>
+        <h3 class="font-Frauce text-xl text-angie-noir">Women Seeking Clarity &amp; Purpose</h3>
+        <p class="mt-2 text-angie-noir/75 font-Grotesk text-sm leading-relaxed">
+          You know something needs to shift — you can feel it — but the next
+          step is not clear yet. We will name it together.
+        </p>
+      </div>
+
+      <div
+        class="group bg-angie-cream p-6 md:p-8 rounded-2xl border border-angie-rose/20 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-rose/20 hover:-translate-y-1 transition-all duration-300"
+      >
+        <div
+          class="w-14 h-14 rounded-full bg-angie-rose/20 group-hover:bg-angie-rose/40 flex items-center justify-center mb-4 text-angie-burgundy group-hover:scale-110 transition-all duration-300"
+          aria-hidden="true"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
+            <path d="M3 12h18"></path>
+            <path d="M12 3a14 14 0 0 1 0 18"></path>
+            <path d="M12 3a14 14 0 0 0 0 18"></path>
+          </svg>
+        </div>
+        <h3 class="font-Frauce text-xl text-angie-noir">Women in Life Transitions</h3>
+        <p class="mt-2 text-angie-noir/75 font-Grotesk text-sm leading-relaxed">
+          Divorce, empty nest, career change, grief, recovery — the ground has
+          shifted. Coaching helps you find steady ground again.
+        </p>
+      </div>
+
+      <div
+        class="group bg-angie-cream p-6 md:p-8 rounded-2xl border border-angie-rose/20 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-rose/20 hover:-translate-y-1 transition-all duration-300"
+      >
+        <div
+          class="w-14 h-14 rounded-full bg-angie-rose/20 group-hover:bg-angie-rose/40 flex items-center justify-center mb-4 text-angie-burgundy group-hover:scale-110 transition-all duration-300"
+          aria-hidden="true"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </div>
+        <h3 class="font-Frauce text-xl text-angie-noir">Overcoming Limiting Beliefs</h3>
+        <p class="mt-2 text-angie-noir/75 font-Grotesk text-sm leading-relaxed">
+          Those "I am not enough" or "who am I to do this" voices? We will
+          identify them, dismantle them, and replace them with truth.
+        </p>
+      </div>
+
+      <div
+        class="group bg-angie-cream p-6 md:p-8 rounded-2xl border border-angie-rose/20 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-rose/20 hover:-translate-y-1 transition-all duration-300"
+      >
+        <div
+          class="w-14 h-14 rounded-full bg-angie-rose/20 group-hover:bg-angie-rose/40 flex items-center justify-center mb-4 text-angie-burgundy group-hover:scale-110 transition-all duration-300"
+          aria-hidden="true"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4"></path>
+            <path d="M12 18v4"></path>
+            <path d="M4.93 4.93l2.83 2.83"></path>
+            <path d="M16.24 16.24l2.83 2.83"></path>
+            <path d="M2 12h4"></path>
+            <path d="M18 12h4"></path>
+            <path d="M4.93 19.07l2.83-2.83"></path>
+            <path d="M16.24 7.76l2.83-2.83"></path>
+            <circle cx="12" cy="12" r="4"></circle>
+          </svg>
+        </div>
+        <h3 class="font-Frauce text-xl text-angie-noir">Faith &amp; Spiritual Growth</h3>
+        <p class="mt-2 text-angie-noir/75 font-Grotesk text-sm leading-relaxed">
+          For women who want their next step to be rooted in scripture and
+          prayer, not just strategy. Practical + Spirit-led.
+        </p>
+      </div>
+    </Fragment>
+
+    <!-- ── investment (2 cards pricing) ──────────────────────── -->
+    <Fragment slot="investment">
+      <!--
+        Card pricing — animaciones y efectos:
+        - group + relative + overflow-hidden para coordinar hovers
+        - before (blurred glow) que aparece en hover
+        - after (shine) que cruza la card en hover
+        - hover:-translate-y-2 para elevacion
+        - transition-all duration-500
+      -->
+      <div
+        class="w-full md:flex-1 md:max-w-md group relative overflow-hidden bg-gradient-to-br from-angie-wine to-angie-noir p-8 md:p-10 rounded-2xl border border-angie-burgundy/40 hover:border-angie-rose/70 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-angie-rose/30"
+      >
+        <!-- Glow blur detras de la card (aparece en hover) -->
+        <div
+          class="absolute -inset-1 bg-gradient-to-br from-angie-rose/30 to-angie-burgundy/30 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10"
+          aria-hidden="true"
+        >
+        </div>
+
+        <!-- Shine que cruza la card en hover -->
+        <div
+          class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div class="relative">
+          <p class="text-angie-rose uppercase tracking-[0.15em] text-xs font-Grotesk-bold">
+            Single Session
+          </p>
+          <p
+            class="font-Frauce text-5xl md:text-6xl text-white mt-3 group-hover:text-angie-rose transition-colors duration-500"
+          >
+            $49
+          </p>
+          <p class="text-white/85 font-Grotesk mt-4 text-sm md:text-base leading-relaxed">
+            60-minute 1:1 coaching call via Zoom or in-person in the Lemoyne,
+            PA area. Perfect for trying the work, working through a specific
+            situation, or focused one-time support.
+          </p>
+          <p class="text-white/60 font-Grotesk text-xs mt-4">
+            English &amp; Spanish · Virtual or in-person
+          </p>
+          <!-- CTAs: Book a Call (TidyCal) + Pay Now (Stripe) -->
+          <div class="relative flex flex-col sm:flex-row gap-2 mt-6">
+            <a
+              href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+              rel="noopener"
+              class="flex-1 inline-flex items-center justify-center px-4 py-2.5 border border-white/30 text-white font-Grotesk-bold text-sm rounded-full hover:bg-white hover:text-angie-noir hover:border-white transition-all duration-300"
+            >
+              Book a Call
+            </a>
+            <a
+              href="#"
+              data-stripe-link
+              rel="noopener"
+              class="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-angie-rose text-angie-noir font-Grotesk-bold text-sm rounded-full hover:bg-white transition-all duration-300 shadow-md"
+            >
+              Pay Now
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card pricing FEATURED (Most Popular) — efecto mas fuerte -->
+      <div
+        class="w-full md:flex-1 md:max-w-md group relative overflow-hidden bg-gradient-to-br from-angie-wine via-angie-burgundy to-angie-noir p-8 md:p-10 rounded-2xl border-2 border-angie-rose/70 ring-2 ring-angie-rose/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-angie-rose/50 hover:scale-[1.02]"
+      >
+        <!-- Glow exterior mas fuerte -->
+        <div
+          class="absolute -inset-2 bg-gradient-to-br from-angie-rose/40 via-angie-burgundy/30 to-angie-rose/40 rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-700 -z-10"
+          aria-hidden="true"
+        >
+        </div>
+
+        <!-- Shine -->
+        <div
+          class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none"
+          aria-hidden="true"
+        >
+        </div>
+
+        <!-- Badge Most Popular -->
+        <span
+          class="absolute -top-3 left-8 bg-angie-rose text-angie-noir text-xs font-Grotesk-bold px-3 py-1 rounded-full shadow-lg shadow-angie-rose/40"
+        >
+          Most Popular
+        </span>
+
+        <div class="relative">
+          <p class="text-angie-rose uppercase tracking-[0.15em] text-xs font-Grotesk-bold">
+            6-Session Transformation Package
+          </p>
+          <p
+            class="font-Frauce text-5xl md:text-6xl text-white mt-3 group-hover:text-angie-rose transition-colors duration-500"
+          >
+            $289
+          </p>
+          <p class="text-white/85 font-Grotesk mt-4 text-sm md:text-base leading-relaxed">
+            Six 60-minute sessions over 8–12 weeks. Real, lasting change
+            requires consistency — this package is built for the full A.L.I.G.N.
+            journey from awareness to nurtured positivity.
+          </p>
+          <p class="text-white/60 font-Grotesk text-xs mt-4">
+            Save over 20% vs. single sessions · Payment plans available
+          </p>
+          <!-- CTAs: Book a Call (TidyCal) + Pay Now (Stripe) -->
+          <div class="relative flex flex-col sm:flex-row gap-2 mt-6">
+            <a
+              href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+              rel="noopener"
+              class="flex-1 inline-flex items-center justify-center px-4 py-2.5 border border-white/30 text-white font-Grotesk-bold text-sm rounded-full hover:bg-white hover:text-angie-noir hover:border-white transition-all duration-300"
+            >
+              Book a Call
+            </a>
+            <a
+              href="#"
+              data-stripe-link
+              rel="noopener"
+              class="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-angie-rose text-angie-noir font-Grotesk-bold text-sm rounded-full hover:bg-white transition-all duration-300 shadow-md"
+            >
+              Pay Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </Fragment>
+
+    <!-- ── investment-note ────────────────────────────────────── -->
+    <Fragment slot="investment-note">
+      All sessions available in English and Spanish. In-person within the
+      Lemoyne, Harrisburg, and Central PA area, or virtual via Zoom
+      nationwide.
+    </Fragment>
+
+    <!-- ── how-to-book (3 pasos) ──────────────────────────────── -->
+    <Fragment slot="how-to-book">
+      <div
+        class="group relative bg-white p-6 md:p-8 rounded-2xl shadow-md hover:shadow-2xl hover:shadow-angie-rose/40 hover:-translate-y-2 transition-all duration-500 border border-angie-rose/20 hover:border-angie-rose/60 z-10 overflow-hidden"
+      >
+        <!-- Numero en circulo con gradiente -->
+        <!-- Watermark decorativo del numero -->
+        <span
+          class="absolute -right-4 -top-6 font-Frauce text-[8rem] md:text-[10rem] leading-none text-angie-rose/10 group-hover:text-angie-rose/20 transition-colors duration-500 select-none pointer-events-none"
+          aria-hidden="true"
+        >
+          01
+        </span>
+
+        <div
+          class="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-angie-rose/15 group-hover:bg-angie-rose/30 flex items-center justify-center mb-5 mx-auto group-hover:scale-110 transition-all duration-300"
+          aria-hidden="true"
+        >
+          <span class="font-Frauce text-2xl md:text-3xl text-angie-burgundy">01</span>
+        </div>
+
+        <h3 class="font-Grotesk-bold text-angie-noir text-lg text-center">
+          Book a Free Discovery Call
+        </h3>
+        <p class="text-angie-noir/75 font-Grotesk text-sm mt-2 text-center leading-relaxed">
+          Schedule a complimentary 30-minute call so we can talk about where
+          you are, what you are working through, and whether coaching is the
+          right fit.
+        </p>
+        <div class="text-center">
+          <a
+            href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+            rel="noopener"
+            class="inline-flex items-center gap-1 mt-4 text-angie-burgundy font-Grotesk-bold text-sm hover:text-angie-noir transition-colors duration-300"
+          >
+            Schedule the call
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div
+        class="group relative bg-white p-6 md:p-8 rounded-2xl shadow-md hover:shadow-2xl hover:shadow-angie-rose/40 hover:-translate-y-2 transition-all duration-500 border border-angie-rose/20 hover:border-angie-rose/60 z-10 overflow-hidden"
+      >
+        <!-- Watermark decorativo del numero -->
+        <span
+          class="absolute -right-4 -top-6 font-Frauce text-[8rem] md:text-[10rem] leading-none text-angie-rose/10 group-hover:text-angie-rose/20 transition-colors duration-500 select-none pointer-events-none"
+          aria-hidden="true"
+        >
+          02
+        </span>
+
+        <div
+          class="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-angie-rose/15 group-hover:bg-angie-rose/30 flex items-center justify-center mb-5 mx-auto group-hover:scale-110 transition-all duration-300"
+          aria-hidden="true"
+        >
+          <span class="font-Frauce text-2xl md:text-3xl text-angie-burgundy">02</span>
+        </div>
+
+        <h3 class="font-Grotesk-bold text-angie-noir text-lg text-center">
+          Choose Your Path
+        </h3>
+        <p class="text-angie-noir/75 font-Grotesk text-sm mt-2 text-center leading-relaxed">
+          After the call, you will receive a simple recommendation: a single
+          session to start, the 6-session transformation package, or a custom
+          plan if your situation needs it.
+        </p>
+      </div>
+
+      <div
+        class="group relative bg-white p-6 md:p-8 rounded-2xl shadow-md hover:shadow-2xl hover:shadow-angie-rose/40 hover:-translate-y-2 transition-all duration-500 border border-angie-rose/20 hover:border-angie-rose/60 z-10 overflow-hidden"
+      >
+        <!-- Watermark decorativo del numero -->
+        <span
+          class="absolute -right-4 -top-6 font-Frauce text-[8rem] md:text-[10rem] leading-none text-angie-rose/10 group-hover:text-angie-rose/20 transition-colors duration-500 select-none pointer-events-none"
+          aria-hidden="true"
+        >
+          03
+        </span>
+
+        <div
+          class="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-angie-rose/15 group-hover:bg-angie-rose/30 flex items-center justify-center mb-5 mx-auto group-hover:scale-110 transition-all duration-300"
+          aria-hidden="true"
+        >
+          <span class="font-Frauce text-2xl md:text-3xl text-angie-burgundy">03</span>
+        </div>
+
+        <h3 class="font-Grotesk-bold text-angie-noir text-lg text-center">
+          Begin the Work
+        </h3>
+        <p class="text-angie-noir/75 font-Grotesk text-sm mt-2 text-center leading-relaxed">
+          Sessions are scheduled at a pace that fits your life. Most clients
+          meet every 1–2 weeks. Expect homework, scripture, prayer, and real
+          conversation.
+        </p>
+      </div>
+    </Fragment>
+
+    <!-- ── faq (4 details) ───────────────────────────────────── -->
+    <Fragment slot="faq">
+      <details
+        class="group/bg bg-angie-cream rounded-xl p-5 md:p-6 open:shadow-md transition"
+      >
+        <summary
+          class="font-Grotesk-bold text-angie-noir cursor-pointer list-none flex justify-between items-center gap-4"
+        >
+          <span>What is the A.L.I.G.N. Framework?</span>
+          <span
+            class="text-angie-burgundy text-2xl leading-none transition group-open/bg:rotate-45"
+            aria-hidden="true"
+          >
+            +
+          </span>
+        </summary>
+        <p
+          class="mt-4 text-angie-noir/80 font-Grotesk text-sm md:text-base leading-relaxed"
+        >
+          A.L.I.G.N. is Angie's signature 5-step framework: <strong>A</strong>wareness
+          (name where you actually are), <strong>L</strong>ove Yourself (replace
+          shame with truth), <strong>I</strong>nvite God In (let scripture and
+          prayer lead), <strong>G</strong>ratitude (shift the lens), and
+          <strong>N</strong>urture Positivity (build a life that holds). It is the
+          backbone of every coaching engagement.
+        </p>
+      </details>
+
+      <details
+        class="group/bg bg-angie-cream rounded-xl p-5 md:p-6 open:shadow-md transition"
+      >
+        <summary
+          class="font-Grotesk-bold text-angie-noir cursor-pointer list-none flex justify-between items-center gap-4"
+        >
+          <span>How long is each session and how often do we meet?</span>
+          <span
+            class="text-angie-burgundy text-2xl leading-none transition group-open/bg:rotate-45"
+            aria-hidden="true"
+          >
+            +
+          </span>
+        </summary>
+        <p
+          class="mt-4 text-angie-noir/80 font-Grotesk text-sm md:text-base leading-relaxed"
+        >
+          Each session is 60 minutes. Most clients meet every 1 to 2 weeks,
+          which gives time to apply what we work on between sessions. Single
+          sessions can be one-off or the start of a longer engagement.
+        </p>
+      </details>
+
+      <details
+        class="group/bg bg-angie-cream rounded-xl p-5 md:p-6 open:shadow-md transition"
+      >
+        <summary
+          class="font-Grotesk-bold text-angie-noir cursor-pointer list-none flex justify-between items-center gap-4"
+        >
+          <span>Do you offer virtual coaching?</span>
+          <span
+            class="text-angie-burgundy text-2xl leading-none transition group-open/bg:rotate-45"
+            aria-hidden="true"
+          >
+            +
+          </span>
+        </summary>
+        <p
+          class="mt-4 text-angie-noir/80 font-Grotesk text-sm md:text-base leading-relaxed"
+        >
+          Yes. Most coaching clients meet with Angie via Zoom from anywhere in
+          the United States. In-person sessions are also available in the
+          Lemoyne and greater Harrisburg, PA area. Both formats are equally
+          effective.
+        </p>
+      </details>
+
+      <details
+        class="group/bg bg-angie-cream rounded-xl p-5 md:p-6 open:shadow-md transition"
+      >
+        <summary
+          class="font-Grotesk-bold text-angie-noir cursor-pointer list-none flex justify-between items-center gap-4"
+        >
+          <span>Is Christian coaching different from regular life coaching?</span>
+          <span
+            class="text-angie-burgundy text-2xl leading-none transition group-open/bg:rotate-45"
+            aria-hidden="true"
+          >
+            +
+          </span>
+        </summary>
+        <p
+          class="mt-4 text-angie-noir/80 font-Grotesk text-sm md:text-base leading-relaxed"
+        >
+          Faith-rooted coaching integrates scripture, prayer, and discernment
+          into the goal-setting and accountability work — without ever forcing
+          it. If you are a Christian woman who wants her growth anchored in
+          something deeper than hustle culture, this is for you.
+        </p>
+      </details>
+    </Fragment>
+  </ServicesMainLayout>
+</ServicesLayout>

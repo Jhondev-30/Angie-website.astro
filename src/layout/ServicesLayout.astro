@@ -1,6 +1,37 @@
 ---
-import "../styles/global.css"
-
+import { ClientRouter } from "astro:transitions";
+import MainHead from "../components/MainHead.astro";
+import "../styles/global.css";
+import NavBar from "../components/NavBar.astro";
+import MainFooter from "../components/MainFooter.astro";
+const {
+  title,
+  description,
+  canonicalPath,
+  noindex = false,
+  keywords = [],
+  image,
+  type = "website",
+} = Astro.props;
 ---
 
+<html lang="en">
+    <head>
 
+        <MainHead
+          title={title}
+          description={description}
+          canonicalPath={canonicalPath}
+          noindex={noindex}
+          keywords={keywords}
+          image={image}
+          type={type}
+        />
+        <ClientRouter />
+    </head>
+    <body class="flex flex-col min-h-dvh md:min-h-screen  ">
+        <NavBar />
+            <slot />
+        <MainFooter />
+    </body>
+</html>

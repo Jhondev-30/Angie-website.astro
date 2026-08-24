@@ -10,6 +10,9 @@ const {
   description,
   canonicalPath,
   noindex = false,
+  keywords = [],
+  image,
+  type = "website",
 } = Astro.props;
 ---
 
@@ -21,6 +24,9 @@ const {
       description={description}
       canonicalPath={canonicalPath}
       noindex={noindex}
+      keywords={keywords}
+      image={image}
+      type={type}
     />
     <ClientRouter />
   </head>

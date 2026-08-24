@@ -1,0 +1,215 @@
+
+<main class="flex flex-col">
+  <!-- ============================================================ -->
+  <!-- SECTION 1 — About This Service (Our Mission)               -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 ">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10 md:mb-14">
+      
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-angie-noir mt-2 leading-tight"
+        >
+          About This Service
+        </h2>
+        <p
+          class="mt-4 max-w-2xl mx-auto text-angie-noir/75 font-Grotesk text-base md:text-lg leading-relaxed"
+        >
+          <slot name="mission-intro" />
+        </p>
+      </div>
+
+      <!--
+        Card con degradado más contrastante:
+        rose/40 → cream → burgundy/25
+        Tiene un glow blur detrás que aparece en hover (group-hover)
+      -->
+      <div
+        class="group relative grid md:grid-cols-2 gap-0 md:gap-2 items-stretch rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-angie-rose/30 hover:shadow-[0_30px_60px_-15px_rgba(196,101,138,0.5)] transition-shadow duration-500 bg-linear-to-br from-angie-rose/40 via-angie-cream to-angie-burgundy/25"
+      >
+        <!-- Glow blur decorativo detras de la card (aparece en hover) -->
+        <div
+          class="absolute -inset-2 bg-linear-to-br from-angie-rose/40 to-angie-burgundy/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-700 -z-10"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div class="aspect-4/3 md:aspect-auto md:min-h-90 overflow-hidden">
+          <slot name="mission-image" />
+        </div>
+        <div
+          class="p-6 md:p-10 lg:p-12 text-angie-noir font-Grotesk text-base md:text-lg leading-loose space-y-5 md:space-y-6 text-pretty flex flex-col justify-center"
+        >
+          <slot name="mission-text" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2 — Best For (3-4 cards claras)                     -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10 md:mb-14">
+        <p
+          class="text-angie-burgundy uppercase tracking-[0.2em] text-xs md:text-sm font-Grotesk-bold"
+        >
+          Designed For
+        </p>
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-angie-noir mt-2 leading-tight"
+        >
+          Best For
+        </h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        <slot name="best-for" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3 — Investment / Pricing (cards oscuras)            -->
+  <!-- El grid se renderiza automaticamente; las paginas pasan     -->
+  <!-- las cards individuales como children del slot "investment" -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 bg-angie-noir text-white relative overflow-hidden">
+    <!-- Decoracion de fondo: gradiente radial sutil -->
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-150 bg-angie-rose/10 rounded-full blur-3xl pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 md:px-6 relative">
+      <div class="text-center mb-10 md:mb-14">
+        <p
+          class="text-angie-rose uppercase tracking-[0.2em] text-xs md:text-sm font-Grotesk-bold"
+        >
+          Investment
+        </p>
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-white mt-2 leading-tight"
+        >
+          Pricing & Details
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-5 md:gap-6">
+        <slot name="investment" />
+      </div>
+
+      <p
+        class="text-center text-white/70 font-Grotesk text-sm mt-10 max-w-2xl mx-auto"
+      >
+        <slot name="investment-note" />
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4 — How to Book (3 pasos numerados con conectores)  -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 relative overflow-hidden bg-[linear-gradient(135deg,#FFF5FA_0%,#FBE0EB_25%,#FBC2EB_55%,#E89BB8_100%)] bg-linear-to-br">
+    <!-- Decoracion de fondo -->
+    <div
+      class="absolute -top-20 -right-20 w-72 h-72 bg-angie-rose/15 rounded-full blur-3xl pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="absolute -bottom-20 -left-20 w-72 h-72 bg-angie-burgundy/10 rounded-full blur-3xl pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 md:px-6 relative">
+      <div class="text-center mb-12 md:mb-16">
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-angie-noir mt-2 leading-tight"
+        >
+          How to Book
+        </h2>
+      </div>
+
+      <!--
+        Grid relativo para permitir conectores absolute entre cards.
+        En mobile: 1 col, conector vertical.
+        En md+: 3 cols, conectores horizontales.
+      -->
+      <div class="relative grid md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Conector horizontal (solo desktop) -->
+        <div
+          class="hidden md:block absolute top-12 left-[16.66%] right-[16.66%] h-0.5 bg-linear-to-r from-angie-burgundy/20 via-angie-rose/40 to-angie-burgundy/20 z-0"
+          aria-hidden="true"
+        >
+        </div>
+
+        <slot name="how-to-book" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5 — FAQ (4 <details>, importante para SEO)         -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10 md:mb-14">
+        <p
+          class="text-angie-burgundy uppercase tracking-[0.2em] text-xs md:text-sm font-Grotesk-bold"
+        >
+          Common Questions
+        </p>
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-angie-noir mt-2 leading-tight"
+        >
+          FAQ
+        </h2>
+      </div>
+      <div class="space-y-3">
+        <slot name="faq" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6 — Final CTA (gradient burgundy → noir)            -->
+  <!-- ============================================================ -->
+  <section
+    class="py-16 md:py-20 bg-linear-to-br from-angie-burgundy to-angie-noir text-white text-center relative overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)] pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 md:px-6 relative">
+      <h2 class="font-Frauce text-3xl md:text-5xl leading-tight">
+        Still here for a reason.
+      </h2>
+      <p
+        class="mt-4 font-Grotesk text-base md:text-lg text-white/90 leading-relaxed"
+      >
+        Book a free 30-minute discovery call. Let's talk about where you are
+        and where you want to go — no pressure, just a real conversation.
+      </p>
+      <a
+        href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+        rel="noopener"
+        class="group/cta inline-block mt-8 px-8 py-4 bg-angie-rose text-angie-noir font-Grotesk-bold rounded-full hover:bg-white transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-angie-rose/40 hover:-translate-y-0.5"
+      >
+        <span class="inline-flex items-center gap-2">
+          Book a Free Discovery Call
+          <span
+            class="inline-block transition-transform duration-300 group-hover/cta:translate-x-1"
+            aria-hidden="true"
+            >→</span
+          >
+        </span>
+      </a>
+    </div>
+  </section>
+</main>

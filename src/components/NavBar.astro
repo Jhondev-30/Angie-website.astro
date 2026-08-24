@@ -11,11 +11,14 @@ const links = [
 ];
 ---
 
-<header class="fixed inset-x-0 top-0 z-999 md:top-2 md:inset-auto md:left-1/2 md:-translate-x-1/2 md:w-max md:grid md:place-content-center transition-transform duration-300">
+<header
+  data-nav-hider
+  class="fixed inset-x-0 top-0 z-999 md:top-2 md:inset-auto md:left-1/2 md:-translate-x-1/2 md:w-max md:grid md:place-content-center transition-transform duration-300"
+>
   <button
     id="menu-btn"
     type="button"
-    class="lg:hidden fixed top-3 right-3 z-60 p-2 cursor-pointer inline-flex items-center justify-center w-11 h-11 rounded-full bg-angie-noir/60 backdrop-blur-md border border-white/20 text-white shadow-lg"
+    class="lg:hidden absolute top-3 right-3 z-60 p-2 cursor-pointer inline-flex items-center justify-center w-11 h-11 rounded-full bg-angie-noir/60 backdrop-blur-md border border-white/20 text-white shadow-lg"
     aria-label="Menu"
     aria-expanded="false"
     aria-controls="mobile-menu"
@@ -100,6 +103,12 @@ const links = [
   // en initNav() y la re-ejecutamos en cada navegacion via
   // el evento "astro:page-load". Si no, los event listeners se
   // quedan atados al DOM viejo y desaparecen al navegar.
+  //
+  // Tambien guardamos la referencia del scroll handler a nivel de
+  // modulo para poder removerlo en cada re-init (sino se acumulan
+  // listeners duplicados en window cada vez que cambia la pagina).
+  let scrollHandler: (() => void) | null = null;
+
   function initNav() {
     const btn = document.querySelector<HTMLButtonElement>("#menu-btn");
     const menu = document.getElementById("mobile-menu");
@@ -107,13 +116,22 @@ const links = [
     const servicesBtn = document.getElementById("services-btn");
     const servicesMenu = document.getElementById("services-menu");
     const servicesLi = document.getElementById("Services");
+    const header = document.querySelector<HTMLElement>("[data-nav-hider]");
 
     // Si los elementos requeridos no existen en esta pagina, salir.
     // (Todos deberian existir porque el NavBar esta en MainLayout, pero
     // es defensivo por si el NavBar se reusa sin la <ul> mobile-menu.)
-    if (!btn || !menu || !iconEl || !servicesBtn || !servicesMenu || !servicesLi) {
+    if (!btn || !menu || !iconEl || !servicesBtn || !servicesMenu || !servicesLi || !header) {
       return;
     }
+
+    // Limpiar scroll handler previo (importante en View Transitions)
+    if (scrollHandler) {
+      window.removeEventListener("scroll", scrollHandler);
+      scrollHandler = null;
+    }
+    // Siempre arrancar visible al cargar / cambiar de pagina
+    header.classList.remove("nav-hidden");
 
     let open = false;
     let servicesToggled = false;
@@ -127,7 +145,7 @@ const links = [
       menu.dataset.open = String(open);
       btn.setAttribute("aria-expanded", String(open));
       iconEl.morphTo(open ? X : Menu);
-      if (!open) {
+      if (!next) {
         // Al cerrar el menu principal, reseteamos tambien el dropdown de services
         servicesToggled = false;
         syncServicesExpanded();
@@ -188,6 +206,45 @@ const links = [
         syncServicesExpanded();
       });
     });
+
+  
+    const SCROLL_HIDE_THRESHOLD = 10; // solo ocultar despues de 10px de scroll
+    const SHOW_AT_TOP = 10; // siempre visible cerca del top
+    const SCROLL_DELTA = 2; // minimo delta para considerar scroll "intencional"
+
+    let lastScrollY = window.scrollY;
+
+    scrollHandler = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY;
+
+      // Siempre visible cerca del top de la pagina
+      if (currentY < SHOW_AT_TOP) {
+        header.classList.remove("nav-hidden");
+        lastScrollY = currentY;
+        return;
+      }
+
+      // Si el menu mobile esta abierto, no ocultar (sino el X
+      // desaparece y el usuario no puede cerrar el menu)
+      if (open) {
+        lastScrollY = currentY;
+        return;
+      }
+
+      // Scrolleando hacia abajo → ocultar
+      if (delta > SCROLL_DELTA && currentY > SCROLL_HIDE_THRESHOLD) {
+        header.classList.add("nav-hidden");
+      }
+      // Scrolleando hacia arriba → mostrar
+      else if (delta < -SCROLL_DELTA) {
+        header.classList.remove("nav-hidden");
+      }
+
+      lastScrollY = currentY;
+    };
+
+    window.addEventListener("scroll", scrollHandler, { passive: true });
   }
 
   // Carga inicial
@@ -214,5 +271,20 @@ const links = [
   nav[aria-label="main navigation"]:has(> #mobile-menu[data-open="true"]) {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  [data-nav-hider] {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-nav-hider].nav-hidden {
+    transform: translateY(-100%);
+    will-change: transform;
+    pointer-events: none;
+  }
+  /* Accesibilidad: si el usuario pide reduced-motion, no animamos */
+  @media (prefers-reduced-motion: reduce) {
+    [data-nav-hider] {
+      transition: none;
+    }
   }
 </style>

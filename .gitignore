@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# debug/dev scripts (not part of the site, removed from tracking)
+scripts/
