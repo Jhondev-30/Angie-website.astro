@@ -1,6 +1,6 @@
 ---
 title: "Keynote Speaking"
-image: "keynote-speaking.jpg"
+image: "keynote.webp"
 longDescription: "Powerful keynote presentations that inspire audiences to overcome adversity, discover their purpose, build resilience, and lead with faith and courage. Each talk is tailored to the audience and leaves them with practical tools they can apply immediately."
 bestFor:
   - "Corporate Events"

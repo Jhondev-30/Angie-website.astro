@@ -1,6 +1,6 @@
 ---
 title: "Podcast Guest & Media Appearances"
-image: "podcast-guest.jpg"
+image: "podcast.webp"
 longDescription: "Authentic conversations that inspire hope. Angie shares her powerful story of resilience, leadership, faith, recovery, and purpose while providing practical insights audiences can apply to their own lives. Every appearance is an opportunity to reach someone who needs to hear this message."
 bestFor:
   - "Church Conferences"

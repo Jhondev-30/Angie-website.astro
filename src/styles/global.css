@@ -1,17 +1,18 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "tailwind-animations";
 @font-face {
     font-family: 'Frauce-italic';
-    src: url("../../public/fonts/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.ttf") 
+    src: url("/fonts/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.ttf") 
 }
 @font-face {
     font-family: "Grotesk";
-    src: url("../../public/fonts/SpaceGrotesk-Regular.ttf");
+    src: url("/fonts/SpaceGrotesk-Regular.ttf");
     font-weight: 500;
 }
 @font-face {
     font-family: "Grotesk-bold";
-    src: url("../../public/fonts/SpaceGrotesk-Bold.ttf");
+    src: url("/fonts/SpaceGrotesk-Bold.ttf");
 }
 @utility gradient-services {
     background-image: linear-gradient(180deg, #f693a4 0, #e9829a 25%, #d86c8f 50%, #c65785 75%, #b7457e 100%);

@@ -23,6 +23,9 @@ importers:
       morphicons:
         specifier: ^1.7.0
         version: 1.7.0
+      tailwind-animations:
+        specifier: ^1.0.2
+        version: 1.0.2(tailwindcss@4.3.3)
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
@@ -33,6 +36,9 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.20
         version: 0.5.20(tailwindcss@4.3.3)
+      sharp:
+        specifier: ^0.35.3
+        version: 0.35.3
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
@@ -1779,6 +1785,11 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
+  tailwind-animations@1.0.2:
+    resolution: {integrity: sha512-CupN9WHBSKCd2ljmjKGyowVjDCUWDaIwCp4J+M1HlM1EfUHVOxnmWE0WE9g7vfLndWHMN8Sg+wa4RyZ3v3gd1w==}
+    peerDependencies:
+      tailwindcss: '4'
+
   tailwindcss@4.3.3:
     resolution: {integrity: sha512-gOhV3P7ufE62QDGg1zVaTgCR+EtPv92k2nIhVcVKcLmxT1sUBsQGhnZj175j+MqRt4zLF7ic+sCYjfhxMxj7YQ==}
 
@@ -2437,8 +2448,7 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@img/colour@1.1.0':
-    optional: true
+  '@img/colour@1.1.0': {}
 
   '@img/sharp-darwin-arm64@0.35.3':
     optionalDependencies:
@@ -3628,7 +3638,6 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.3
       '@img/sharp-win32-ia32': 0.35.3
       '@img/sharp-win32-x64': 0.35.3
-    optional: true
 
   shiki@4.4.3:
     dependencies:
@@ -3682,6 +3691,10 @@ snapshots:
       csso: 5.0.5
       picocolors: 1.1.1
       sax: 1.6.1
+
+  tailwind-animations@1.0.2(tailwindcss@4.3.3):
+    dependencies:
+      tailwindcss: 4.3.3
 
   tailwindcss@4.3.3: {}
 
