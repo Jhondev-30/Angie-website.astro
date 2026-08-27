@@ -221,6 +221,13 @@ const links = [
     let lastScrollY = window.scrollY;
 
     scrollHandler = () => {
+      // En touch devices no aplicar auto-hide (el boton queda inaccesible)
+      if (!supportsNavHiding) {
+        header.classList.remove("nav-hidden");
+        lastScrollY = window.scrollY;
+        return;
+      }
+
       const currentY = window.scrollY;
       const delta = currentY - lastScrollY;
 
