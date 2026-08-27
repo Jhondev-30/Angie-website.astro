@@ -140,6 +140,12 @@ const links = [
     // asi que el click en services-btn debe actuar como toggle.
     const hasHover = window.matchMedia("(hover: hover)").matches;
 
+    // En touch devices desactivamos el auto-hide del navbar al hacer scroll.
+    // El patron "ocultar navbar al scrollear" rompe UX mobile porque el boton
+    // queda fuera de pantalla y con pointer-events:none, asi que el usuario
+    // tiene que scrollear arriba para volver a abrir el menu.
+    const supportsNavHiding = hasHover;
+
     const setOpen = (next: boolean) => {
       open = next;
       menu.dataset.open = String(open);
