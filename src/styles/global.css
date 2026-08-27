@@ -3,18 +3,18 @@
 @import "tailwind-animations";
 @font-face {
     font-family: 'Frauce-italic';
-    src: url("/fonts/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.ttf");
+    src: url("/fonts/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.woff2") format("woff2");
     font-display: swap;
 }
 @font-face {
     font-family: "Grotesk";
-    src: url("/fonts/SpaceGrotesk-Regular.ttf");
+    src: url("/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
     font-weight: 500;
     font-display: swap;
 }
 @font-face {
     font-family: "Grotesk-bold";
-    src: url("/fonts/SpaceGrotesk-Bold.ttf");
+    src: url("/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
     font-display: swap;
 }
 @utility gradient-services {
