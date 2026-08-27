@@ -269,7 +269,28 @@ const webpageSchema = {
 <!-- ============================================================ -->
 <!-- PERFORMANCE HINTS                                           -->
 <!-- ============================================================ -->
-<link rel="preconnect" href="https://tidycal.com" />
+<!-- Preload critical fonts (LCP blockers) -->
+<link
+  rel="preload"
+  as="font"
+  type="font/ttf"
+  href="/fonts/SpaceGrotesk-Regular.ttf"
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  as="font"
+  type="font/ttf"
+  href="/fonts/SpaceGrotesk-Bold.ttf"
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  as="font"
+  type="font/ttf"
+  href="/fonts/Fraunces-Italic-VariableFont_SOFT,WONK,opsz,wght.ttf"
+  crossorigin="anonymous"
+/>
 <link rel="dns-prefetch" href="https://www.youtube.com" />
 <link rel="dns-prefetch" href="https://www.linkedin.com" />
 <link rel="dns-prefetch" href="https://www.instagram.com" />
