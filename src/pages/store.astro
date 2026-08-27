@@ -401,7 +401,7 @@ const breadcrumbSchema = {
           resources.map((r, i) => {
             const a = cardAccents[i] ?? cardAccents[0];
             return (
-            <article class={`group relative overflow-hidden rounded-2xl md:rounded-3xl p-6 md:p-7 ${a.glass} ${a.glassHover} backdrop-blur-xl border ${a.border} shadow-2xl ${a.baseShadow} transition-all duration-500 hover:-translate-y-1.5 ${a.hoverShadow} flex flex-col timeline-view animate-range-[10%_50%] animate-slide-in-bottom animate-delay-${(i + 1) * 100}`}>
+            <article class={`group relative overflow-hidden rounded-2xl md:rounded-3xl p-6 md:p-7 ${a.glass} ${a.glassHover} backdrop-blur-xl border ${a.border} shadow-2xl ${a.baseShadow} transition-all duration-500 hover:-translate-y-1.5 ${a.hoverShadow} flex flex-col timeline-view animate-range-[5%_20%] animate-slide-in-bottom animate-delay-${(i + 1) * 100}`}>
               <!-- Top accent line (per-card color, lights up on hover) -->
               <div aria-hidden="true" class={`absolute top-0 left-0 right-0 h-0.5 ${a.accentLine} opacity-70 group-hover:opacity-100 transition-opacity duration-500`}></div>
 
@@ -669,7 +669,7 @@ const breadcrumbSchema = {
 
     <div class="relative max-w-4xl mx-auto px-4 md:px-8 text-center">
       
-      <h2 class="font-Frauce font-bold text-4xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-5 text-balance timeline-view animate-range-[10%_50%] animate-zoom-in">
+      <h2 class="font-Frauce font-bold text-4xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-5 text-balance timeline-view animate-range-[5%_20%] animate-zoom-in">
         The store opens in 2026.<br />
         <span class="italic">Walk in first.</span>
       </h2>
