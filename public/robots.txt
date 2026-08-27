@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block Astro internal paths
+Disallow: /404/
+Disallow: /_astro/
+
+# AI crawlers — allow by default (no override)
+# Googlebot, Bingbot, GPTBot, ClaudeBot, PerplexityBot, CCBot all allowed.
+
+Sitemap: https://graceafterthegrave.com/sitemap-index.xml

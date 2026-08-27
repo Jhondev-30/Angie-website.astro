@@ -35,7 +35,7 @@ const {
   title,
   description,
   canonicalPath = Astro.url.pathname,
-  image = "/og/og-default.jpg",
+  image = "/images/about/angie-hero.webp",
   type = "website",
   noindex = false,
   publishedTime,
@@ -48,7 +48,6 @@ const {
 const SITE_URL = "https://graceafterthegrave.com";
 const SITE_NAME = "Angie Pichardo";
 const LOCALE = "en_US";
-const TWITTER_HANDLE = "@angie.p.speaks";
 
 // ── Title & description helpers ──────────────────────────────────────────────
 const fullTitle =
@@ -56,8 +55,11 @@ const fullTitle =
     ? title
     : `${title} — ${SITE_NAME}`;
 
+// Smart truncate: cut at word boundary + use single-char ellipsis (≤ 60 chars total)
 const truncatedTitle =
-  fullTitle.length > 60 ? fullTitle.substring(0, 57) + "..." : fullTitle;
+  fullTitle.length > 60
+    ? fullTitle.substring(0, 60).replace(/\s+\S*$/, "") + "\u2026"
+    : fullTitle;
 
 const truncatedDescription =
   description.length > 160
@@ -73,7 +75,7 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Angie Pichardo",
-  url: SITE_URL,
+  url: new URL("/aboutme", SITE_URL).toString(),
   image: heroImageURL,
   jobTitle: "Christian Motivational Speaker · Life Coach",
   description:
@@ -127,6 +129,32 @@ const personSchema = {
     "https://www.youtube.com/@angie.p.speaks",
   ],
 };
+
+// ── WebPage JSON-LD schema (author + reviewedBy — strengthens E-E-A-T) ───────
+const webpageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  url: canonicalURL,
+  name: truncatedTitle,
+  description: truncatedDescription,
+  inLanguage: "en",
+  author: {
+    "@type": "Person",
+    name: "Angie Pichardo",
+    url: new URL("/aboutme", SITE_URL).toString(),
+  },
+  reviewedBy: {
+    "@type": "Person",
+    name: "Angie Pichardo",
+    jobTitle: "Christian Motivational Speaker · Life Coach",
+    url: new URL("/aboutme", SITE_URL).toString(),
+  },
+  publisher: {
+    "@type": "Person",
+    name: "Angie Pichardo",
+    url: new URL("/aboutme", SITE_URL).toString(),
+  },
+};
 ---
 
 <!-- ============================================================ -->
@@ -174,6 +202,15 @@ const personSchema = {
 <meta name="geo.position" content="40.2412;-76.8941" />
 <meta name="ICBM" content="40.2412, -76.8941" />
 
+<!-- Preload the LCP hero image so first paint hits faster -->
+<link
+  rel="preload"
+  as="image"
+  href="/images/angie-hero-1600.webp"
+  type="image/webp"
+  fetchpriority="high"
+/>
+
 <!-- ============================================================ -->
 <!-- OPEN GRAPH (Facebook, LinkedIn, WhatsApp, iMessage)        -->
 <!-- ============================================================ -->
@@ -184,20 +221,18 @@ const personSchema = {
 <meta property="og:title" content={truncatedTitle} />
 <meta property="og:description" content={truncatedDescription} />
 <meta property="og:image" content={imageURL} />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
+<meta property="og:image:width" content="2752" />
+<meta property="og:image:height" content="1536" />
 <meta
   property="og:image:alt"
   content={title}
 />
-<meta property="og:locale:alternate" content="es_ES" />
 
 <!-- ============================================================ -->
 <!-- TWITTER / X CARDS                                           -->
+<!-- (No twitter:site/creator — Angie does not have a Twitter/X account) -->
 <!-- ============================================================ -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content={TWITTER_HANDLE} />
-<meta name="twitter:creator" content={TWITTER_HANDLE} />
 <meta name="twitter:url" content={canonicalURL} />
 <meta name="twitter:title" content={truncatedTitle} />
 <meta name="twitter:description" content={truncatedDescription} />
@@ -226,7 +261,6 @@ const personSchema = {
 <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
 <link rel="manifest" href="/favicon/site.webmanifest" />
 <meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content={SITE_NAME} />
 <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
 <meta name="application-name" content={SITE_NAME} />
 <meta name="msapplication-TileColor" content="#FDF7F1" />
@@ -263,4 +297,12 @@ const personSchema = {
 <script
   type="application/ld+json"
   set:html={JSON.stringify(personSchema)}
+/>
+
+<!-- ============================================================ -->
+<!-- STRUCTURED DATA: WEBPAGE (author + reviewedBy — E-E-A-T)    -->
+<!-- ============================================================ -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(webpageSchema)}
 />

@@ -17,6 +17,50 @@
 @utility gradient-services {
     background-image: linear-gradient(180deg, #f693a4 0, #e9829a 25%, #d86c8f 50%, #c65785 75%, #b7457e 100%);
 }
+
+/* Soft Bloom — radial "spotlight from above" para Why Us.
+   Fundamentally distinto al body (lineal vertical rose→noir):
+   - Forma RADIAL (no linear) → no compite con el bg-fixed del body.
+   - Foco arriba-centro → ilumina el H2, vignette en las esquinas.
+   - Termina en burgundy (#8A2654), NO en rose → no se confunde con
+     el inicio del body (from-angie-rose #C4658A).
+   - H2 burgundy sigue legible porque cae sobre el cream del foco. */
+@utility bg-gradient-wellness {
+    background-image: radial-gradient(
+        ellipse 120% 90% at 50% 0%,
+        #fff5fa 0%,
+        #fbe3ee 18%,
+        #fbc2eb 42%,
+        #e8a0b8 70%,
+        #8a2654 100%
+    );
+}
+
+/* Wine to Rose — para CTA finales, secciones statement.
+   Invertido: oscuro a claro, sensación premium "spa luxury". */
+@utility bg-gradient-zion {
+    background-image: linear-gradient(
+        135deg,
+        #4a0d28 0%,
+        #8a2654 30%,
+        #c4658a 65%,
+        #fbc2eb 100%
+    );
+}
+
+/* Nocturne — para secciones glassmorphism (FAQ, modales, overlays).
+   Forma de "burbuja" diagonal: noir en bordes, mid-burgundy en el centro.
+   Las cards translúcidas dejan ver el gradient detrás → efecto glass real. */
+@utility bg-gradient-nocturne {
+    background-image: linear-gradient(
+        135deg,
+        #1f0612  0%,
+        #3a0820 25%,
+        #6b1d44 50%,
+        #3a0820 75%,
+        #1f0612 100%
+    );
+}
 @theme {
     --font-Grotesk: Grotesk, sans-serif;
     --font-Grotesk-bold: Grotesk-bold, sans-serif;

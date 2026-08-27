@@ -1,5 +1,126 @@
 ---
+import MorphIcon from "morphicons/astro";
 import MainLayout from "../layout/MainLayout.astro";
+
+const faqs = [
+  {
+    question: "What is mobile relaxation therapy?",
+    answer:
+      "Mobile relaxation therapy is a hands-on wellness session where a certified practitioner comes to your home to help you release tension and reset. At Zion Lounge, Angie Pichardo brings the full experience to you within 20 miles of Lemoyne, PA.",
+  },
+  {
+    question: "How far does Zion Lounge travel?",
+    answer:
+      "We serve Lemoyne, PA and anywhere within a 20-mile radius, including Harrisburg, Camp Hill, New Cumberland, and Mechanicsburg. Not sure if you're in our service area? Just text Angie at 717-298-0240.",
+  },
+  {
+    question: "What's included in the Relaxation Therapy session?",
+    answer:
+      "Every session includes Scratch Therapy, Scalp Therapy, relaxing music, a 3-minute guided gratitude moment, and an optional prayer. You choose what you need that day — Angie tailors the experience to you.",
+  },
+  {
+    question: "How much is the deposit?",
+    answer:
+      "A $20 deposit reserves your appointment. Your booking is only confirmed once you receive a confirmation message from Angie within 24 hours.",
+  },
+  {
+    question: "Do I need to prepare anything at home?",
+    answer:
+      "Just a quiet space where you can sit or lie down comfortably for about an hour. Angie brings everything else — all you have to do is show up for yourself.",
+  },
+  {
+    question: "Is the prayer part of the session optional?",
+    answer:
+      "Yes. Prayer is always offered as an option, never required. It is there for guests who want peace, strength, or clarity — and you can decline at any time.",
+  },
+  {
+    question: "How long is a typical session?",
+    answer:
+      "A standard Zion Experience runs about 60 minutes from arrival to wrap-up. If you have a longer event or want to add services, just let Angie know when you book.",
+  },
+  {
+    question: "Can I book a session for a group or private event?",
+    answer:
+      "Absolutely. Angie offers group sessions for bridal showers, women's retreats, corporate wellness days, and private events. Reach out to discuss a custom experience for your group.",
+  },
+  {
+    question: "What is your cancellation policy?",
+    answer:
+      "Life happens. If you need to reschedule, just let us know at least 24 hours in advance and we'll move your deposit to a new date — no fees, no stress.",
+  },
+  {
+    question: "Who is Angie Pichardo?",
+    answer:
+      "Angie Pichardo is a certified Wellness Practitioner and Life Purpose Coach, and the founder of Zion Lounge. She has been serving women in central Pennsylvania with mobile wellness experiences rooted in peace, faith, and renewal.",
+  },
+];
+
+// Schema.org FAQPage — Google rich results + AI engine extraction (ChatGPT, Perplexity, Claude)
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.answer,
+    },
+  })),
+};
+
+// Schema.org HealthAndBeautyBusiness + Service — Local SEO + Google rich results
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  name: "Zion Lounge",
+  url: "https://graceafterthegrave.com/wellness",
+  description:
+    "Mobile wellness therapy serving women in Lemoyne, PA and within a 20-mile radius. Founded by Angie Pichardo, certified Wellness Practitioner and Life Purpose Coach.",
+  telephone: "+1-717-298-0240",
+  priceRange: "$20+",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Lemoyne",
+    addressRegion: "PA",
+    addressCountry: "US",
+  },
+  areaServed: [
+    { "@type": "City", name: "Lemoyne" },
+    { "@type": "City", name: "Harrisburg" },
+    { "@type": "City", name: "Camp Hill" },
+    { "@type": "City", name: "New Cumberland" },
+    { "@type": "City", name: "Mechanicsburg" },
+    { "@type": "City", name: "Steelton" },
+    { "@type": "City", name: "Shiremanstown" },
+    { "@type": "City", name: "Wormleysburg" },
+    { "@type": "City", name: "Enola" },
+  ],
+  founder: {
+    "@type": "Person",
+    name: "Angie Pichardo",
+    jobTitle: "Wellness Practitioner & Life Purpose Coach",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Zion Experience Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Mobile Relaxation Therapy",
+          description:
+            "Mobile wellness session including Scratch Therapy, Scalp Therapy, Relaxing Music, a 3-minute Guided Gratitude Session, and optional Prayer. Delivered to your home within 20 miles of Lemoyne, PA.",
+          provider: { "@type": "HealthAndBeautyBusiness", name: "Zion Lounge" },
+          areaServed: { "@type": "City", name: "Lemoyne, PA" },
+        },
+        price: "20",
+        priceCurrency: "USD",
+      },
+    ],
+  },
+};
 ---
 
 <MainLayout
@@ -17,9 +138,924 @@ import MainLayout from "../layout/MainLayout.astro";
     "women's mobile wellness service",
   ]}
 >
-  <section class="flex items-center justify-center min-h-[60dvh] px-6 text-center">
-    <h1 class="font-Frauce text-5xl md:text-7xl text-white leading-tight">
-      Wellness That Comes to You
+  <!-- Leaflet CSS (OpenStreetMap) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <hero class="flex items-center justify-center min-h-[80dvh] pl-3 md:min-h-screen w-dvw md:w-vw  ">
+    
+    <div class="grow flex text-center flex-col items-center justify-center gap-3"> <h1 class="font-Frauce text-5xl md:text-7xl text-white leading-tight grow text-pretty">
+      Mobile Wellness Therapy in Lemoyne, PA | Zion Lounge
     </h1>
+    <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+      <a
+        href="https://tidycal.com/angiepspeaks/experiencebooking"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group relative inline-flex items-center justify-center gap-2 overflow-hidden px-5 py-3 md:px-6 md:py-3 bg-white text-angie-noir border border-white rounded-full font-Frauce text-base md:text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+        aria-label="Book your experience on TidyCal (opens in a new tab)"
+      >
+        <span
+          aria-hidden="true"
+          class="absolute inset-0 bg-angie-rose transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0"
+        ></span>
+        <span class="relative inline-flex items-center gap-2 transition-colors duration-300 group-hover:text-white">
+          <span>Book your experience</span>
+          <svg
+            class="w-4 h-4 md:w-5 md:h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"></path>
+          </svg>
+        </span>
+      </a>
+
+      <button
+        type="button"
+        data-phone-toggle
+        data-phone-number="+17172980240"
+        data-phone-display="717-298-0240"
+        aria-expanded="false"
+        aria-controls="phone-reveal"
+        aria-label="Reveal Angie's contact number"
+        class="group relative inline-flex items-center justify-center gap-2 overflow-hidden px-5 py-3 md:px-6 md:py-3 bg-white text-angie-noir border border-white rounded-full font-Frauce text-base md:text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 cursor-pointer min-w-55 sm:min-w-60"
+      >
+        <span
+          aria-hidden="true"
+          class="absolute inset-0 bg-angie-rose transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0"
+        ></span>
+        <span class="relative inline-flex items-center gap-2 transition-colors duration-300 group-hover:text-white">
+          <span class="sr-only" data-phone-sr>Contact number</span>
+
+          <svg
+            data-phone-icon-default
+            class="w-4 h-4 md:w-5 md:h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+
+          <svg
+            data-phone-icon-revealed
+            class="hidden w-4 h-4 md:w-5 md:h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
+            <polyline points="16 8 20 4 20 8"></polyline>
+          </svg>
+
+          <span data-phone-label>Contact number</span>
+        </span>
+      </button>
+    </div>
+ 
+  </div>
+  <div class="grow-2">
+    <img src="/images/yoga/relax.webp" class="object-cover object-center  rounded-l-[40%] " >
+  </div>
+   
+  </hero>
+  <section
+    title="why us"
+    class="bg-gradient-wellness w-full"
+  >
+    <!-- H2 con su propio padding/centering (NO afecta a la fila edge-to-edge) -->
+    <div class="text-center px-4 md:px-8 pt-12 md:pt-20 pb-8 md:pb-12">
+   
+      <h2 class="font-Frauce font-bold text-4xl md:text-5xl lg:text-6xl text-angie-burgundy leading-tight text-balance max-w-3xl mx-auto">
+        A Moment of Peace, Delivered to Your Door
+      </h2>
+      <div class="mt-5 flex items-center justify-center gap-2" aria-hidden="true">
+        <span class="h-px w-10 bg-angie-rose/60"></span>
+        <span class="w-2 h-2 rounded-full bg-angie-rose"></span>
+        <span class="h-px w-10 bg-angie-rose/60"></span>
+      </div>
+    </div>
+
+    <!-- Edge-to-edge: imagen 50% + card 50% = 100vw -->
+    <div class="flex flex-col md:flex-row w-full">
+      <!-- Image: 50% en desktop, full width en mobile, edge-to-edge (sin border-radius externo) -->
+      <div class="md:w-1/2 relative order-1">
+        <img
+          src="/images/yoga/wellnes.webp"
+          alt="Zion Lounge wellness experience — woman enjoying a relaxing scalp therapy session"
+          class="w-full h-full min-h-75 md:min-h-140 lg:min-h-160 object-cover object-center md:rounded-l-4xl"
+        >
+      </div>
+
+      <!-- Card derecha: 50% en desktop, full width en mobile, sin border-radius externo -->
+      <div class="md:w-1/2 order-2 relative overflow-hidden bg-linear-to-br from-white/95 via-angie-cream/85 to-angie-rose/30 p-6 md:p-10 lg:p-14 xl:p-16 flex flex-col justify-center gap-5 md:gap-6 border-t md:border-t-0 md:border-l border-white/80 shadow-[-20px_0_40px_-20px_rgba(138,38,84,0.25)]">
+        <!-- Decorative glows -->
+        <div aria-hidden="true" class="absolute -top-10 -right-10 w-40 h-40 md:w-52 md:h-52 rounded-full bg-angie-rose/25 blur-3xl pointer-events-none"></div>
+        <div aria-hidden="true" class="absolute -bottom-10 -left-10 w-32 h-32 md:w-44 md:h-44 rounded-full bg-angie-burgundy/20 blur-3xl pointer-events-none"></div>
+
+        <!-- Body / intro -->
+        <p class="relative text-angie-noir/85 text-base md:text-lg leading-relaxed text-balance max-w-xl">
+          Zion Lounge brings the full wellness experience to your home, office, or private event — anywhere within 20 miles of Lemoyne, PA. No drive, no waiting room, no pressure. Just you, Angie, and an hour to pause, breathe, and reset.
+        </p>
+
+       
+
+        <!-- The Zion Experience: 3 value prop cards (Holistic, Personal, Easy Booking) -->
+        <div class="relative space-y-3">
+          <h3 class="font-Grotesk-bold text-[10px] md:text-xs tracking-[0.3em] uppercase text-angie-rose text-center">
+            The Zion Experience
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-3 lg:gap-4">
+            <!-- Holistic -->
+            <div class="group text-center p-4 md:p-5 rounded-xl bg-white/80 border border-angie-rose/30 hover:bg-white hover:border-angie-rose/60 hover:shadow-lg transition-all duration-300">
+              <div class="inline-flex w-12 h-12 md:w-14 md:h-14 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.5c1 1.5.5 7-2.4 9.5-1.8 1.5-3.5 2-5.8 2zM2 21c0-3 1.85-5.36 5.08-6"></path>
+                </svg>
+              </div>
+              <h4 class="font-Frauce font-bold text-base md:text-lg text-angie-burgundy leading-tight mb-1">Holistic Care</h4>
+              <p class="text-xs md:text-sm text-angie-noir/70 leading-snug">A reset for mind, body, and spirit — all in one session.</p>
+            </div>
+
+            <!-- Personal Service -->
+            <div class="group text-center p-4 md:p-5 rounded-xl bg-white/80 border border-angie-rose/30 hover:bg-white hover:border-angie-rose/60 hover:shadow-lg transition-all duration-300">
+              <div class="inline-flex w-12 h-12 md:w-14 md:h-14 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <h4 class="font-Frauce font-bold text-base md:text-lg text-angie-burgundy leading-tight mb-1">Personal Service</h4>
+              <p class="text-xs md:text-sm text-angie-noir/70 leading-snug">One-on-one with Angie. No rotating staff, no rush.</p>
+            </div>
+
+            <!-- Easy Booking -->
+            <div class="group text-center p-4 md:p-5 rounded-xl bg-white/80 border border-angie-rose/30 hover:bg-white hover:border-angie-rose/60 hover:shadow-lg transition-all duration-300">
+              <div class="inline-flex w-12 h-12 md:w-14 md:h-14 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                  <path d="M9 16l2 2 4-4"></path>
+                </svg>
+              </div>
+              <h4 class="font-Frauce font-bold text-base md:text-lg text-angie-burgundy leading-tight mb-1">Easy Booking</h4>
+              <p class="text-xs md:text-sm text-angie-noir/70 leading-snug">$20 deposit. Confirmed within 24 hours.</p>
+            </div>
+          </div>
+        </div>
+         <!-- 3 Best For cards en grid 1 col mobile / 3 col desktop -->
+         <div class="relative space-y-3">
+          <h3 class="font-Grotesk-bold text-[10px] md:text-xs tracking-[0.3em] uppercase text-angie-rose text-center">
+            Perfect For
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-3 lg:gap-4">
+            <!-- Moms -->
+            <div class="group text-center p-4 md:p-5 rounded-xl bg-white/80 border border-angie-rose/30 hover:bg-white hover:border-angie-rose/60 hover:shadow-lg transition-all duration-300">
+              <div class="inline-flex w-12 h-12 md:w-14 md:h-14 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </div>
+              <h4 class="font-Frauce font-bold text-base md:text-lg text-angie-burgundy leading-tight mb-1">Moms</h4>
+              <p class="text-xs md:text-sm text-angie-noir/70 leading-snug">You've been holding everyone else. Your turn.</p>
+            </div>
+
+            <!-- Busy Women -->
+            <div class="group text-center p-4 md:p-5 rounded-xl bg-white/80 border border-angie-rose/30 hover:bg-white hover:border-angie-rose/60 hover:shadow-lg transition-all duration-300">
+              <div class="inline-flex w-12 h-12 md:w-14 md:h-14 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <h4 class="font-Frauce font-bold text-base md:text-lg text-angie-burgundy leading-tight mb-1">Busy Women</h4>
+              <p class="text-xs md:text-sm text-angie-noir/70 leading-snug">Wellness that comes to you. No drive, no waiting.</p>
+            </div>
+
+            <!-- Leaders -->
+            <div class="group text-center p-4 md:p-5 rounded-xl bg-white/80 border border-angie-rose/30 hover:bg-white hover:border-angie-rose/60 hover:shadow-lg transition-all duration-300">
+              <div class="inline-flex w-12 h-12 md:w-14 md:h-14 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </div>
+              <h4 class="font-Frauce font-bold text-base md:text-lg text-angie-burgundy leading-tight mb-1">Leaders</h4>
+              <p class="text-xs md:text-sm text-angie-noir/70 leading-snug">Refill the cup you pour from all day.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA al final del card -->
+        <a
+          href="https://tidycal.com/angiepspeaks/experiencebooking"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group/cta relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-angie-burgundy text-white rounded-full font-Frauce text-base md:text-lg font-bold transition-all duration-300 hover:scale-105 hover:bg-angie-wine hover:shadow-2xl hover:shadow-angie-burgundy/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-angie-burgundy/60 w-full sm:w-auto"
+          aria-label="Book your Zion Experience on TidyCal (opens in a new tab)"
+        >
+          <span>Book Your Experience</span>
+          <svg class="w-5 h-5 transition-transform duration-300 group-hover/cta:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!--
+		==========================================
+		SERVICES SECTION — What's included
+		==========================================
+		5 componentes del Relaxation Therapy. Grid responsive: 1 col mobile,
+		2 col tablet, 3 col desktop (3+2 en última fila), 5 col xl.
+	-->
+  <section
+    title="services"
+    id="services"
+    aria-labelledby="services-heading"
+    class="bg-white w-full py-16 md:py-24"
+  >
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <header class="text-center mb-12 md:mb-16">
+        <h2
+          id="services-heading"
+          class="font-Frauce font-bold text-4xl md:text-6xl text-angie-burgundy leading-tight mb-4 text-balance"
+        >
+          Our Wellness Services
+        </h2>
+        <p class="text-angie-noir/75 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          Every Zion Experience includes these five elements, tailored to what you need that day. You choose what resonates — Angie guides the rest.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-5">
+        <!-- Scratch Therapy -->
+        <article class="group text-center p-5 md:p-6 rounded-2xl bg-linear-to-br from-angie-cream/70 to-white border border-angie-rose/25 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-burgundy/10 transition-all duration-300 hover:-translate-y-1">
+          <div class="inline-flex w-14 h-14 md:w-16 md:h-16 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6 md:w-7 md:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+              <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+              <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+              <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+            </svg>
+          </div>
+          <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">Scratch Therapy</h3>
+          <p class="text-xs md:text-sm text-angie-noir/75 leading-snug">Relieves tension and promotes deep relaxation.</p>
+        </article>
+
+        <!-- Scalp Therapy -->
+        <article class="group text-center p-5 md:p-6 rounded-2xl bg-linear-to-br from-angie-cream/70 to-white border border-angie-rose/25 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-burgundy/10 transition-all duration-300 hover:-translate-y-1">
+          <div class="inline-flex w-14 h-14 md:w-16 md:h-16 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6 md:w-7 md:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">Scalp Therapy</h3>
+          <p class="text-xs md:text-sm text-angie-noir/75 leading-snug">Nourishes the scalp, improves circulation, and supports healthy hair.</p>
+        </article>
+
+        <!-- Relaxing Music -->
+        <article class="group text-center p-5 md:p-6 rounded-2xl bg-linear-to-br from-angie-cream/70 to-white border border-angie-rose/25 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-burgundy/10 transition-all duration-300 hover:-translate-y-1">
+          <div class="inline-flex w-14 h-14 md:w-16 md:h-16 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6 md:w-7 md:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </div>
+          <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">Relaxing Music</h3>
+          <p class="text-xs md:text-sm text-angie-noir/75 leading-snug">Soothing sounds to calm your mind and help you unwind.</p>
+        </article>
+
+        <!-- 3-Minute Gratitude -->
+        <article class="group text-center p-5 md:p-6 rounded-2xl bg-linear-to-br from-angie-cream/70 to-white border border-angie-rose/25 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-burgundy/10 transition-all duration-300 hover:-translate-y-1">
+          <div class="inline-flex w-14 h-14 md:w-16 md:h-16 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6 md:w-7 md:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">3-Min Gratitude</h3>
+          <p class="text-xs md:text-sm text-angie-noir/75 leading-snug">A guided moment to reset your mind and uplift your spirit.</p>
+        </article>
+
+        <article class="group text-center p-5 md:p-6 rounded-2xl bg-linear-to-br from-angie-cream/70 to-white border border-angie-rose/25 hover:border-angie-rose/60 hover:shadow-xl hover:shadow-angie-burgundy/10 transition-all duration-300 hover:-translate-y-1">
+          <div class="inline-flex w-14 h-14 md:w-16 md:h-16 rounded-full bg-linear-to-br from-angie-rose/45 to-angie-burgundy/20 items-center justify-center text-angie-burgundy border border-angie-rose/40 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6 md:w-7 md:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2 L13.5 9 L20 10 L13.5 11 L12 18 L10.5 11 L4 10 L10.5 9 Z"></path>
+            </svg>
+          </div>
+          <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">Optional Prayer</h3>
+          <p class="text-xs md:text-sm text-angie-noir/75 leading-snug">Available on request for peace, strength, and clarity.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!--
+		==========================================
+		HOW IT WORKS — 4 pasos
+		==========================================
+		Timeline horizontal en desktop (línea conectando círculos numerados),
+		vertical en mobile. Cada paso: badge numerado + título + descripción.
+	-->
+  <section
+    title="how-it-works"
+    id="how-it-works"
+    aria-labelledby="how-heading"
+    class="bg-angie-cream w-full py-16 md:py-24"
+  >
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <header class="text-center mb-12 md:mb-16">
+        <h2
+          id="how-heading"
+          class="font-Frauce font-bold text-4xl md:text-6xl text-angie-burgundy leading-tight mb-4 text-balance"
+        >
+          How the Zion Experience Works
+        </h2>
+        <p class="text-angie-noir/75 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          From booking to relaxation in four simple steps. No stress, no surprises.
+        </p>
+      </header>
+
+      <div class="relative">
+        <!-- Horizontal connecting line (desktop only) -->
+        <div aria-hidden="true" class="hidden md:block absolute top-8 lg:top-9 left-[12.5%] right-[12.5%] h-0.5 bg-linear-to-r from-angie-rose/0 via-angie-rose/50 to-angie-rose/0"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 lg:gap-8 relative">
+          <!-- Step 1 -->
+          <div class="text-center relative">
+            <div class="inline-flex w-16 h-16 lg:w-18 lg:h-18 rounded-full bg-white border-2 border-angie-rose text-angie-burgundy items-center justify-center font-Frauce font-bold text-2xl mb-4 relative z-10 shadow-lg shadow-angie-rose/20">
+              01
+            </div>
+            <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">Book Online</h3>
+            <p class="text-sm md:text-base text-angie-noir/75 leading-relaxed">Reserve your spot with a $20 deposit. Takes about 2 minutes.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="text-center relative">
+            <div class="inline-flex w-16 h-16 lg:w-18 lg:h-18 rounded-full bg-white border-2 border-angie-rose text-angie-burgundy items-center justify-center font-Frauce font-bold text-2xl mb-4 relative z-10 shadow-lg shadow-angie-rose/20">
+              02
+            </div>
+            <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">Angie Reaches Out</h3>
+            <p class="text-sm md:text-base text-angie-noir/75 leading-relaxed">Within 24 hours, Angie personally contacts you to confirm details.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="text-center relative">
+            <div class="inline-flex w-16 h-16 lg:w-18 lg:h-18 rounded-full bg-white border-2 border-angie-rose text-angie-burgundy items-center justify-center font-Frauce font-bold text-2xl mb-4 relative z-10 shadow-lg shadow-angie-rose/20">
+              03
+            </div>
+            <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">Confirm Location</h3>
+            <p class="text-sm md:text-base text-angie-noir/75 leading-relaxed">We verify your address is within our 20-mile Lemoyne service radius.</p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="text-center relative">
+            <div class="inline-flex w-16 h-16 lg:w-18 lg:h-18 rounded-full bg-white border-2 border-angie-rose text-angie-burgundy items-center justify-center font-Frauce font-bold text-2xl mb-4 relative z-10 shadow-lg shadow-angie-rose/20">
+              04
+            </div>
+            <h3 class="font-Frauce font-bold text-lg md:text-xl text-angie-burgundy leading-tight mb-2">Experience Peace</h3>
+            <p class="text-sm md:text-base text-angie-noir/75 leading-relaxed">Angie arrives at your home. You breathe. You reset. You deserve it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--
+		==========================================
+		ABOUT ANGIE — Bio + credenciales (YMYL compliance)
+		==========================================
+		EEAT: nombre completo, credenciales, founder, servicio. Sin foto
+		(uso placeholder / acople con imagen que ya tengas).
+	-->
+  <section
+    title="about-angie"
+    id="about-angie"
+    aria-labelledby="about-heading"
+    class="bg-white w-full py-16 md:py-24"
+  >
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 items-center">
+        <!-- Photo / visual -->
+        <div class="md:col-span-2 relative">
+          <div class="relative aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-angie-burgundy/25 border border-white/60 bg-angie-cream">
+            <img
+              src="/images/angie-practitioner.webp"
+              alt="Angie Pichardo — Wellness Practitioner and Life Purpose Coach, founder of Zion Lounge"
+              class="w-full h-full object-cover"
+              width="1280"
+              height="1280"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <!-- Decorative accent -->
+          <div aria-hidden="true" class="absolute -bottom-4 -right-4 w-24 h-24 md:w-32 md:h-32 rounded-full bg-angie-rose/30 blur-2xl -z-10"></div>
+        </div>
+
+        <!-- Bio + credentials -->
+        <div class="md:col-span-3">
+          <span class="inline-block font-Grotesk-bold text-[11px] md:text-xs tracking-[0.25em] uppercase text-angie-rose mb-4">
+            Meet Your Practitioner
+          </span>
+          <h2
+            id="about-heading"
+            class="font-Frauce font-bold text-4xl md:text-5xl lg:text-6xl text-angie-burgundy leading-tight mb-5 text-balance"
+          >
+            Hi, I'm Angie Pichardo.
+          </h2>
+          <p class="text-angie-noir/85 text-base md:text-lg leading-relaxed mb-5">
+            I'm a certified <strong class="text-angie-burgundy">Wellness Practitioner</strong> and <strong class="text-angie-burgundy">Life Purpose Coach</strong>, and the founder of <strong class="text-angie-burgundy">Zion Lounge</strong>. I created the Zion Experience to give women in central Pennsylvania a peaceful space to pause, breathe, relax, and reset — without the drive, the waiting room, or the pressure of fitting wellness into someone else's schedule.
+          </p>
+          <p class="text-angie-noir/80 text-base md:text-lg leading-relaxed mb-6">
+            I bring the full wellness experience to your home, office, or private event — anywhere within 20 miles of Lemoyne. My approach is rooted in faith, peace, and the belief that <em class="text-angie-burgundy font-medium">self-care isn't selfish. It's necessary.</em>
+          </p>
+
+          <!-- Credentials badges -->
+          <div class="flex flex-wrap gap-2 md:gap-3 mb-6">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-angie-rose/10 border border-angie-rose/30 text-angie-burgundy text-xs md:text-sm font-Grotesk-bold">
+              <svg class="w-3.5 h-3.5 md:w-4 md:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Certified Wellness Practitioner
+            </span>
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-angie-rose/10 border border-angie-rose/30 text-angie-burgundy text-xs md:text-sm font-Grotesk-bold">
+              <svg class="w-3.5 h-3.5 md:w-4 md:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Life Purpose Coach
+            </span>
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-angie-rose/10 border border-angie-rose/30 text-angie-burgundy text-xs md:text-sm font-Grotesk-bold">
+              <svg class="w-3.5 h-3.5 md:w-4 md:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Founder, Zion Lounge
+            </span>
+          </div>
+
+          <!-- Inline CTA -->
+          <a
+            href="tel:+17172980240"
+            class="inline-flex items-center gap-2 text-angie-burgundy font-Frauce font-bold text-base md:text-lg hover:text-angie-wine transition-colors group/link"
+            aria-label="Call or text Angie at 717-298-0240"
+          >
+            <span>Have a question? Text me directly</span>
+            <svg class="w-5 h-5 transition-transform group-hover/link:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--
+		==========================================
+		SERVICE AREA — Ciudades dentro de 20 millas
+		==========================================
+		Local SEO crítico: lista explícita de ciudades permite rankeo
+		para búsquedas tipo "wellness Harrisburg PA" etc.
+	-->
+  <section
+    title="service-area"
+    id="service-area"
+    aria-labelledby="area-heading"
+    class="bg-angie-cream w-full py-16 md:py-24"
+  >
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <header class="text-center mb-12 md:mb-14">
+        <span class="inline-block font-Grotesk-bold text-[11px] md:text-xs tracking-[0.25em] uppercase text-angie-rose mb-4">
+          Where We Come to You
+        </span>
+        <h2
+          id="area-heading"
+          class="font-Frauce font-bold text-4xl md:text-6xl text-angie-burgundy leading-tight mb-4 text-balance"
+        >
+          Serving Lemoyne, PA and Within 20 Miles
+        </h2>
+        <p class="text-angie-noir/75 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          Mobile wellness delivered to your home, office, or private event across central Pennsylvania. Not sure if you're in our area? Just text Angie.
+        </p>
+      </header>
+
+      <!-- 20-mile radius indicator + cities -->
+      <div class="relative max-w-4xl mx-auto">
+        <!-- Decorative radius ring -->
+        <div aria-hidden="true" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div class="w-72 h-72 md:w-96 md:h-96 rounded-full border-2 border-dashed border-angie-rose/30"></div>
+        </div>
+
+        <div class="relative grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto">
+          <!-- HQ pin: Lemoyne -->
+          <div class="col-span-2 sm:col-span-3 md:col-span-4 flex justify-center mb-2 md:mb-4">
+            <div class="inline-flex items-center gap-2.5 px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-linear-to-br from-angie-burgundy to-angie-wine text-white shadow-xl shadow-angie-burgundy/30">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span class="font-Frauce font-bold text-base md:text-lg">Lemoyne, PA — Headquarters</span>
+            </div>
+          </div>
+
+          <!-- Cities -->
+          <div class="text-center p-3 md:p-4 rounded-xl bg-white/70 border border-angie-rose/25 hover:bg-white hover:border-angie-rose/50 hover:shadow-md transition-all">
+            <p class="font-Grauce font-bold text-angie-burgundy text-base md:text-lg leading-tight">Harrisburg</p>
+            <p class="text-xs text-angie-noir/60 mt-0.5">~3 mi</p>
+          </div>
+          <div class="text-center p-3 md:p-4 rounded-xl bg-white/70 border border-angie-rose/25 hover:bg-white hover:border-angie-rose/50 hover:shadow-md transition-all">
+            <p class="font-Grauce font-bold text-angie-burgundy text-base md:text-lg leading-tight">Camp Hill</p>
+            <p class="text-xs text-angie-noir/60 mt-0.5">~3 mi</p>
+          </div>
+          <div class="text-center p-3 md:p-4 rounded-xl bg-white/70 border border-angie-rose/25 hover:bg-white hover:border-angie-rose/50 hover:shadow-md transition-all">
+            <p class="font-Grauce font-bold text-angie-burgundy text-base md:text-lg leading-tight">New Cumberland</p>
+            <p class="text-xs text-angie-noir/60 mt-0.5">~4 mi</p>
+          </div>
+          <div class="text-center p-3 md:p-4 rounded-xl bg-white/70 border border-angie-rose/25 hover:bg-white hover:border-angie-rose/50 hover:shadow-md transition-all">
+            <p class="font-Grauce font-bold text-angie-burgundy text-base md:text-lg leading-tight">Mechanicsburg</p>
+            <p class="text-xs text-angie-noir/60 mt-0.5">~8 mi</p>
+          </div>
+          <div class="text-center p-3 md:p-4 rounded-xl bg-white/70 border border-angie-rose/25 hover:bg-white hover:border-angie-rose/50 hover:shadow-md transition-all">
+            <p class="font-Grauce font-bold text-angie-burgundy text-base md:text-lg leading-tight">Steelton</p>
+            <p class="text-xs text-angie-noir/60 mt-0.5">~5 mi</p>
+          </div>
+          <div class="text-center p-3 md:p-4 rounded-xl bg-white/70 border border-angie-rose/25 hover:bg-white hover:border-angie-rose/50 hover:shadow-md transition-all">
+            <p class="font-Grauce font-bold text-angie-burgundy text-base md:text-lg leading-tight">Shiremanstown</p>
+            <p class="text-xs text-angie-noir/60 mt-0.5">~7 mi</p>
+          </div>
+          <div class="text-center p-3 md:p-4 rounded-xl bg-white/70 border border-angie-rose/25 hover:bg-white hover:border-angie-rose/50 hover:shadow-md transition-all">
+            <p class="font-Grauce font-bold text-angie-burgundy text-base md:text-lg leading-tight">Wormleysburg</p>
+            <p class="text-xs text-angie-noir/60 mt-0.5">~4 mi</p>
+          </div>
+          <div class="text-center p-3 md:p-4 rounded-xl bg-white/70 border border-angie-rose/25 hover:bg-white hover:border-angie-rose/50 hover:shadow-md transition-all">
+            <p class="font-Grauce font-bold text-angie-burgundy text-base md:text-lg leading-tight">Enola</p>
+            <p class="text-xs text-angie-noir/60 mt-0.5">~6 mi</p>
+          </div>
+        </div>
+
+        <!-- Interactive map: Lemoyne center + 20-mile radius circle -->
+        <div class="mt-10 md:mt-14">
+          <div class="relative w-full h-95 md:h-120 rounded-2xl md:rounded-3xl overflow-hidden border-2 border-angie-rose/30 shadow-xl shadow-angie-burgundy/10 bg-angie-cream">
+            <div id="service-map" class="w-full h-full" role="region" aria-label="Interactive service area map centered on Lemoyne, PA with a 20-mile radius"></div>
+            <!-- Legend overlay -->
+            <div class="absolute bottom-3 left-3 md:bottom-4 md:left-4 z-400 bg-white/95 backdrop-blur-sm rounded-lg border border-angie-rose/30 shadow-lg px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="w-3 h-3 rounded-full bg-red-500/30 border-2 border-red-600"></span>
+                <span class="font-Grotesk-bold text-angie-noir">20-mile service radius</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-angie-burgundy border-2 border-white shadow"></span>
+                <span class="font-Grotesk-bold text-angie-noir">Zion Lounge — Lemoyne, PA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- "Not sure?" CTA -->
+        <div class="mt-10 md:mt-12 text-center">
+          <p class="text-angie-noir/70 text-sm md:text-base mb-3">Not sure if you're in our service area?</p>
+          <a
+            href="tel:+17172980240"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-angie-burgundy text-white rounded-full font-Frauce text-base font-bold transition-all duration-300 hover:scale-105 hover:bg-angie-wine hover:shadow-xl hover:shadow-angie-burgundy/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-angie-burgundy/60"
+            aria-label="Text Angie at 717-298-0240 to check your service area"
+          >
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Text Angie: 717-298-0240</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--
+		==========================================
+		FAQ SECTION — SEO + GEO + Glassmorphism
+		==========================================
+		- Dark gradient background (gradient-nocturne) → permite cards translúcidas.
+		- Cards: bg-white/[0.04] + backdrop-blur-xl + border-white/10 → glass real.
+		- Hover: bg-white/[0.08] + border-white/25 + shadow rose → depth.
+		- Bottom CTA: gradient rose→burgundy con glow → pop contra el fondo oscuro.
+		- 10 preguntas, todas visibles, FAQPage JSON-LD al final.
+	-->
+  <section
+    title="faq"
+    id="faq"
+    aria-labelledby="faq-heading"
+    class="relative bg-gradient-nocturne w-full py-16 md:py-24 overflow-hidden"
+  >
+    <!-- Decorative glow orbs (detrás de todo, dan profundidad al fondo oscuro) -->
+    <div aria-hidden="true" class="absolute top-1/4 -left-20 w-72 h-72 md:w-96 md:h-96 rounded-full bg-angie-rose/10 blur-[100px] pointer-events-none"></div>
+    <div aria-hidden="true" class="absolute bottom-1/4 -right-20 w-72 h-72 md:w-96 md:h-96 rounded-full bg-angie-burgundy/20 blur-[100px] pointer-events-none"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 md:px-8">
+      <header class="text-center mb-10 md:mb-14">
+     
+        <h2
+          id="faq-heading"
+          class="font-Frauce font-bold text-4xl md:text-6xl text-angie-cream leading-tight mb-4 text-balance"
+        >
+          Frequently Asked Questions
+        </h2>
+        <p class="text-white/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          Everything you need to know before booking your Zion Experience — from how mobile wellness works to what to expect during your session.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        {faqs.map((faq, i) => (
+          <article
+            class="group relative overflow-hidden rounded-2xl md:rounded-3xl p-6 md:p-7 bg-white/4 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/30 hover:bg-white/8 hover:border-white/25 hover:shadow-angie-rose/20 transition-all duration-500 hover:-translate-y-1"
+          >
+            <!-- Subtle gradient highlight en la esquina top-left (efecto glass premium) -->
+            <div aria-hidden="true" class="absolute inset-0 rounded-2xl md:rounded-3xl bg-linear-to-br from-white/8 via-transparent to-transparent pointer-events-none"></div>
+
+            <div class="relative">
+              <div class="flex items-start gap-3 mb-3 ">
+                
+                <h3 class="font-Frauce font-bold text-lg md:text-xl text-white leading-snug pt-1 text-center">
+                  {faq.question}
+                </h3>
+              </div>
+              <p class="text-white/75 text-sm md:text-[15px] leading-relaxed p-4 text-pretty">
+                {faq.answer}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Bottom CTA: "Still have questions?" — rose gradient card con glow para resaltar contra el fondo oscuro -->
+      <div class="mt-12 md:mt-16 relative overflow-hidden rounded-3xl md:rounded-4xl bg-linear-to-br from-angie-rose via-angie-burgundy to-angie-wine p-8 md:p-12 text-center shadow-2xl shadow-angie-rose/30 border border-white/15">
+        <div aria-hidden="true" class="absolute -top-12 -right-12 w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-rose/40 blur-3xl pointer-events-none"></div>
+        <div aria-hidden="true" class="absolute -bottom-12 -left-12 w-48 h-48 md:w-64 md:h-64 rounded-full bg-white/20 blur-3xl pointer-events-none"></div>
+
+        <div class="relative">
+          <h3 class="font-Frauce font-bold text-3xl md:text-5xl text-white leading-tight mb-3 text-balance">
+            Still Have Questions?
+          </h3>
+          <p class="text-white/90 text-base md:text-lg max-w-xl mx-auto mb-7 leading-relaxed">
+            We're happy to answer anything else — just reach out. Angie personally responds within 24 hours.
+          </p>
+          <a
+            href="tel:+17172980240"
+            class="inline-flex items-center gap-2.5 px-7 py-3.5 bg-white text-angie-noir rounded-full font-Frauce text-base md:text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-black/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            aria-label="Call or text Angie at 717-298-0240"
+          >
+            <svg
+              class="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Text Angie at 717-298-0240</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ JSON-LD Schema — Google rich results + AI engine citation source -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)}></script>
+
+  <!-- Business + Service JSON-LD Schema — Local SEO + Google rich results -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(businessSchema)}></script>
+
+  <!-- Leaflet JS (OpenStreetMap) — carga el mapa interactivo -->
+  <script
+    is:inline
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script is:inline>
+    (function () {
+      var mapInstance = null;
+
+      // Cleanup helper — destruye el mapa y libera memoria
+      function destroyMap() {
+        if (mapInstance) {
+          try { mapInstance.remove(); } catch (e) { /* noop */ }
+          mapInstance = null;
+        }
+      }
+
+      function initServiceMap() {
+        var mapEl = document.getElementById("service-map");
+
+        // Si no hay div de mapa en esta página, limpia cualquier instancia anterior
+        if (!mapEl) {
+          destroyMap();
+          return;
+        }
+
+        // Si Leaflet todavía no terminó de cargar (caso client-side nav),
+        // reintenta cada 150ms hasta que esté listo (máx ~3s)
+        if (typeof L === "undefined") {
+          var attempts = (initServiceMap._attempts || 0) + 1;
+          initServiceMap._attempts = attempts;
+          if (attempts > 20) { initServiceMap._attempts = 0; return; }
+          setTimeout(initServiceMap, 150);
+          return;
+        }
+        initServiceMap._attempts = 0;
+
+        // Si ya hay un mapa en este mismo div, destrúyelo antes de crear uno nuevo
+        // (pasa si Astro re-monta el componente)
+        if (mapInstance) {
+          destroyMap();
+        }
+
+        // Lemoyne, PA — centro del servicio
+        var center = [40.2412, -76.8944];
+        var radiusMeters = 32186.88; // 20 millas
+
+        mapInstance = L.map(mapEl, {
+          center: center,
+          zoom: 9,
+          scrollWheelZoom: false,
+          zoomControl: true,
+        });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 18,
+        }).addTo(mapInstance);
+
+        // Círculo del radio de 20 millas — rojo, opacidad baja (0.15)
+        L.circle(center, {
+          radius: radiusMeters,
+          color: "#dc2626",
+          weight: 2,
+          opacity: 0.7,
+          fillColor: "#dc2626",
+          fillOpacity: 0.15,
+        })
+          .addTo(mapInstance)
+          .bindPopup(
+            "<div style=\"text-align:center;font-family:serif;\"><strong style=\"color:#8A2654;\">20-Mile Service Radius</strong><br/><span style=\"font-size:12px;color:#1F0612;\">Mobile wellness across central Pennsylvania</span></div>"
+          );
+
+        // Marcador personalizado en Lemoyne
+        var markerIcon = L.divIcon({
+          className: "zion-marker",
+          html:
+            '<div style="width:28px;height:28px;background:#8A2654;border:3px solid #fff;border-radius:50%;box-shadow:0 3px 10px rgba(0,0,0,0.4);"></div>',
+          iconSize: [28, 28],
+          iconAnchor: [14, 14],
+        });
+
+        L.marker(center, { icon: markerIcon, title: "Zion Lounge — Lemoyne, PA" })
+          .addTo(mapInstance)
+          .bindPopup(
+            "<div style=\"text-align:center;font-family:Georgia,serif;\"><strong style=\"color:#8A2654;font-size:14px;\">Zion Lounge</strong><br/><span style=\"font-size:12px;color:#1F0612;\">Lemoyne, PA &middot; Mobile Wellness</span></div>"
+          )
+          .openPopup();
+      }
+
+      // ── Lifecycle hooks para Astro View Transitions (ClientRouter) ──
+      // 1) Initial load (carga directa de la página)
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initServiceMap);
+      } else {
+        initServiceMap();
+      }
+
+      // 2) Navegación desde otra página (ClientRouter) — este era el bug
+      document.addEventListener("astro:page-load", initServiceMap);
+
+      // 3) Cleanup antes de salir de /wellness (evita memory leak)
+      document.addEventListener("astro:before-swap", destroyMap);
+    })();
+  </script>
+
+  <!--
+		==========================================
+		FINAL CTA — "You Deserve This Moment"
+		==========================================
+		Bloque grande standalone al final de la página (después de FAQ).
+		Refuerza la acción emocional con 2 CTAs (TidyCal + Phone).
+	-->
+  <section
+    title="final-cta"
+    aria-label="Book your Zion Experience"
+    class="relative overflow-hidden bg-gradient-zion w-full py-20 md:py-28"
+  >
+    <!-- Decorative glow orbs -->
+    <div aria-hidden="true" class="absolute -top-20 -left-20 w-72 h-72 md:w-96 md:h-96 rounded-full bg-angie-rose/30 blur-3xl pointer-events-none"></div>
+    <div aria-hidden="true" class="absolute -bottom-20 -right-20 w-72 h-72 md:w-96 md:h-96 rounded-full bg-white/15 blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 md:px-8 text-center">
+      <span class="inline-block font-Grotesk-bold text-[11px] md:text-xs tracking-[0.25em] uppercase text-white/85 mb-4">
+        You Deserve This Moment
+      </span>
+      <h2 class="font-Frauce font-bold text-4xl md:text-6xl lg:text-7xl text-white leading-[1.05] mb-5 text-balance">
+        Invest in You.
+      </h2>
+      <p class="text-white/90 text-base md:text-xl max-w-2xl mx-auto mb-9 leading-relaxed">
+        Book your Zion Experience today. $20 deposit, confirmed within 24 hours, and peace delivered straight to your door.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+        <a
+          href="https://tidycal.com/angiepspeaks/experiencebooking"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group/cta inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-white text-angie-noir rounded-full font-Frauce text-base md:text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-black/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 w-full sm:w-auto"
+          aria-label="Book your Zion Experience on TidyCal (opens in a new tab)"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span>Book Your Experience</span>
+        </a>
+
+        <a
+          href="tel:+17172980240"
+          class="group/phone inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-transparent text-white border-2 border-white/80 rounded-full font-Frauce text-base md:text-lg font-bold transition-all duration-300 hover:bg-white hover:text-angie-noir hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 w-full sm:w-auto"
+          aria-label="Call or text Angie at 717-298-0240"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>Text Angie: 717-298-0240</span>
+        </a>
+      </div>
+
+      <p class="mt-8 text-white/75 text-sm md:text-base">
+        💜 Angie personally responds within 24 hours.
+      </p>
+    </div>
   </section>
 </MainLayout>
+<style>
+</style>
+
+
+
+
+
+
+
+
+
+<script>
+  // Phone reveal: 1er click → muestra el número, 2do click → marca
+  const phoneBtn = document.querySelector<HTMLButtonElement>('[data-phone-toggle]');
+  if (phoneBtn) {
+    const label = phoneBtn.querySelector<HTMLSpanElement>('[data-phone-label]');
+    const sr = phoneBtn.querySelector<HTMLSpanElement>('[data-phone-sr]');
+    const iconDefault = phoneBtn.querySelector<SVGElement>('[data-phone-icon-default]');
+    const iconRevealed = phoneBtn.querySelector<SVGElement>('[data-phone-icon-revealed]');
+    const phoneE164 = phoneBtn.dataset.phoneNumber ?? '';
+    const phoneDisplay = phoneBtn.dataset.phoneDisplay ?? '';
+
+    phoneBtn.addEventListener('click', () => {
+      const expanded = phoneBtn.getAttribute('aria-expanded') === 'true';
+
+      if (!expanded) {
+        if (label) label.textContent = phoneDisplay;
+        if (sr) sr.textContent = `Call ${phoneDisplay}`;
+        iconDefault?.classList.add('hidden');
+        iconRevealed?.classList.remove('hidden');
+        phoneBtn.setAttribute('aria-expanded', 'true');
+        phoneBtn.setAttribute('aria-label', `Call ${phoneDisplay}`);
+      } else {
+        // Segundo click: abre el dialer
+        if (phoneE164) window.location.href = `tel:${phoneE164}`;
+      }
+    });
+  }
+</script>
