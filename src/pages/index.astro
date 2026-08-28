@@ -719,70 +719,61 @@ const services = await getCollection("services");
   type="application/ld+json"
   set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "AggregateRating",
-    "itemReviewed": {
-      "@type": "ProfessionalService",
-      "name": "Angie Pichardo — Christian Speaker & Life Coach"
+    "@type": "ProfessionalService",
+    "name": "Angie Pichardo — Christian Speaker & Life Coach",
+    "image": "https://graceafterthegrave.com/images/angie-hero-1600.webp",
+    "url": "https://graceafterthegrave.com/",
+    "telephone": "+1-717-298-0240",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lemoyne",
+      "addressRegion": "PA",
+      "addressCountry": "US"
     },
-    "ratingValue": "5",
-    "reviewCount": "3",
-    "bestRating": "5",
-    "worstRating": "1"
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "3",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Isabel L." },
+        "datePublished": "2025-01-15",
+        "reviewBody": "Knowing you has encouraged me to show up more authentically and stay grounded in my faith. Your positivity, compassion, and consistency have motivated me to keep pushing forward and to lead with kindness in my own life.",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        }
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Yobanka S." },
+        "datePublished": "2025-01-15",
+        "reviewBody": "You have a big influence on me. I was down, isolated and depressed. Your posting kept coming up on my feed. One morning driving to work, I decided to try what you said. Your faith has rolled into my life and now I am living in God's faith. You woke me up and helped me stand when I was down and had no desire to live. I am grateful and thankful to have you in my life.",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        }
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Laurie S." },
+        "datePublished": "2025-01-15",
+        "reviewBody": "Working with you has challenged me to continue growing and to step out and take the risks that God is calling me to take. Working with you also encouraged me to see how He takes the little I have and uses it to free His children. Working with you also gives me a measure of accountability, because I know God wants me to give His best to you.",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        }
+      }
+    ]
   })}
-/>
-
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify([
-    {
-      "@context": "https://schema.org",
-      "@type": "Review",
-      "author": { "@type": "Person", "name": "Isabel L." },
-      "datePublished": "2025-01-15",
-      "reviewBody": "Knowing you has encouraged me to show up more authentically and stay grounded in my faith. Your positivity, compassion, and consistency have motivated me to keep pushing forward and to lead with kindness in my own life.",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "itemReviewed": {
-        "@type": "Service",
-        "name": "A.L.I.G.N. Purpose Coaching"
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Review",
-      "author": { "@type": "Person", "name": "Yobanka S." },
-      "datePublished": "2025-01-15",
-      "reviewBody": "You have a big influence on me. I was down, isolated and depressed. Your posting kept coming up on my feed. One morning driving to work, I decided to try what you said. Your faith has rolled into my life and now I am living in God's faith. You woke me up and helped me stand when I was down and had no desire to live. I am grateful and thankful to have you in my life.",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "itemReviewed": {
-        "@type": "Service",
-        "name": "Christian Life Coaching & Community"
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Review",
-      "author": { "@type": "Person", "name": "Laurie S." },
-      "datePublished": "2025-01-15",
-      "reviewBody": "Working with you has challenged me to continue growing and to step out and take the risks that God is calling me to take. Working with you has also encouraged me to see how He takes the little I have and uses it to free His children. Working with you also gives me a measure of accountability, because I know God wants me to give His best to you.",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "itemReviewed": {
-        "@type": "Service",
-        "name": "A.L.I.G.N. Purpose Coaching"
-      }
-    }
-  ])}
 />
 
 <style is:global>
