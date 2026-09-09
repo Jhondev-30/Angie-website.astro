@@ -78,8 +78,9 @@ export default async function handler(req, res) {
   }
 
   // Upsert: insert email, ignore if already exists.
-  // Supabase returns 201 on insert, 200 on no-op upsert, 409 / 422 on conflict.
-  // We use Prefer: resolution=ignore-duplicates to silently skip conflicts.
+  // Supabase returns 201 on insert, 200 on no-op upsert, 409 / 422 on conflict
+  // when resolution=ignore-duplicates is NOT honored. Treat 2xx AND 409 as
+  // success from the user's perspective (re-submitting an email should not fail).
   let upsertRes;
   try {
     upsertRes = await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
@@ -104,7 +105,8 @@ export default async function handler(req, res) {
     email,
   });
 
-  if (!upsertRes.ok) {
+  // Accept 2xx OR 409 (conflict on duplicate) as success.
+  if (!upsertRes.ok && upsertRes.status !== 409) {
     let body = "";
     try { body = await upsertRes.text(); } catch {}
     console.error("[subscribe] supabase error body:", body);
