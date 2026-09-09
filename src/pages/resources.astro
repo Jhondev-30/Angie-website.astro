@@ -1,0 +1,515 @@
+---
+import MainLayout from "../layout/MainLayout.astro";
+
+// =============================================================================
+// /resources/ — Free A.L.I.G.N. Framework downloads
+//
+// Visual rules: every content section inherits the body's rose→noir gradient.
+// The ONLY local backgrounds are: card-on-section (bg-white/85) and the
+// download modal. No per-section gradients, no mixed cream/pink fields.
+// Single content width: max-w-5xl across the entire page.
+// =============================================================================
+
+const PDF_URL  = "/pdfs/ALIGN_Free_Summit_PDF.pdf";
+const DOCX_URL = "/pdfs/ALIGN_Free_Summit_Guide_EDITABLE...docx";
+const HERO_IMG = "/images/popups/popup-mockup-1-wooden.webp";
+
+const steps = [
+  { letter: "A", name: "Awareness",         blurb: "Name where you actually are." },
+  { letter: "L", name: "Love Yourself",     blurb: "Replace shame with truth." },
+  { letter: "I", name: "Invite God In",     blurb: "Let scripture and prayer lead." },
+  { letter: "G", name: "Gratitude",         blurb: "Shift the lens." },
+  { letter: "N", name: "Nurture Positivity", blurb: "Build a life that holds." },
+];
+
+const faqs = [
+  {
+    q: "What is the A.L.I.G.N. Framework?",
+    a: "A.L.I.G.N. is Angie Pichardo's signature 5-step framework for Christian life coaching: Awareness, Love Yourself, Invite God In, Gratitude, and Nurture Positivity. It is the backbone of her 1:1 coaching work and every keynote she delivers, and it is now available as a free download.",
+  },
+  {
+    q: "Is it really free?",
+    a: "Yes. Both the PDF and the editable version are 100% free. The only ask is your email so Angie can stay in touch with related faith-based resources. No spam, unsubscribe anytime.",
+  },
+  {
+    q: "What is the difference between the PDF and the editable version?",
+    a: "The PDF is the final, print-ready version. The editable version is the same content delivered as a Word document you can fully customize — drop in your ministry or organization logo, swap colors, adapt the language for your community.",
+  },
+  {
+    q: "Can I share it at my event or in my small group?",
+    a: "Absolutely. The PDF works well as an event handout or retreat workbook. The editable version is built for ministries who want to rebrand it for their own community.",
+  },
+  {
+    q: "Do you have A.L.I.G.N. resources in Spanish?",
+    a: "Angie serves in both English and Spanish. A Spanish edition of the framework is in progress. If you organize a Spanish-language event and need materials now, contact Angie to scope a custom deliverable.",
+  },
+];
+
+const SITE_URL = "https://graceafterthegrave.com";
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+const offerSchema = {
+  "@context": "https://schema.org",
+  "@type": "Offer",
+  name: "A.L.I.G.N. Framework — Free PDF & Editable Guide",
+  description: "Free download of the A.L.I.G.N. Christian life coaching framework by Angie Pichardo.",
+  price: "0",
+  priceCurrency: "USD",
+  category: "Digital Download",
+  availability: "https://schema.org/InStock",
+  url: new URL("/resources/", SITE_URL).toString(),
+  seller: { "@type": "Person", name: "Angie Pichardo", url: new URL("/aboutme", SITE_URL).toString() },
+};
+---
+
+<MainLayout
+  title="Free A.L.I.G.N. Framework Download"
+  description="The A.L.I.G.N. framework is Angie's 5-step Christian life coaching method — free PDF and editable DOCX download. Built for event organizers and faith-rooted personal growth."
+  canonicalPath="/resources/"
+  keywords={[
+    "A.L.I.G.N. framework free",
+    "A.L.I.G.N. framework PDF",
+    "A.L.I.G.N. framework editable",
+    "Christian life coaching framework",
+    "Free Christian event handout",
+    "Women's ministry event resource",
+    "Faith-based coaching framework",
+    "Free Christian women's framework",
+    "Editable Christian framework DOCX",
+  ]}
+>
+
+  {/* ============================================================
+      HERO — single dramatic opener, gradient + oversized type
+  ============================================================ */}
+  <section class="relative isolate overflow-hidden text-angie-cream">
+    <div aria-hidden="true" class="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-angie-rose/30 blur-3xl pointer-events-none"></div>
+    <div aria-hidden="true" class="absolute -bottom-40 -left-24 w-[32rem] h-[32rem] rounded-full bg-angie-wine/40 blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-5xl mx-auto px-6 pt-36 md:pt-44 pb-24 md:pb-32 text-center">
+      <p class="inline-block text-[11px] md:text-xs uppercase tracking-[0.35em] text-angie-cream/75 font-Grotesk-bold">
+        A free resource from Angie Pichardo
+      </p>
+
+      <h1 class="mt-8 font-Frauce italic font-bold leading-[0.85] text-[clamp(5rem,16vw,11rem)] tracking-tight">
+        A.L.I.G.N.
+      </h1>
+
+      <p class="mt-8 max-w-2xl mx-auto text-angie-cream/90 text-lg md:text-2xl font-Grotesk leading-snug">
+        The 5-step framework for moving from stuck to purpose.
+      </p>
+
+      <p class="mt-4 max-w-xl mx-auto text-angie-cream/65 text-sm md:text-base font-Grotesk">
+        Used in Angie's 1:1 coaching and on every keynote stage.
+        Yours free — pick the format, drop your email, take it.
+      </p>
+
+      <button
+        type="button"
+        id="open-modal"
+        class="group mt-12 inline-flex items-center gap-3 px-8 py-4 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold text-base shadow-xl shadow-black/20 hover:bg-white hover:scale-[1.02] active:scale-[0.99] transition-all duration-300"
+      >
+        <span>Download the free framework</span>
+        <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+      </button>
+
+      <p class="mt-5 text-xs text-angie-cream/55 font-Grotesk">
+        No spam. One-click unsubscribe. Your email stays with Angie.
+      </p>
+    </div>
+  </section>
+
+  {/* ============================================================
+      THE 5 STEPS — typographic sequence, no card grid
+      Inherits the body gradient. Letters in oversized Fraunces italic,
+      connected by a single hairline rule. Quiet and editorial.
+  ============================================================ */}
+  <section class="text-angie-cream py-24 md:py-32">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto">
+        <p class="text-angie-rose/90 uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">
+          The framework
+        </p>
+        <h2 class="mt-4 font-Frauce text-3xl md:text-5xl text-angie-cream leading-tight">
+          Five steps. One honest path forward.
+        </h2>
+        <p class="mt-4 text-angie-cream/75 font-Grotesk text-base md:text-lg leading-relaxed">
+          Each step is a single, honest move. Go in order and the next thing becomes obvious.
+        </p>
+      </div>
+
+      {/* Typographic sequence. Hairline rule across the top on md+. */}
+      <div class="relative mt-20">
+        <div aria-hidden="true" class="hidden md:block absolute top-7 left-0 right-0 h-px bg-angie-cream/20"></div>
+
+        <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10 md:gap-4">
+          {steps.map((s, i) => (
+            <li class="text-center relative">
+              <div class="relative mx-auto w-14 h-14 grid place-items-center bg-transparent">
+                <span class="font-Frauce italic font-bold text-6xl md:text-7xl text-angie-cream leading-none">
+                  {s.letter}
+                </span>
+              </div>
+              <p class="mt-3 text-[10px] md:text-xs uppercase tracking-[0.25em] text-angie-rose/80 font-Grotesk-bold">
+                Step {String(i + 1).padStart(2, "0")}
+              </p>
+              <h3 class="mt-2 font-Frauce text-xl md:text-2xl text-angie-cream leading-snug">
+                {s.name}
+              </h3>
+              <p class="mt-2 text-angie-cream/65 font-Grotesk text-sm leading-relaxed px-2">
+                {s.blurb}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="mt-16 text-center">
+        <button
+          type="button"
+          id="open-modal-2"
+          class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-angie-cream/30 text-angie-cream font-Grotesk-bold text-sm hover:bg-angie-cream/10 transition-colors duration-300"
+        >
+          Get the full framework
+          <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {/* ============================================================
+      HOW TO USE IT — quiet two-column text, no card chrome
+  ============================================================ */}
+  <section class="text-angie-cream py-20 md:py-28">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="font-Frauce text-3xl md:text-5xl text-angie-cream leading-tight text-center">
+        How to use it
+      </h2>
+
+      <div class="mt-14 grid md:grid-cols-2 md:gap-16 lg:gap-24">
+        <div>
+          <p class="text-angie-rose/90 uppercase tracking-[0.25em] text-[10px] md:text-xs font-Grotesk-bold">
+            For event organizers
+          </p>
+          <h3 class="mt-3 font-Frauce text-2xl md:text-3xl text-angie-cream leading-snug">
+            Hand it out at your next women's event.
+          </h3>
+          <ul class="mt-6 space-y-3 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Print the PDF and slide it into the attendee gift bag — a takeaway that does work after the closing prayer.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Brand the editable version with your ministry logo and turn it into a 5-week small-group workbook.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Pair it with a keynote: book Angie for the stage, the framework becomes the built-in follow-up tool.</span></li>
+          </ul>
+        </div>
+
+        <div class="mt-10 md:mt-0">
+          <p class="text-angie-rose/90 uppercase tracking-[0.25em] text-[10px] md:text-xs font-Grotesk-bold">
+            For personal growth
+          </p>
+          <h3 class="mt-3 font-Frauce text-2xl md:text-3xl text-angie-cream leading-snug">
+            One step a week. Not all five in a weekend.
+          </h3>
+          <ul class="mt-6 space-y-3 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Work through the 5 steps one at a time. Each one deserves a week of practice, not an afternoon of rushing.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Print the cheat sheet and put it where you will see it daily — bathroom mirror, journal cover, planner.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Want a coach to walk it with you? Angie's 1:1 A.L.I.G.N. coaching is built on this exact sequence.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ============================================================
+      FAQ
+  ============================================================ */}
+  <section class="text-angie-cream py-20 md:py-28">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-angie-rose/90 uppercase tracking-[0.25em] text-[11px] md:text-xs font-Grotesk-bold">
+          Common questions
+        </p>
+        <h2 class="mt-3 font-Frauce text-3xl md:text-5xl text-angie-cream leading-tight">
+          FAQ
+        </h2>
+      </div>
+
+      <div class="space-y-2">
+        {faqs.map((f) => (
+          <details class="group/bg border-b border-angie-cream/15 py-5">
+            <summary class="font-Frauce text-lg md:text-xl text-angie-cream cursor-pointer list-none flex justify-between items-center gap-4 [&::-webkit-details-marker]:hidden">
+              <span>{f.q}</span>
+              <span aria-hidden="true" class="shrink-0 text-angie-rose text-2xl leading-none transition-transform duration-300 group-open/bg:rotate-45">+</span>
+            </summary>
+            <p class="mt-4 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
+              {f.a}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ============================================================
+      FINAL CTA — single dark band, single button
+  ============================================================ */}
+  <section class="py-20 md:py-28 text-angie-cream text-center">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="font-Frauce text-3xl md:text-5xl leading-tight">
+        Ready to go deeper than the framework?
+      </h2>
+      <p class="mt-5 font-Grotesk text-base md:text-lg text-angie-cream/80 leading-relaxed">
+        The free A.L.I.G.N. guide is the starting point. A 30-minute discovery call is where the real fit-check happens.
+      </p>
+
+      <a
+        href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+        rel="noopener"
+        class="group/cta mt-10 inline-flex items-center gap-2 px-8 py-4 bg-angie-cream text-angie-noir font-Grotesk-bold rounded-full hover:bg-white transition-colors duration-300"
+      >
+        Book a Free Discovery Call
+        <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
+      </a>
+    </div>
+  </section>
+
+  {/* ============================================================
+      DOWNLOAD MODAL — same MailerLite pop-up look, in our code
+      Two states: "form" (email) and "success" (2 download buttons)
+  ============================================================ */}
+  <div
+    id="download-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="download-modal-title"
+    data-state="closed"
+    class="fixed inset-0 z-[1000] hidden items-center justify-center p-4 sm:p-6"
+  >
+    <div data-close-modal aria-hidden="true" class="absolute inset-0 bg-angie-noir/65 backdrop-blur-sm"></div>
+
+    <div class="relative w-full max-w-[560px] bg-white rounded-3xl shadow-2xl shadow-black/30 overflow-hidden">
+      <button
+        type="button"
+        data-close-modal
+        aria-label="Close"
+        class="absolute top-3 right-3 z-10 w-9 h-9 grid place-items-center rounded-full text-angie-noir/60 hover:text-angie-noir hover:bg-angie-cream transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="aspect-[560/300] w-full overflow-hidden bg-angie-cream">
+        <img
+          src={HERO_IMG}
+          alt="A flat lay of the A.L.I.G.N. framework guide on a warm wooden table"
+          width="560" height="300"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </div>
+
+      {/* STATE 1: form */}
+      <div id="panel-form" class="px-7 md:px-10 pt-7 pb-8 md:pt-9 md:pb-10 text-center" style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;">
+        <h2 id="download-modal-title" class="text-angie-noir text-2xl md:text-3xl font-semibold leading-snug">
+          Get the A.L.I.G.N. Framework — free 💗
+        </h2>
+        <p class="mt-3 text-angie-noir/70 text-sm md:text-base leading-relaxed">
+          Move from stuck to purpose with the same framework Angie's 1:1 clients use. Free PDF + editable guide, delivered instantly.
+        </p>
+
+        <form id="download-form" novalidate class="mt-7 space-y-3">
+          <label class="block">
+            <span class="sr-only">Email</span>
+            <input
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="Email"
+              class="w-full px-4 py-3 rounded-xl bg-white border border-angie-noir/20 text-angie-noir placeholder-angie-noir/40 text-sm focus:outline-none focus:ring-2 focus:ring-angie-burgundy/40 focus:border-angie-burgundy/60 transition"
+            />
+          </label>
+          <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden" />
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 active:scale-[0.99] transition-all duration-200 shadow-sm"
+          >
+            <span id="btn-label">Download</span>
+            <span id="btn-arrow" aria-hidden="true">→</span>
+          </button>
+          <p id="form-status" role="status" class="hidden text-xs text-red-600"></p>
+        </form>
+
+        <p class="mt-4 text-[11px] text-angie-noir/45">
+          No spam. One-click unsubscribe. Your email stays with Angie.
+        </p>
+      </div>
+
+      {/* STATE 2: success */}
+      <div id="panel-success" class="hidden px-7 md:px-10 pt-7 pb-8 md:pt-9 md:pb-10 text-center" style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;">
+        <h2 class="text-angie-noir text-2xl md:text-3xl font-semibold leading-snug">
+          You're in! 🎉
+        </h2>
+        <p class="mt-3 text-angie-noir/70 text-sm md:text-base leading-relaxed">
+          Your A.L.I.G.N. framework is ready. Pick the version that fits what you need.
+        </p>
+
+        <div class="mt-7 flex flex-col sm:flex-row gap-3">
+          <a href={PDF_URL} download class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 transition-colors">
+            Download PDF version
+          </a>
+          <a href={DOCX_URL} download class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 transition-colors">
+            Download Editable Version
+          </a>
+        </div>
+
+        <p class="mt-5 text-[11px] text-angie-noir/45">
+          Both versions are also in your inbox if you need them later.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(offerSchema)} />
+</MainLayout>
+
+<script is:inline>
+  (function () {
+    var modal = document.getElementById("download-modal");
+    if (!modal) return;
+    var formPanel = document.getElementById("panel-form");
+    var successPanel = document.getElementById("panel-success");
+    var form = document.getElementById("download-form");
+    var status = document.getElementById("form-status");
+    var submitBtn = document.getElementById("submit-btn");
+    var btnLabel = document.getElementById("btn-label");
+    var btnArrow = document.getElementById("btn-arrow");
+    var lastFocus = null;
+
+    function open() {
+      lastFocus = document.activeElement;
+      modal.setAttribute("data-state", "open");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+      var input = form && form.querySelector('input[type="email"]');
+      if (input) input.focus();
+    }
+
+    function close() {
+      modal.setAttribute("data-state", "closed");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.style.overflow = "";
+      if (formPanel) formPanel.classList.remove("hidden");
+      if (successPanel) successPanel.classList.add("hidden");
+      if (status) { status.classList.add("hidden"); status.textContent = ""; }
+      if (submitBtn) submitBtn.disabled = false;
+      if (btnLabel) btnLabel.textContent = "Download";
+      if (btnArrow) btnArrow.textContent = "→";
+      if (form) form.reset();
+      if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+    }
+
+    function showSuccess() {
+      if (formPanel) formPanel.classList.add("hidden");
+      if (successPanel) successPanel.classList.remove("hidden");
+    }
+
+    function setLoading(loading) {
+      if (!submitBtn || !btnLabel || !btnArrow) return;
+      submitBtn.disabled = loading;
+      btnLabel.textContent = loading ? "Sending…" : "Download";
+      btnArrow.textContent = loading ? "…" : "→";
+    }
+
+    function showError(msg) {
+      if (!status) return;
+      status.textContent = msg;
+      status.classList.remove("hidden");
+    }
+
+    function bindOpeners() {
+      var ids = ["open-modal", "open-modal-2"];
+      ids.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener("click", open);
+      });
+    }
+
+    function bindClosers() {
+      var closers = modal.querySelectorAll("[data-close-modal]");
+      for (var i = 0; i < closers.length; i++) {
+        closers[i].addEventListener("click", close);
+      }
+    }
+
+    function bindEscape() {
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.getAttribute("data-state") === "open") close();
+      });
+    }
+
+    function bindForm() {
+      if (!form) return;
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var data = new FormData(form);
+        var email = ((data.get("email") || "") + "").trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showError("Please enter a valid email address.");
+          return;
+        }
+        setLoading(true);
+        fetch("/api/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, company: data.get("company") })
+        })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+          .then(function (res) {
+            if (res.ok && res.j && res.j.ok) {
+              showSuccess();
+            } else {
+              showError((res.j && res.j.error) || "Something went wrong. Try again.");
+              setLoading(false);
+            }
+          })
+          .catch(function () {
+            showError("Network error. Check your connection and try again.");
+            setLoading(false);
+          });
+      });
+    }
+
+    bindOpeners();
+    bindClosers();
+    bindEscape();
+    bindForm();
+
+    // Re-bind after Astro view transitions
+    document.addEventListener("astro:page-load", function () {
+      modal = document.getElementById("download-modal");
+      if (!modal) return;
+      formPanel = document.getElementById("panel-form");
+      successPanel = document.getElementById("panel-success");
+      form = document.getElementById("download-form");
+      status = document.getElementById("form-status");
+      submitBtn = document.getElementById("submit-btn");
+      btnLabel = document.getElementById("btn-label");
+      btnArrow = document.getElementById("btn-arrow");
+      bindOpeners();
+      bindClosers();
+      bindForm();
+    });
+  })();
+</script>
