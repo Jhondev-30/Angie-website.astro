@@ -22,3 +22,7 @@ SELECT
 FROM subscribers
 GROUP BY DATE(created_at)
 ORDER BY day DESC;
+
+-- GRANT: necesario para que la service_role key pueda insertar/seleccionar.
+-- Sin esto, Supabase devuelve 403 "permission denied for table subscribers".
+GRANT SELECT, INSERT ON public.subscribers TO service_role;
