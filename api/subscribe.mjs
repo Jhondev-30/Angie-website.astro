@@ -1,7 +1,6 @@
 // =============================================================================
 // api/subscribe.mjs — Vercel Serverless Function
 // Captures email from the /resources/ form and saves it to Supabase.
-// Returns { downloadUrl } so the browser can trigger the PDF/DOCX download.
 // =============================================================================
 //
 // Environment variables required (set in Vercel → Settings → Environment):
@@ -9,9 +8,9 @@
 //   - SUPABASE_SERVICE_ROLE_KEY
 //
 // Request:  POST { email: string }
-// Response: 200 { ok: true, downloadUrl: string }
+// Response: 200 { ok: true, downloadUrl: string, alsoAvailable: string }
 //           400 { ok: false, error: "Invalid email" }
-//           500 { ok: false, error: "Server misconfigured" }
+//           500 { ok: false, error: "Server misconfigured" | "Database error" }
 // =============================================================================
 
 const PDF_URL  = "/pdfs/ALIGN_Free_Summit_PDF.pdf";
@@ -23,6 +22,12 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
+
+function maskKey(k) {
+  if (!k) return "<missing>";
+  if (k.length < 12) return "***";
+  return k.slice(0, 8) + "..." + k.slice(-4);
+}
 
 export default async function handler(req, res) {
   // CORS preflight
@@ -42,42 +47,71 @@ export default async function handler(req, res) {
   }
   body = body || {};
 
-  // Honeypot anti-spam (bots fill this, humans don't)
+  // Honeypot anti-spam (bots fill this, humans don't).
+  // Pretend success without touching Supabase.
   if (body.company) {
-    // Pretend success and skip everything
+    console.log("[subscribe] honeypot triggered, skipping DB write");
     res.writeHead(200, { ...corsHeaders, "Content-Type": "application/json" });
-    return res.end(JSON.stringify({ ok: true, downloadUrl: PDF_URL }));
+    return res.end(JSON.stringify({ ok: true, downloadUrl: PDF_URL, alsoAvailable: DOCX_URL, _honeypot: true }));
   }
 
   const email = (body.email || "").trim().toLowerCase();
   if (!EMAIL_RE.test(email)) {
+    console.log("[subscribe] invalid email format:", JSON.stringify(email));
     res.writeHead(400, { ...corsHeaders, "Content-Type": "application/json" });
     return res.end(JSON.stringify({ ok: false, error: "Invalid email" }));
   }
 
-  const supabaseUrl  = process.env.SUPABASE_URL;
-  const supabaseKey  = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  console.log("[subscribe] env check", {
+    SUPABASE_URL: supabaseUrl ? supabaseUrl : "<missing>",
+    SUPABASE_SERVICE_ROLE_KEY: maskKey(supabaseKey),
+    email,
+  });
+
   if (!supabaseUrl || !supabaseKey) {
+    console.error("[subscribe] env vars missing");
     res.writeHead(500, { ...corsHeaders, "Content-Type": "application/json" });
     return res.end(JSON.stringify({ ok: false, error: "Server misconfigured" }));
   }
 
   // Upsert: insert email, ignore if already exists.
-  // Supabase PostgREST returns 201 on insert, 409 / 200 with empty rows on
-  // conflict. We use `Prefer: resolution=ignore-duplicates` to silently skip.
-  const upsertRes = await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "apikey": supabaseKey,
-      "Authorization": `Bearer ${supabaseKey}`,
-      "Prefer": "resolution=ignore-duplicates,return=minimal",
-    },
-    body: JSON.stringify([{ email }]),
+  // Supabase returns 201 on insert, 200 on no-op upsert, 409 / 422 on conflict.
+  // We use Prefer: resolution=ignore-duplicates to silently skip conflicts.
+  let upsertRes;
+  try {
+    upsertRes = await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": supabaseKey,
+        "Authorization": `Bearer ${supabaseKey}`,
+        "Prefer": "resolution=ignore-duplicates,return=minimal",
+      },
+      body: JSON.stringify([{ email }]),
+    });
+  } catch (err) {
+    console.error("[subscribe] fetch to Supabase threw:", err.message);
+    res.writeHead(500, { ...corsHeaders, "Content-Type": "application/json" });
+    return res.end(JSON.stringify({ ok: false, error: "Database unreachable" }));
+  }
+
+  console.log("[subscribe] supabase response", {
+    status: upsertRes.status,
+    ok: upsertRes.ok,
+    email,
   });
 
-  // Return success either way — user shouldn't be blocked by a re-submit.
-  // The PDF URL is the default. The DOCX is also available in the success modal.
+  if (!upsertRes.ok) {
+    let body = "";
+    try { body = await upsertRes.text(); } catch {}
+    console.error("[subscribe] supabase error body:", body);
+    res.writeHead(500, { ...corsHeaders, "Content-Type": "application/json" });
+    return res.end(JSON.stringify({ ok: false, error: "Database error" }));
+  }
+
   res.writeHead(200, { ...corsHeaders, "Content-Type": "application/json" });
   return res.end(JSON.stringify({
     ok: true,
