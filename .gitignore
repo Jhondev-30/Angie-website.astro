@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # debug/dev scripts (not part of the site, removed from tracking)
 scripts/
+
+# Playwright MCP artifacts
+.playwright-mcp/
