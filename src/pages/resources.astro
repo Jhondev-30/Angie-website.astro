@@ -526,18 +526,18 @@ const offerSchema = {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: email, company: data.get("company") })
         })
-          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
-          .then(function (res) {
-            if (res.ok && res.j && res.j.ok) {
-              showSuccess();
-            } else {
-              showError((res.j && res.j.error) || "Something went wrong. Try again.");
+          .then(function (r) {
+            // Only an invalid email blocks the download. Server/DB problems
+            // are handled silently so the user always gets the file.
+            if (r.status === 400) {
+              showError("Please enter a valid email address.");
               setLoading(false);
+              return;
             }
+            showSuccess();
           })
           .catch(function () {
-            showError("Network error. Check your connection and try again.");
-            setLoading(false);
+            showSuccess();
           });
       });
     }
