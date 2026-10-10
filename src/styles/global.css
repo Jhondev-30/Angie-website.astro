@@ -229,3 +229,12 @@
     /* Readable measure for long copy */
     .measure { max-width: 62ch; }
 }
+
+/* Browser surfaces themed from the palette (selection, caret, form accents,
+   scrollbar) so nothing ships with a default blue. */
+::selection { background: var(--color-angie-rose); color: var(--color-angie-noir); }
+:root {
+    accent-color: var(--color-angie-burgundy);
+    caret-color: var(--color-angie-burgundy);
+    scrollbar-color: var(--color-angie-burgundy) var(--color-angie-noir);
+}

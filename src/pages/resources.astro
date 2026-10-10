@@ -351,7 +351,7 @@ const howSteps = [
           <p id="form-status" role="status" class="hidden mt-2 text-sm font-Grotesk-bold text-angie-burgundy"></p>
           <button type="submit" id="submit-btn" class="btn btn-burgundy w-full mt-4 disabled:opacity-70">
             <span id="btn-label">Download</span>
-            <span id="btn-arrow" aria-hidden="true">→</span>
+            <span id="btn-arrow" aria-hidden="true"></span>
           </button>
         </form>
 
@@ -422,7 +422,7 @@ const howSteps = [
       if (status) { status.classList.add("hidden"); status.textContent = ""; }
       if (submitBtn) submitBtn.disabled = false;
       if (btnLabel) btnLabel.textContent = "Download";
-      if (btnArrow) btnArrow.textContent = "→";
+      if (btnArrow) btnArrow.textContent = "";
       if (form) {
         form.reset();
         var f = form.querySelector('input[type="email"]');
@@ -445,7 +445,7 @@ const howSteps = [
       if (!submitBtn || !btnLabel || !btnArrow) return;
       submitBtn.disabled = loading;
       btnLabel.textContent = loading ? "Sending…" : "Download";
-      btnArrow.textContent = loading ? "…" : "→";
+      btnArrow.textContent = loading ? "…" : "";
     }
 
     function showError(msg) {
