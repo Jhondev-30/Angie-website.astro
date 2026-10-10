@@ -153,3 +153,22 @@ Reemplaza `public/og/og-default.jpg` (1200×630, JPG — **no WebP**, WhatsApp n
 - Las modificaciones de páginas con cambios visuales deberían pasar por build + smoke test en `localhost:4321` antes de push.
 - Si se agregan caracteres nuevos al sitio (otro idioma, emojis, símbolos), hay que regenerar el subset de fuentes. El script vive en `tools/subset-fonts.py` (no commiteado por defecto — recrearlo con `pyftsubset` cuando se necesite).
 - El sitio es 100% bilingüe en metadata (`og:locale:alternate=es_ES`) pero el contenido es solo inglés. La versión en español está en el roadmap.
+
+## Variables de entorno (Vercel → Settings → Environment Variables)
+
+| Variable | Requerida | Para qué sirve |
+|---|---|---|
+| `SUPABASE_URL` | Sí | Guarda los emails del formulario de `/resources/` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Sí | Clave `service_role` (nunca la `anon`) |
+| `RESEND_API_KEY` | Recomendada | Respaldo: te envía el email del lead si Supabase no responde |
+| `LEAD_NOTIFY_EMAIL` | Con Resend | Dirección que recibe esos avisos |
+| `RESEND_FROM` | Opcional | Remitente verificado; por defecto `onboarding@resend.dev` |
+
+Si Supabase falla (proyecto pausado, timeout, 5xx), `/api/subscribe` responde 200 igualmente
+y el visitante descarga el PDF. Con Resend configurado, el lead llega a tu correo.
+
+## Tests
+
+```bash
+pnpm test   # node:test sobre api/subscribe.mjs
+```

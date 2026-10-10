@@ -25,3 +25,11 @@ pnpm-debug.log*
 
 # debug/dev scripts (not part of the site, removed from tracking)
 scripts/
+
+# Playwright MCP artifacts
+.playwright-mcp/
+
+# Local tool installs (ui-ux-pro-max, impeccable) and Playwright artifacts
+.claude/skills/
+.claude/agents/
+.claude/settings.local.json

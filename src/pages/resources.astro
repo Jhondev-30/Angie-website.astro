@@ -4,19 +4,16 @@ import MainLayout from "../layout/MainLayout.astro";
 // =============================================================================
 // /resources/ — Free A.L.I.G.N. Framework downloads
 //
-// Visual rules:
-// - Editorial luxury: oversized type, hairlines, magazine-style numbering,
-//   asymmetric layout on the "two ways in" section.
-// - Each section is its own page: full-bleed (w-full lg:w-screen) with a
-//   distinct solid background (noir / wine / zion) so the page reads like
-//   a stack of editorial spreads, not one continuous gradient.
-// - Content stays at max-w-5xl inside each section.
-// - All IDs and form wiring preserved for the modal + /api/subscribe.
+// Layout: photo-led hero, hairline lists for the five steps, two asymmetric
+// columns for host / seeker, plain-text process, FAQ rows, solid CTA band.
+// All IDs and form wiring preserved for the modal + /api/subscribe.
 // =============================================================================
 
 const PDF_URL  = "/pdfs/ALIGN_Free_Summit_PDF.pdf";
 const DOCX_URL = "/pdfs/ALIGN_Free_Summit_Guide_EDITABLE...docx";
 const HERO_IMG = "/images/popups/popup-mockup-1-wooden.webp";
+const HOST_IMG = "/images/popups/popup-mockup-2-marble.webp";
+const SEEKER_IMG = "/images/popups/popup-mockup-3-darkwood.webp";
 
 const steps = [
   { roman: "I",   letter: "A", name: "Awareness",          blurb: "Recognizing what is keeping you stuck." },
@@ -71,6 +68,21 @@ const offerSchema = {
   url: new URL("/resources/", SITE_URL).toString(),
   seller: { "@type": "Person", name: "Angie Pichardo", url: new URL("/aboutme", SITE_URL).toString() },
 };
+
+const hostPoints = [
+  { lead: "The PDF", text: "is a complete, print-ready reflection guide with built-in journal space. Print and hand it out at your event, retreat, or small group with no setup." },
+  { lead: "The DOCX", text: "is the editable version: swap in your church or ministry logo, change the colors, and adapt the language for your community." },
+];
+const seekerPoints = [
+  { lead: "PDF:", text: "print-ready, fixed layout. Write in the margins and journal spaces by hand." },
+  { lead: "DOCX:", text: "fully editable. Type your answers, add your name, your church, your prayer routine." },
+];
+
+const howSteps = [
+  { t: "Enter your email", d: "One field. No account, no password." },
+  { t: "Choose your format", d: "Print-ready PDF or the editable DOCX. Take both if you like." },
+  { t: "Walk the sequence", d: "Start with A. Take one letter per week, or all five in a sitting." },
+];
 ---
 
 <MainLayout
@@ -90,243 +102,190 @@ const offerSchema = {
   ]}
 >
 
-  {/* ============================================================
-      HERO — editorial opener: top rule with "Issue 01" mark,
-      then A.L.I.G.N. as the visual hook.
-  ============================================================ */}
-  <section class="relative isolate overflow-hidden text-angie-cream w-full lg:w-screen bg-angie-noir">
-    <div aria-hidden="true" class="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-angie-rose/30 blur-3xl pointer-events-none"></div>
-    <div aria-hidden="true" class="absolute -bottom-40 -left-24 w-[32rem] h-[32rem] rounded-full bg-angie-wine/40 blur-3xl pointer-events-none"></div>
+  {/* HERO — copy 5/12, product photo 7/12, one primary CTA */}
+  <section class="relative isolate overflow-hidden w-full bg-gradient-nocturne text-angie-cream">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pt-28 md:pt-40 pb-14 md:pb-24 grid md:grid-cols-12 gap-x-12 gap-y-10 items-center">
+      <div class="md:col-span-5">
+        <h1 class="font-Frauce font-bold leading-[1] text-[clamp(2.5rem,6vw,4.75rem)] tracking-tight text-balance animate-rise">
+          Move from stuck to purpose.
+        </h1>
 
-    <div class="relative max-w-5xl mx-auto px-6 pt-27 md:pt-44 pb-24 md:pb-32 text-center">
-      {/* Editorial top mark: hairline + issue number + byline */}
-  
-
-      <h1 class="mt-10 md:mt-14 font-Frauce italic font-bold leading-[0.85] text-[clamp(5rem,16vw,11rem)] tracking-tight motion-safe:animate-fade-in-up motion-safe:animate-delay-300 motion-safe:animate-duration-1000 motion-safe:animate-bezier-quint-out">
-        A.L.I.G.N.
-      </h1>
-
-      <p class="mt-8 max-w-2xl mx-auto text-angie-cream/90 text-lg md:text-2xl font-Grotesk leading-snug motion-safe:animate-fade-in-up motion-safe:animate-delay-500">
-        A 5-step framework for moving from stuck to purpose.
-      </p>
-
-      <p class="mt-4 max-w-xl mx-auto text-angie-cream/65 text-sm md:text-base font-Grotesk italic leading-relaxed motion-safe:animate-fade-in-up motion-safe:animate-delay-700">
-        What Angie uses in 1:1 work and on every keynote stage. Yours free, in two formats.
-      </p>
-
-      <div class="mt-12 flex flex-col items-center gap-4">
-        <button
-          type="button"
-          id="open-modal"
-          class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold text-base shadow-xl shadow-black/20 hover:bg-white hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 motion-safe:animate-fade-in-up motion-safe:animate-delay-900"
-        >
-          <span>Send me the field guide</span>
-          <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
-        </button>
-
-        <p class="text-xs text-angie-cream/55 font-Grotesk italic motion-safe:animate-fade-in-up motion-safe:animate-delay-1000">
-          No drip. No spam. One download, then we let you be.
+        <p class="mt-6 measure text-angie-cream/90 text-lg md:text-xl leading-relaxed animate-rise" style="animation-delay:120ms">
+          The A.L.I.G.N. framework: the 5-step method Angie uses in 1:1 coaching and on every keynote stage. Yours free, in two formats.
         </p>
+
+        <div class="mt-8 animate-rise" style="animation-delay:240ms">
+          <button type="button" id="open-modal" class="btn btn-glass hover:animate-tada">
+            Send me the field guide
+          </button>
+          <p class="mt-4 text-sm text-angie-cream/80 max-w-sm">
+            We only ask for your email so we can send you the download links.
+          </p>
+        </div>
+      </div>
+
+      <div class="md:col-span-7 animate-zoom-in" style="animation-delay:160ms">
+        <img
+          src={HERO_IMG}
+          alt="The A.L.I.G.N. framework field guide laid out on a warm wooden table"
+          width="1120"
+          height="630"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="w-full aspect-[16/10] object-cover rounded-lg"
+        />
       </div>
     </div>
   </section>
 
-  {/* ============================================================
-      THE 5 STEPS — typographic sequence with Roman numerals
-      on top of the existing A.L.I.G.N. letters.
-  ============================================================ */}
-  <section class="text-angie-cream py-24 md:py-32 w-full lg:w-screen bg-angie-wine">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center max-w-2xl mx-auto motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-      
-        <h2 class="mt-4 font-Frauce text-3xl md:text-5xl text-angie-cream leading-tight">
-          Five movements, walked in order.
-        </h2>
-        <p class="mt-4 text-angie-cream/75 font-Grotesk text-base md:text-lg leading-relaxed">
-          Skim the names now. Then work them one at a time later — the order is the point.
-        </p>
+  {/* THE FIVE STEPS — narrow heading, hairline rows */}
+  <section class="relative isolate overflow-hidden w-full bg-[linear-gradient(160deg,#FFF5FA_0%,#FBC2EB_55%,#E8A0B8_100%)] text-angie-noir">
+    <div class="max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-16 md:pb-20 grid md:grid-cols-12 gap-x-12 gap-y-8">
+      <div class="md:col-span-4">
+        <h2 class="font-Frauce font-bold text-[clamp(2rem,4vw,3rem)] leading-[1.08] text-balance">The five steps of the A.L.I.G.N. framework</h2>
       </div>
 
-      {/* Typographic sequence. Hairline rule across the top on md+. */}
-      <div class="relative mt-20">
-        <div aria-hidden="true" class="hidden md:block absolute top-7 left-0 right-0 h-px bg-angie-cream/20"></div>
-
-        <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10 md:gap-4">
-          {steps.map((s, i) => (
-            <li class:list={[
-              "text-center relative motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry",
-              [
-                "",
-                "motion-safe:animate-delay-100",
-                "motion-safe:animate-delay-200",
-                "motion-safe:animate-delay-300",
-                "motion-safe:animate-delay-400",
-              ][i],
-            ]}>
-              <div class="relative mx-auto w-14 h-14 grid place-items-center bg-transparent">
-                <span class="font-Frauce italic font-bold text-6xl md:text-7xl text-angie-cream leading-none">
-                  {s.letter}
-                </span>
-              </div>
-              <h3 class="mt-2 font-Frauce text-xl md:text-2xl text-angie-cream leading-snug">
-                {s.name}
-              </h3>
-              <p class="mt-2 text-angie-cream/65 font-Grotesk text-sm leading-relaxed px-2">
-                {s.blurb}
-              </p>
+      <div class="md:col-span-8">
+        <ol class="card-glass-light px-6">
+          {steps.map((s) => (
+            <li class="grid sm:grid-cols-12 gap-x-6 gap-y-1 py-5 md:py-6 border-b border-angie-noir/15">
+              <h3 class="sm:col-span-5 font-Frauce font-bold text-2xl leading-snug">{s.name}</h3>
+              <p class="sm:col-span-7 text-angie-noir/80 text-lg leading-relaxed">{s.blurb}</p>
             </li>
           ))}
         </ol>
-      </div>
 
-      <div class="mt-16 text-center motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-        <button
-          type="button"
-          id="open-modal-2"
-          class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-angie-cream/30 text-angie-cream font-Grotesk-bold text-sm hover:bg-angie-cream/10 transition-colors duration-300"
-        >
+        <button type="button" id="open-modal-2" class="btn btn-glass-dark mt-9">
           Send me all five
-          <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
         </button>
       </div>
     </div>
   </section>
 
-  {/* ============================================================
-      TWO WAYS IN — asymmetric 7/5 grid with a left hairline
-      on the second column. Replaces the old "How to use it".
-  ============================================================ */}
-  <section class="text-angie-cream py-20 md:py-28 w-full lg:w-screen bg-angie-noir">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="flex items-end justify-between gap-6 flex-wrap motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-        <div class="max-w-2xl">
-          <p class="text-angie-rose/90 uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">
-            Two ways in
-          </p>
-          <h2 class="mt-3 font-Frauce text-3xl md:text-5xl text-angie-cream leading-[1.05]">
-            A guide for the host.<br/>
-            <span class="text-angie-cream/70">A guide for the seeker.</span>
-          </h2>
-        </div>
-        <p class="text-angie-cream/70 font-Grotesk italic text-sm md:text-base max-w-sm leading-relaxed">
-          The same five movements — used very differently depending on whether you’re standing in front of a room, or sitting alone with your journal.
+  {/* TWO WAYS IN — host (wide, marble) / seeker (narrow, offset, dark wood) */}
+  <section class="relative isolate overflow-hidden w-full bg-gradient-nocturne text-angie-cream">
+    <div class="max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-20 md:pb-28">
+      <div class="max-w-3xl">
+        <h2 class="font-Frauce font-bold text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.05] text-balance">
+          A guide for the host. A guide for the seeker.
+        </h2>
+        <p class="mt-5 measure text-angie-cream/90 text-lg leading-relaxed">
+          The same five movements, used very differently depending on whether you're standing in front of a room or sitting alone with your journal.
         </p>
       </div>
 
-      <div class="mt-14 grid md:grid-cols-12 md:gap-12 lg:gap-16">
-        <div class="md:col-span-7 motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-          <p class="text-angie-rose/90 uppercase tracking-[0.25em] text-[10px] md:text-xs font-Grotesk-bold motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-100">
-            01 &nbsp;·&nbsp; For the host
-          </p>
-          <h3 class="mt-3 font-Frauce text-2xl md:text-3xl text-angie-cream leading-snug motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-200">
-            Print the PDF as-is. Customize the DOCX.
-          </h3>
-          <ul class="mt-6 space-y-3 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-300"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span><strong class="text-angie-cream font-Grotesk-bold">The PDF</strong> is a complete, print-ready reflection guide with built-in journal space — print and hand it out at your event, retreat, or small group with no setup required.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-400"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span><strong class="text-angie-cream font-Grotesk-bold">The DOCX</strong> is the editable version — swap in your church or ministry logo, change the colors, and adapt the language for your community. Built to be rebranded.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-500"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Use the built-in reflection questions as small-group prompts — each of the 5 letters has its own set, plus three ready-to-go practices: the <em>Flip It Practice</em>, the <em>3 &amp; 1 Practice</em>, and a <em>One-week challenge</em>.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-700"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Pick the format that matches your event. <strong class="text-angie-cream font-Grotesk-bold">PDF</strong> = fast, no setup. <strong class="text-angie-cream font-Grotesk-bold">DOCX</strong> = you’re putting your brand on it.</span></li>
+      <div class="mt-12 md:mt-16 grid md:grid-cols-12 gap-x-12 gap-y-14">
+        <article class="md:col-span-7 timeline-view animate-range-entry animate-rise">
+          <img
+            src={HOST_IMG}
+            alt="A blank embossed guide on a marble desk with a pen, glasses and linen"
+            width="1120"
+            height="630"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[16/10] object-cover object-[50%_40%] rounded-lg"
+          />
+          <h3 class="mt-7 font-Frauce font-bold text-3xl">For the host</h3>
+          <p class="mt-2 font-Frauce text-xl text-angie-cream/90">Print the PDF as-is. Customize the DOCX.</p>
+          <ul class="mt-6 card-glass px-5">
+            {hostPoints.map((p) => (
+              <li class="py-4 border-b border-angie-cream/15 text-angie-cream/90 text-lg leading-relaxed">
+                <strong class="text-angie-cream">{p.lead}</strong> {p.text}
+              </li>
+            ))}
+            <li class="py-4 border-b border-angie-cream/15 text-angie-cream/90 text-lg leading-relaxed">
+              Use the built-in reflection questions as small-group prompts, plus three ready-to-go practices: <em>Flip It</em>, <em>3 &amp; 1</em>, and a <em>One-week challenge</em>.
+            </li>
           </ul>
-        </div>
+        </article>
 
-        <div class="mt-10 md:mt-0 md:col-span-5 md:pl-10 md:border-l md:border-angie-cream/15 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-200">
-          <p class="text-angie-rose/90 uppercase tracking-[0.25em] text-[10px] md:text-xs font-Grotesk-bold motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-300">
-            02 &nbsp;·&nbsp; For the seeker
-          </p>
-          <h3 class="mt-3 font-Frauce text-2xl md:text-3xl text-angie-cream leading-snug motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-400">
-            Pick your format. Take your time.
-          </h3>
-          <ul class="mt-6 space-y-3 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-500"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span><strong class="text-angie-cream font-Grotesk-bold">PDF</strong> — print-ready, fixed layout. Print it, then write in the margins and the journal spaces by hand.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-700"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span><strong class="text-angie-cream font-Grotesk-bold">DOCX</strong> — fully editable. Type your answers directly, add your name, your church, your prayer routine — anything that makes it yours.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-900"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Don’t rush. The guide itself says: “Transformation does not require every answer today.” One letter per week if that works — come back to the sections that challenge you.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-1000"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Try the practices in order: <em>Flip It</em> (rewrite one old thought), then <em>3 &amp; 1</em> (3 gratitudes + 1 growth step), then the <em>One-week challenge</em>.</span></li>
+        <article class="md:col-span-5 md:mt-28 timeline-view animate-range-entry animate-rise">
+          <img
+            src={SEEKER_IMG}
+            alt="A burgundy guide on dark wood beside a candle, olive leaves and an old key"
+            width="1120"
+            height="630"
+            loading="lazy"
+            decoding="async"
+            class="w-full aspect-[4/3] object-cover object-[50%_45%] rounded-lg"
+          />
+          <h3 class="mt-7 font-Frauce font-bold text-3xl">For the seeker</h3>
+          <p class="mt-2 font-Frauce text-xl text-angie-cream/90">Pick your format. Take your time.</p>
+          <ul class="mt-6 card-glass px-5">
+            {seekerPoints.map((p) => (
+              <li class="py-4 border-b border-angie-cream/15 text-angie-cream/90 text-lg leading-relaxed">
+                <strong class="text-angie-cream">{p.lead}</strong> {p.text}
+              </li>
+            ))}
+            <li class="py-4 border-b border-angie-cream/15 text-angie-cream/90 text-lg leading-relaxed">
+              The guide itself says: “Transformation does not require every answer today.” One letter per week if that works.
+            </li>
+            <li class="py-4 border-b border-angie-cream/15 text-angie-cream/90 text-lg leading-relaxed">
+              Try the practices in order: <em>Flip It</em> (rewrite one old thought), then <em>3 &amp; 1</em> (3 gratitudes + 1 growth step), then the <em>One-week challenge</em>.
+            </li>
           </ul>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
-  {/* ============================================================
-      FAQ — re-titled to drop the "Common questions" AI-tell.
-      Each item gets a Q.01 / Q.02 index for editorial feel.
-  ============================================================ */}
-  <section class="text-angie-cream py-20 md:py-28 w-full lg:w-screen bg-angie-wine">
-    <div class="max-w-3xl mx-auto px-6">
-      <div class="mb-12 motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-        <p class="text-angie-rose/90 uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">
-          Before you download
-        </p>
-        <h2 class="mt-3 font-Frauce text-3xl md:text-5xl text-angie-cream leading-tight">
-          Questions people ask first.
-        </h2>
-        <p class="mt-3 text-angie-cream/70 font-Grotesk italic text-sm md:text-base">
-          The honest answers, before you give us your email.
-        </p>
-      </div>
+  {/* HOW TO GET IT + FAQ — one cream spread */}
+  <section class="relative isolate overflow-hidden w-full bg-[linear-gradient(160deg,#FFF5FA_0%,#FBC2EB_55%,#E8A0B8_100%)] text-angie-noir">
+    <div class="max-w-6xl mx-auto px-6 pt-14 md:pt-20 pb-12 md:pb-16">
+      <h2 class="font-Frauce font-bold text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1]">How to get the guide</h2>
+      <ol class="mt-8 grid md:grid-cols-3 gap-4 md:gap-6">
+        {howSteps.map((s, i) => (
+          <li class="card-glass-light p-6">
+            <p class="font-Grotesk-bold text-lg"><span class="text-angie-burgundy tabular-nums">{i + 1}.</span> {s.t}</p>
+            <p class="mt-1 text-angie-noir/80 leading-relaxed">{s.d}</p>
+          </li>
+        ))}
+      </ol>
+      <button type="button" id="open-modal-3" class="btn btn-glass-dark mt-6">
+        Get the free guide
+      </button>
+    </div>
 
-      <div class="space-y-1">
-        {faqs.map((f, i) => (
-          <details class:list={[
-            "group/bg border-b border-angie-cream/15 py-5 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry",
-            [
-              "",
-              "motion-safe:animate-delay-100",
-              "motion-safe:animate-delay-200",
-              "motion-safe:animate-delay-300",
-              "motion-safe:animate-delay-400",
-            ][i],
-          ]}>
-            <summary class="font-Frauce text-lg md:text-xl text-angie-cream cursor-pointer list-none flex justify-between items-center gap-4 [&::-webkit-details-marker]:hidden">
-              <span class="flex items-baseline gap-3 md:gap-4">
-                <span class="text-angie-rose/80 text-[10px] md:text-xs font-Grotesk-bold tracking-[0.25em] shrink-0 mt-1">
-                  Q.{String(i + 1).padStart(2, "0")}
-                </span>
-                <span>{f.q}</span>
-              </span>
-              <span aria-hidden="true" class="shrink-0 text-angie-rose text-2xl leading-none transition-transform duration-300 group-open/bg:rotate-45">+</span>
+    <div class="max-w-3xl mx-auto px-6 pt-8 md:pt-12 pb-16 md:pb-24">
+      <h2 class="font-Frauce font-bold text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1]">Before you download</h2>
+      <div class="mt-8 card-glass-light px-6">
+        {faqs.map((f) => (
+          <details class="group/faq border-b border-angie-noir/15">
+            <summary class="cursor-pointer list-none flex justify-between items-center gap-4 min-h-14 py-4 font-Frauce font-bold text-lg md:text-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-angie-burgundy [&::-webkit-details-marker]:hidden">
+              <span>{f.q}</span>
+              <svg aria-hidden="true" class="shrink-0 w-5 h-5 text-angie-burgundy transition-transform duration-300 group-open/faq:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             </summary>
-            <p class="mt-4 md:ml-12 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
-              {f.a}
-            </p>
+            <p class="pb-5 pr-9 measure text-angie-noir/80 leading-relaxed">{f.a}</p>
           </details>
         ))}
       </div>
     </div>
   </section>
 
-  {/* ============================================================
-      FINAL CTA — drop the "Ready to go deeper" AI-tell.
-      Hairline + kicker + conversational copy.
-  ============================================================ */}
-  <section class="py-20 md:py-28 text-angie-cream text-center w-full lg:w-screen bg-gradient-zion">
-    <div class="max-w-3xl mx-auto px-6">
-      <div aria-hidden="true" class="flex items-center justify-center gap-4 mb-8 motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in">
-        <span class="h-px w-12 md:w-16 bg-angie-cream/30"></span>
-        <span class="text-angie-rose/85 text-[10px] md:text-xs uppercase tracking-[0.35em] font-Grotesk-bold">
-          If you want a guide, not just a guide
-        </span>
-        <span class="h-px w-12 md:w-16 bg-angie-cream/30"></span>
+  {/* FINAL CTA — solid burgundy plane, left-aligned */}
+  <section class="w-full bg-gradient-zion text-angie-cream">
+    <div class="max-w-6xl mx-auto px-6 py-14 md:py-20 grid md:grid-cols-12 gap-x-12 gap-y-8 items-end">
+      <div class="md:col-span-8">
+        <h2 class="font-Frauce font-bold text-[clamp(2rem,4.6vw,3.5rem)] leading-[1.05] text-balance">
+          Want someone to walk the sequence with you?
+        </h2>
+        <p class="mt-5 measure text-angie-cream/90 text-lg leading-relaxed">
+          If the framework resonated, the free 30-minute discovery call is the next step.
+        </p>
       </div>
-
-      <h2 class="font-Frauce text-3xl md:text-5xl leading-[1.1] motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-        The free field guide is the start.<br class="hidden md:block"/>
-        <span class="text-angie-cream/85">The 30-minute call is where the fit-check happens.</span>
-      </h2>
-      <p class="mt-5 font-Grotesk text-base md:text-lg text-angie-cream/80 leading-relaxed max-w-xl mx-auto motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up motion-safe:animate-delay-200">
-        If the framework resonated and you want someone to walk the sequence with you, the discovery call is the next honest move.
-      </p>
-
-      <a
-        href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
-        rel="noopener"
-        class="group/cta mt-10 inline-flex items-center gap-2 px-8 py-4 bg-angie-cream text-angie-noir font-Grotesk-bold rounded-full hover:bg-white transition-colors duration-300 motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up motion-safe:animate-delay-500"
-      >
-        Book a Free Discovery Call
-        <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
-      </a>
+      <div class="md:col-span-4 md:text-right">
+        <a
+          href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+          rel="noopener"
+          class="btn btn-glass-dark"
+        >
+          Book a Free Discovery Call
+        </a>
+      </div>
     </div>
   </section>
+
 
   {/* ============================================================
       DOWNLOAD MODAL — same MailerLite pop-up look, in our code
@@ -341,16 +300,16 @@ const offerSchema = {
     data-state="closed"
     class="fixed inset-0 z-[1000] hidden items-center justify-center p-4 sm:p-6"
   >
-    <div data-close-modal aria-hidden="true" class="absolute inset-0 bg-angie-noir/65 backdrop-blur-sm"></div>
+    <div data-close-modal aria-hidden="true" class="absolute inset-0 bg-angie-noir/75"></div>
 
-    <div class="relative w-full max-w-[560px] bg-white rounded-3xl shadow-2xl shadow-black/30 overflow-hidden">
+    <div class="relative w-full max-w-[560px] max-h-[calc(100dvh-2rem)] overflow-y-auto bg-angie-cream text-angie-noir rounded-lg shadow-2xl shadow-black/40">
       <button
         type="button"
         data-close-modal
         aria-label="Close"
-        class="absolute top-3 right-3 z-10 w-9 h-9 grid place-items-center rounded-full text-angie-noir/60 hover:text-angie-noir hover:bg-angie-cream transition-colors"
+        class="absolute top-2 right-2 z-10 w-11 h-11 grid place-items-center rounded-md bg-angie-cream/90 text-angie-noir hover:bg-white focus-visible:outline-2 focus-visible:outline-angie-burgundy transition-colors"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -362,68 +321,65 @@ const offerSchema = {
           alt="A flat lay of the A.L.I.G.N. framework guide on a warm wooden table"
           width="560" height="300"
           class="w-full h-full object-cover"
-          loading="eager"
+          loading="lazy"
         />
       </div>
 
       {/* STATE 1: form */}
-      <div id="panel-form" class="px-7 md:px-10 pt-7 pb-8 md:pt-9 md:pb-10 text-center" style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;">
-        <h2 id="download-modal-title" class="text-angie-noir text-2xl md:text-3xl font-semibold leading-snug">
-          Get the A.L.I.G.N. Framework — free 💗
+      <div id="panel-form" class="px-6 md:px-10 pt-7 pb-8 md:pt-9 md:pb-10">
+        <h2 id="download-modal-title" class="font-Frauce font-bold text-angie-noir text-2xl md:text-3xl leading-snug">
+          Get the A.L.I.G.N. Framework, free
         </h2>
-        <p class="mt-3 text-angie-noir/70 text-sm md:text-base leading-relaxed">
+        <p class="mt-3 text-angie-noir/80 leading-relaxed">
           Move from stuck to purpose with the same framework Angie's 1:1 clients use. Free PDF + editable guide, delivered instantly.
         </p>
 
-        <form id="download-form" novalidate class="mt-7 space-y-3">
+        <form id="download-form" novalidate class="mt-6">
           <label class="block">
-            <span class="sr-only">Email</span>
+            <span class="block font-Grotesk-bold text-sm">Email</span>
             <input
               type="email"
               name="email"
               required
               autocomplete="email"
-              placeholder="Email"
-              class="w-full px-4 py-3 rounded-xl bg-white border border-angie-noir/20 text-angie-noir placeholder-angie-noir/40 text-sm focus:outline-none focus:ring-2 focus:ring-angie-burgundy/40 focus:border-angie-burgundy/60 transition"
+              aria-describedby="form-status"
+              placeholder="you@example.com"
+              class="mt-1.5 w-full min-h-12 px-4 py-3 rounded-md bg-white border border-angie-noir/50 text-angie-noir placeholder-angie-noir/65 focus:outline-none focus:ring-2 focus:ring-angie-burgundy focus:border-angie-burgundy transition"
             />
           </label>
           <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden" />
-          <button
-            type="submit"
-            id="submit-btn"
-            class="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 active:scale-[0.99] transition-all duration-200 shadow-sm"
-          >
+          <p id="form-status" role="status" class="hidden mt-2 text-sm font-Grotesk-bold text-angie-burgundy"></p>
+          <button type="submit" id="submit-btn" class="btn btn-burgundy w-full mt-4 disabled:opacity-70">
             <span id="btn-label">Download</span>
-            <span id="btn-arrow" aria-hidden="true">→</span>
+            <span id="btn-arrow" aria-hidden="true"></span>
           </button>
-          <p id="form-status" role="status" class="hidden text-xs text-red-600"></p>
         </form>
 
-        <p class="mt-4 text-[11px] text-angie-noir/45">
+        <p class="mt-4 text-sm text-angie-noir/70">
           No spam. One-click unsubscribe. Your email stays with Angie.
         </p>
       </div>
 
       {/* STATE 2: success */}
-      <div id="panel-success" class="hidden px-7 md:px-10 pt-7 pb-8 md:pt-9 md:pb-10 text-center" style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;">
-        <h2 class="text-angie-noir text-2xl md:text-3xl font-semibold leading-snug">
-          You're in! 🎉
+      <div id="panel-success" class="hidden px-6 md:px-10 pt-7 pb-8 md:pt-9 md:pb-10">
+        <h2 tabindex="-1" class="font-Frauce font-bold text-angie-noir text-2xl md:text-3xl leading-snug outline-none">
+          You're in.
         </h2>
-        <p class="mt-3 text-angie-noir/70 text-sm md:text-base leading-relaxed">
+        <p class="mt-3 text-angie-noir/80 leading-relaxed">
           Your A.L.I.G.N. framework is ready. Pick the version that fits what you need.
         </p>
 
-        <div class="mt-7 flex flex-col sm:flex-row gap-3">
-          <a href={PDF_URL} download class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 transition-colors">
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <a href={PDF_URL} download class="btn btn-burgundy flex-1">
             Download PDF version
           </a>
-          <a href={DOCX_URL} download class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 transition-colors">
+          <a href={DOCX_URL} download class="btn btn-burgundy flex-1">
             Download Editable Version
           </a>
         </div>
 
-        <p class="mt-5 text-[11px] text-angie-noir/45">
-          Both versions are also in your inbox if you need them later.
+        <p class="mt-5 text-sm text-angie-noir/70">
+          Save both versions somewhere handy so you can come back to them anytime.
         </p>
       </div>
     </div>
@@ -466,31 +422,44 @@ const offerSchema = {
       if (status) { status.classList.add("hidden"); status.textContent = ""; }
       if (submitBtn) submitBtn.disabled = false;
       if (btnLabel) btnLabel.textContent = "Download";
-      if (btnArrow) btnArrow.textContent = "→";
-      if (form) form.reset();
+      if (btnArrow) btnArrow.textContent = "";
+      if (form) {
+        form.reset();
+        var f = form.querySelector('input[type="email"]');
+        if (f) f.removeAttribute("aria-invalid");
+      }
       if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
     }
 
     function showSuccess() {
       if (formPanel) formPanel.classList.add("hidden");
-      if (successPanel) successPanel.classList.remove("hidden");
+      if (successPanel) {
+        successPanel.classList.remove("hidden");
+        // The focused submit button was just hidden: move focus to the new heading
+        var h = successPanel.querySelector("h2");
+        if (h && typeof h.focus === "function") h.focus();
+      }
     }
 
     function setLoading(loading) {
       if (!submitBtn || !btnLabel || !btnArrow) return;
       submitBtn.disabled = loading;
       btnLabel.textContent = loading ? "Sending…" : "Download";
-      btnArrow.textContent = loading ? "…" : "→";
+      btnArrow.textContent = loading ? "…" : "";
     }
 
     function showError(msg) {
       if (!status) return;
-      status.textContent = msg;
+      // Reveal the live region first, then set the text, so it is announced
       status.classList.remove("hidden");
+      status.textContent = "";
+      setTimeout(function () { status.textContent = msg; }, 50);
+      var field = form && form.querySelector('input[type="email"]');
+      if (field) { field.setAttribute("aria-invalid", "true"); field.focus(); }
     }
 
     function bindOpeners() {
-      var ids = ["open-modal", "open-modal-2"];
+      var ids = ["open-modal", "open-modal-2", "open-modal-3"];
       ids.forEach(function (id) {
         var el = document.getElementById(id);
         if (el) el.addEventListener("click", open);
@@ -506,7 +475,30 @@ const offerSchema = {
 
     function bindEscape() {
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && modal.getAttribute("data-state") === "open") close();
+        if (!modal || modal.getAttribute("data-state") !== "open") return;
+        if (e.key === "Escape") { close(); return; }
+        // Focus trap: keep Tab / Shift+Tab inside the dialog while it is open
+        if (e.key === "Tab") {
+          var nodes = modal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), [tabindex="0"]');
+          var items = [];
+          for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].offsetParent !== null) items.push(nodes[i]);
+          }
+          if (!items.length) { e.preventDefault(); return; }
+          var first = items[0];
+          var last = items[items.length - 1];
+          var active = document.activeElement;
+          if (!modal.contains(active) || (active.tabIndex === -1 && active !== first)) {
+            e.preventDefault();
+            (e.shiftKey ? last : first).focus();
+          } else if (e.shiftKey && active === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && active === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       });
     }
 
@@ -526,18 +518,18 @@ const offerSchema = {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: email, company: data.get("company") })
         })
-          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
-          .then(function (res) {
-            if (res.ok && res.j && res.j.ok) {
-              showSuccess();
-            } else {
-              showError((res.j && res.j.error) || "Something went wrong. Try again.");
+          .then(function (r) {
+            // Only an invalid email blocks the download. Server/DB problems
+            // are handled silently so the user always gets the file.
+            if (r.status === 400) {
+              showError("Please enter a valid email address.");
               setLoading(false);
+              return;
             }
+            showSuccess();
           })
           .catch(function () {
-            showError("Network error. Check your connection and try again.");
-            setLoading(false);
+            showSuccess();
           });
       });
     }

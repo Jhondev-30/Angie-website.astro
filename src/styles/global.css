@@ -78,4 +78,215 @@
     --color-angie-cream: #FFF5FA;
     --color-gradient-blue:#A6C1EE;
     --color-gradient-rose: #FBC2EB;
+    /* Warm accents close to the rose family (store / highlights) */
+    --color-angie-gold: #E3B778;
+    --color-angie-peach: #F7C9B6;
+    --color-angie-plum: #6B1D44;
+
+    /* Horizontal phrase carousel (duplicate the track content for a seamless loop) */
+    --animate-marquee: marquee 45s linear infinite;
+    @keyframes marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+    }
+
+    /* ── Softer motion: same personality (tada / scale / zoom) with smaller
+       amplitudes and easing curves, so it feels lighter on low-end phones. */
+    --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    --animate-tada: tada-soft 0.9s ease-in-out both;
+    --animate-scale: scale-soft 0.45s var(--ease-soft) both;
+    --animate-zoom-in: zoom-in-soft 0.7s var(--ease-soft) both;
+    --animate-rise: rise 0.7s var(--ease-soft) both;
+    --animate-float-soft: float-soft 6s ease-in-out infinite;
+
+    @keyframes tada-soft {
+        0%   { transform: scale(1); }
+        15%  { transform: scale(0.96) rotate(-1.5deg); }
+        35%  { transform: scale(1.05) rotate(1.5deg); }
+        55%  { transform: scale(1.05) rotate(-1deg); }
+        75%  { transform: scale(1.03) rotate(0.5deg); }
+        100% { transform: scale(1) rotate(0); }
+    }
+    @keyframes scale-soft {
+        0%   { transform: scale(1); }
+        100% { transform: scale(1.06); }
+    }
+    @keyframes zoom-in-soft {
+        0%   { opacity: 0; transform: scale(0.88); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes rise {
+        0%   { opacity: 0; transform: translateY(24px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float-soft {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-8px); }
+    }
+}
+
+/* ── Performance ─────────────────────────────────────────────────────────── */
+
+/* Same fixed rose→noir gradient as `bg-fixed`, but painted once on its own
+   compositor layer: no repaint on scroll and it also works on iOS Safari. */
+.body-fixed-gradient {
+    background-color: #1f0612;
+    position: relative;
+    isolation: isolate;
+}
+.body-fixed-gradient::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, #c4658a, #1f0612);
+    transform: translateZ(0);
+}
+
+/* Decorative blobs used `blur-[100px..120px]` on 300-400px elements, which is
+   very expensive on mobile GPUs. A radial mask gives the same soft glow with
+   no filter at all. */
+[aria-hidden="true"][class*="blur-"] {
+    filter: none !important;
+    -webkit-mask-image: radial-gradient(closest-side, #000 25%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 25%, transparent 100%);
+}
+
+/* Glass cards: big backdrop blur is the heaviest effect on phones. */
+@media (max-width: 767px) {
+    .backdrop-blur-xl,
+    .backdrop-blur-md {
+        -webkit-backdrop-filter: blur(8px) !important;
+        backdrop-filter: blur(8px) !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+/* Scroll-driven (timeline-view) reveals ignore animation-duration, so they
+   must be detached from the scroll timeline. Base layer wins over the
+   !important utility declarations (important layer order is reversed). */
+@layer base {
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-timeline: auto !important;
+        }
+    }
+    /* Fixed 64px header must never cover a keyboard-focused element (WCAG 2.4.11) */
+    html {
+        scroll-padding-top: 4.5rem;
+    }
+}
+
+/* ── Design system primitives (see design-system/angie/MASTER.md) ────────── */
+@layer components {
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        min-height: 3rem;
+        padding: 0.7rem 1.6rem;
+        border-radius: 9999px;
+        border: 1.5px solid transparent;
+        font-family: var(--font-Grotesk-bold);
+        font-size: 0.95rem;
+        line-height: 1.2;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    /* Two-tone ring: cream gap + noir outline stays >=3:1 on any plane
+       (currentColor vanished on btn-dark/burgundy over cream, btn-light over noir). */
+    .btn:focus-visible {
+        outline: 3px solid var(--color-angie-noir);
+        outline-offset: 3px;
+        box-shadow: 0 0 0 3px var(--color-angie-cream);
+    }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-light  { background: var(--color-angie-cream); color: var(--color-angie-noir); }
+    .btn-light:hover  { background: #fff; }
+    .btn-dark   { background: var(--color-angie-noir); color: var(--color-angie-cream); }
+    .btn-dark:hover   { background: var(--color-angie-burgundy); }
+    .btn-burgundy { background: var(--color-angie-burgundy); color: #fff; }
+    .btn-burgundy:hover { background: var(--color-angie-wine); }
+    .btn-outline-light { border-color: rgb(255 245 250 / 0.7); color: var(--color-angie-cream); }
+    .btn-outline-light:hover { background: var(--color-angie-cream); color: var(--color-angie-noir); }
+    .btn-outline-dark  { border-color: var(--color-angie-noir); color: var(--color-angie-noir); }
+    .btn-outline-dark:hover  { background: var(--color-angie-noir); color: var(--color-angie-cream); }
+
+    /* Tertiary text link with an animated underline */
+    .link-arrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-Grotesk-bold);
+        text-decoration: underline;
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: 0.35em;
+        transition: text-underline-offset 0.2s ease, color 0.2s ease;
+    }
+    .link-arrow:hover { text-underline-offset: 0.5em; }
+    .link-arrow:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; border-radius: 0.25rem; }
+
+    /* Readable measure for long copy */
+    .measure { max-width: 62ch; }
+
+    /* ── Glassmorphism (buttons + cards). Needs a gradient plane behind it
+       (bg-gradient-nocturne on dark, the soft rose gradient on light). ── */
+    .btn-glass {
+        background: rgb(255 255 255 / 0.12);
+        border-color: rgb(255 255 255 / 0.3);
+        color: var(--color-angie-cream);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.25), inset 0 1px 0 rgb(255 255 255 / 0.2);
+    }
+    .btn-glass:hover { background: rgb(255 255 255 / 0.24); border-color: rgb(255 255 255 / 0.5); }
+
+    .btn-glass-dark {
+        background: rgb(31 6 18 / 0.85);
+        border-color: rgb(255 255 255 / 0.18);
+        color: var(--color-angie-cream);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 8px 24px rgb(138 38 84 / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.12);
+    }
+    .btn-glass-dark:hover { background: rgb(138 38 84 / 0.9); }
+
+    .card-glass {
+        background: rgb(255 255 255 / 0.06);
+        border: 1px solid rgb(255 255 255 / 0.14);
+        border-radius: 1.25rem;
+        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 20px 50px rgb(0 0 0 / 0.3), inset 0 1px 0 rgb(255 255 255 / 0.12);
+    }
+    .card-glass-light {
+        background: rgb(255 255 255 / 0.55);
+        border: 1px solid rgb(255 255 255 / 0.75);
+        border-radius: 1.25rem;
+        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 20px 50px rgb(138 38 84 / 0.16), inset 0 1px 0 rgb(255 255 255 / 0.8);
+    }
+    /* last row of a glass list has no divider */
+    .card-glass > :last-child, .card-glass-light > :last-child { border-bottom-width: 0; }
+}
+
+/* Browser surfaces themed from the palette (selection, caret, form accents,
+   scrollbar) so nothing ships with a default blue. */
+::selection { background: var(--color-angie-rose); color: var(--color-angie-noir); }
+:root {
+    accent-color: var(--color-angie-burgundy);
+    caret-color: var(--color-angie-burgundy);
+    scrollbar-color: var(--color-angie-burgundy) var(--color-angie-noir);
 }

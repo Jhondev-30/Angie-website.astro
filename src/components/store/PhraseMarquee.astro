@@ -1,0 +1,82 @@
+---
+// Infinite phrase carousel. The visible track is duplicated so translateX(-50%)
+// loops seamlessly; the duplicate is aria-hidden and a visually hidden list
+// carries the phrases for screen readers.
+interface Props {
+  phrases: string[];
+}
+const { phrases } = Astro.props;
+---
+
+<section aria-label="Words from Angie" class="relative w-full overflow-hidden" data-marquee-root>
+  <ul class="sr-only">
+    {phrases.map((p) => <li>{p}</li>)}
+  </ul>
+
+  <div class="flex items-center gap-3 md:gap-5 pl-3 pr-3 md:pl-6">
+    <div
+      class="group/marquee relative flex-1 min-w-0 overflow-hidden py-5 md:py-6"
+      style="-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)"
+      aria-hidden="true"
+    >
+      <div
+        data-marquee-track
+        class="flex w-max animate-marquee group-hover/marquee:[animation-play-state:paused]"
+      >
+        {[0, 1].map(() => (
+          <ul class="flex shrink-0 items-center gap-4 pr-4">
+            {phrases.map((p) => (
+              <li class="flex items-center gap-4 shrink-0">
+                <span class="whitespace-nowrap rounded-full border border-angie-cream/20 bg-angie-cream/10 px-5 py-2.5 font-Frauce font-bold text-lg md:text-xl text-angie-cream">
+                  {p}
+                </span>
+                <svg viewBox="0 0 24 24" class="w-4 h-4 shrink-0 text-angie-gold" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2l2.4 7.1L22 12l-7.6 2.9L12 22l-2.4-7.1L2 12l7.6-2.9z" />
+                </svg>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+
+    <button
+      type="button"
+      data-marquee-toggle
+      aria-pressed="false"
+      aria-label="Pause moving phrases"
+      class="btn btn-glass shrink-0 !min-h-11 !w-11 !p-0"
+    >
+      <svg data-icon-pause viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor" aria-hidden="true">
+        <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+        <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+      </svg>
+      <svg data-icon-play viewBox="0 0 24 24" class="w-4 h-4 hidden" fill="currentColor" aria-hidden="true">
+        <path d="M7 4.5v15l12-7.5z"></path>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<script>
+  function initMarquee() {
+    document.querySelectorAll<HTMLElement>("[data-marquee-root]").forEach((root) => {
+      if (root.dataset.ready) return;
+      root.dataset.ready = "1";
+      const btn = root.querySelector<HTMLButtonElement>("[data-marquee-toggle]");
+      const track = root.querySelector<HTMLElement>("[data-marquee-track]");
+      const pause = root.querySelector<SVGElement>("[data-icon-pause]");
+      const play = root.querySelector<SVGElement>("[data-icon-play]");
+      if (!btn || !track) return;
+      btn.addEventListener("click", () => {
+        const paused = btn.getAttribute("aria-pressed") !== "true";
+        btn.setAttribute("aria-pressed", String(paused));
+        btn.setAttribute("aria-label", paused ? "Play moving phrases" : "Pause moving phrases");
+        track.style.animationPlayState = paused ? "paused" : "";
+        pause?.classList.toggle("hidden", paused);
+        play?.classList.toggle("hidden", !paused);
+      });
+    });
+  }
+  document.addEventListener("astro:page-load", initMarquee);
+</script>
