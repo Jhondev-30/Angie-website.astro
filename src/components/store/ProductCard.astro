@@ -1,0 +1,169 @@
+---
+// One product on the shelf. Used by src/pages/store.astro only.
+interface Props {
+  category: "course" | "devotional" | "book";
+  typeLabel: string;
+  title: string;
+  blurb: string;
+  status: string;
+  priceNote: string;
+  href: string;
+  image: string;
+  imageAlt: string;
+  imageWidth: number;
+  imageHeight: number;
+  imagePosition?: string;
+  featured?: boolean;
+  details?: string[];
+  delay?: number;
+}
+const {
+  category,
+  typeLabel,
+  title,
+  blurb,
+  status,
+  priceNote,
+  href,
+  image,
+  imageAlt,
+  imageWidth,
+  imageHeight,
+  imagePosition = "50% 50%",
+  featured = false,
+  details = [],
+} = Astro.props;
+const cta = category === "book" ? "Notify me" : "Join the waitlist";
+---
+
+<li
+  data-product
+  data-category={category}
+  class:list={[
+    "list-none timeline-view animate-range-entry animate-rise",
+    featured && "md:col-span-2",
+  ]}
+>
+  <article
+    class:list={[
+      "group/card h-full overflow-hidden card-glass flex flex-col transition-transform duration-300 ease-out hover:-translate-y-1.5",
+      featured && "md:grid md:grid-cols-12",
+    ]}
+  >
+    <div
+      class:list={[
+        "relative overflow-hidden",
+        featured
+          ? "md:col-span-5 p-5 sm:p-8 flex items-center justify-center bg-[radial-gradient(circle_at_30%_20%,rgb(247_201_182/0.55),transparent_55%),linear-gradient(160deg,#6b1d44,#8a2654_60%,#4a0d28)]"
+          : "aspect-[4/3]",
+      ]}
+    >
+      {featured ? (
+        <div class="animate-float-soft w-full max-w-[18rem] md:max-w-none">
+          <img
+            src={image}
+            alt={imageAlt}
+            width={imageWidth}
+            height={imageHeight}
+            loading="lazy"
+            decoding="async"
+            style={`object-position:${imagePosition}`}
+            class="w-full aspect-[4/5] object-cover rounded-2xl shadow-[0_24px_50px_rgb(31_6_18/0.55)] ring-1 ring-angie-peach/40 transition-transform duration-500 ease-out group-hover/card:scale-[1.03]"
+          />
+        </div>
+      ) : (
+        <img
+          src={image}
+          alt={imageAlt}
+          width={imageWidth}
+          height={imageHeight}
+          loading="lazy"
+          decoding="async"
+          style={`object-position:${imagePosition}`}
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover/card:scale-[1.06]"
+        />
+      )}
+
+      <span
+        class="absolute top-3 left-3 inline-flex items-center gap-2 rounded-full bg-angie-noir/75 border border-angie-cream/25 px-3.5 py-1.5 text-sm font-Grotesk-bold text-angie-cream backdrop-blur-md"
+      >
+        {category === "course" && (
+          <svg viewBox="0 0 24 24" class="w-4 h-4 text-angie-gold" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M10 8.5v7l6-3.5z"></path></svg>
+        )}
+        {category === "devotional" && (
+          <svg viewBox="0 0 24 24" class="w-4 h-4 text-angie-gold" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        )}
+        {category === "book" && (
+          <svg viewBox="0 0 24 24" class="w-4 h-4 text-angie-gold" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path><path d="M4 18.5V5.5"></path></svg>
+        )}
+        {typeLabel}
+      </span>
+
+      {featured && (
+        <span class="shimmer-badge absolute top-3 right-3 rounded-full bg-angie-gold text-angie-noir px-3.5 py-1.5 text-sm font-Grotesk-bold">
+          <span class="relative z-10">First to open</span>
+        </span>
+      )}
+    </div>
+
+    <div class:list={["flex flex-1 flex-col p-6 md:p-7", featured && "md:col-span-7 md:p-10 justify-center"]}>
+      <p class="inline-flex items-center gap-2 text-angie-peach font-Grotesk-bold">
+        <span class="w-2 h-2 rounded-full bg-angie-gold" aria-hidden="true"></span>
+        {status}
+      </p>
+      <h3
+        class:list={[
+          "mt-3 font-Frauce font-bold leading-tight text-balance text-angie-cream",
+          featured ? "text-3xl md:text-4xl" : "text-2xl",
+        ]}
+      >
+        {title}
+      </h3>
+      <p class="mt-3 text-angie-cream/90 text-lg leading-relaxed">{blurb}</p>
+
+      {details.length > 0 && (
+        <ul class="mt-5 grid gap-x-8 gap-y-2 sm:grid-cols-2 text-angie-cream/90">
+          {details.map((d) => (
+            <li class="flex items-start gap-2.5">
+              <svg viewBox="0 0 24 24" class="mt-1 w-4 h-4 shrink-0 text-angie-gold" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+              <span>{d}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div class="mt-auto pt-6 flex flex-col sm:flex-row sm:items-center gap-x-5 gap-y-3">
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${cta}: ${title} (opens in a new tab)`}
+          class:list={["btn w-full sm:w-auto", featured ? "btn-light" : "btn-glass"]}
+        >
+          {cta}
+        </a>
+        <p class="text-angie-cream/80">{priceNote}</p>
+      </div>
+    </div>
+  </article>
+</li>
+
+<style>
+  .shimmer-badge {
+    position: absolute;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .shimmer-badge::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.7) 50%, transparent 70%);
+    transform: translateX(-120%);
+    animation: badge-shimmer 3.4s ease-in-out infinite;
+  }
+  @keyframes badge-shimmer {
+    0%, 55% { transform: translateX(-120%); }
+    100% { transform: translateX(120%); }
+  }
+</style>
