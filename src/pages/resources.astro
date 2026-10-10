@@ -91,99 +91,119 @@ const offerSchema = {
 >
 
   {/* ============================================================
-      HERO — editorial opener: top rule with "Issue 01" mark,
-      then A.L.I.G.N. as the visual hook.
+      HERO — split layout (copy + product mockup), mobile-first.
+      Headline carries the promise; one primary CTA; trust line.
   ============================================================ */}
-  <section class="relative isolate overflow-hidden text-angie-cream w-full lg:w-screen bg-angie-noir">
-    <div aria-hidden="true" class="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-angie-rose/30 blur-3xl pointer-events-none"></div>
-    <div aria-hidden="true" class="absolute -bottom-40 -left-24 w-[32rem] h-[32rem] rounded-full bg-angie-wine/40 blur-3xl pointer-events-none"></div>
+  <section class="relative isolate overflow-hidden w-full text-angie-cream bg-angie-noir">
+    <div aria-hidden="true" class="absolute -top-32 -right-24 w-[26rem] h-[26rem] rounded-full bg-angie-rose/25 blur-3xl pointer-events-none"></div>
+    <div aria-hidden="true" class="absolute -bottom-40 -left-24 w-[28rem] h-[28rem] rounded-full bg-angie-wine/50 blur-3xl pointer-events-none"></div>
 
-    <div class="relative max-w-5xl mx-auto px-6 pt-27 md:pt-44 pb-24 md:pb-32 text-center">
-      {/* Editorial top mark: hairline + issue number + byline */}
-  
-
-      <h1 class="mt-10 md:mt-14 font-Frauce italic font-bold leading-[0.85] text-[clamp(5rem,16vw,11rem)] tracking-tight motion-safe:animate-fade-in-up motion-safe:animate-delay-300 motion-safe:animate-duration-1000 motion-safe:animate-bezier-quint-out">
-        A.L.I.G.N.
-      </h1>
-
-      <p class="mt-8 max-w-2xl mx-auto text-angie-cream/90 text-lg md:text-2xl font-Grotesk leading-snug motion-safe:animate-fade-in-up motion-safe:animate-delay-500">
-        A 5-step framework for moving from stuck to purpose.
-      </p>
-
-      <p class="mt-4 max-w-xl mx-auto text-angie-cream/65 text-sm md:text-base font-Grotesk italic leading-relaxed motion-safe:animate-fade-in-up motion-safe:animate-delay-700">
-        What Angie uses in 1:1 work and on every keynote stage. Yours free, in two formats.
-      </p>
-
-      <div class="mt-12 flex flex-col items-center gap-4">
-        <button
-          type="button"
-          id="open-modal"
-          class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold text-base shadow-xl shadow-black/20 hover:bg-white hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 motion-safe:animate-fade-in-up motion-safe:animate-delay-900"
-        >
-          <span>Send me the field guide</span>
-          <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
-        </button>
-
-        <p class="text-xs text-angie-cream/55 font-Grotesk italic motion-safe:animate-fade-in-up motion-safe:animate-delay-1000">
-          No drip. No spam. One download, then we let you be.
+    <div class="relative max-w-6xl mx-auto px-6 pt-28 md:pt-40 pb-16 md:pb-28 grid md:grid-cols-12 gap-12 md:gap-10 items-center">
+      <div class="md:col-span-7 text-center md:text-left">
+        <p class="inline-flex items-center gap-2 text-angie-rose uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold animate-rise">
+          <span aria-hidden="true" class="h-px w-8 bg-angie-rose"></span>
+          Free field guide
         </p>
+
+        <h1 class="mt-5 font-Frauce font-bold leading-[0.95] text-[clamp(2.75rem,9vw,5.5rem)] tracking-tight text-balance animate-rise" style="animation-delay:120ms">
+          Move from stuck <span class="text-angie-rose">to purpose.</span>
+        </h1>
+
+        <p class="mt-6 max-w-xl mx-auto md:mx-0 text-angie-cream/85 text-base md:text-xl leading-relaxed animate-rise" style="animation-delay:240ms">
+          The A.L.I.G.N. framework: the 5-step method Angie uses in 1:1 coaching and on every keynote stage. Yours free, in two formats.
+        </p>
+
+        <div class="mt-9 flex flex-col items-center md:items-start gap-3 animate-rise" style="animation-delay:360ms">
+          <button
+            type="button"
+            id="open-modal"
+            class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold text-base shadow-xl shadow-black/30 transition-all duration-300 hover:bg-white hover:scale-[1.03] active:scale-[0.98]"
+          >
+            <span>Send me the field guide</span>
+            <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+          </button>
+          <p class="text-xs text-angie-cream/60 italic">
+            No drip. No spam. One download, then we let you be.
+          </p>
+        </div>
+      </div>
+
+      <div class="md:col-span-5 animate-zoom-in" style="animation-delay:200ms">
+        <div class="relative mx-auto max-w-sm md:max-w-none">
+          <div aria-hidden="true" class="absolute inset-4 rounded-[2rem] bg-angie-rose/40 blur-2xl"></div>
+          <img
+            src={HERO_IMG}
+            alt="The A.L.I.G.N. framework field guide laid out on a warm wooden table"
+            width="560"
+            height="300"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="relative w-full aspect-[4/3] object-cover rounded-[2rem] border border-white/15 shadow-2xl shadow-black/50 animate-float-soft"
+          />
+        </div>
       </div>
     </div>
   </section>
 
   {/* ============================================================
-      THE 5 STEPS — typographic sequence with Roman numerals
-      on top of the existing A.L.I.G.N. letters.
+      FACT STRIP — quick proof, speaker-site style
   ============================================================ */}
-  <section class="text-angie-cream py-24 md:py-32 w-full lg:w-screen bg-angie-wine">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center max-w-2xl mx-auto motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-      
-        <h2 class="mt-4 font-Frauce text-3xl md:text-5xl text-angie-cream leading-tight">
-          Five movements, walked in order.
-        </h2>
-        <p class="mt-4 text-angie-cream/75 font-Grotesk text-base md:text-lg leading-relaxed">
-          Skim the names now. Then work them one at a time later — the order is the point.
-        </p>
+  <section class="w-full bg-angie-cream text-angie-noir border-y border-angie-noir/10">
+    <ul class="max-w-6xl mx-auto px-6 py-8 md:py-10 grid grid-cols-3 gap-4 text-center">
+      {[
+        { n: "5", l: "Steps in the framework" },
+        { n: "2", l: "Formats: PDF + editable" },
+        { n: "$0", l: "Always free" },
+      ].map((f) => (
+        <li>
+          <p class="font-Frauce font-bold text-3xl md:text-5xl text-angie-burgundy leading-none">{f.n}</p>
+          <p class="mt-2 text-[11px] md:text-sm uppercase tracking-[0.15em] font-Grotesk-bold text-angie-noir/70">{f.l}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {/* ============================================================
+      STATEMENT — one big line (reference flow: statement block)
+  ============================================================ */}
+  <section class="w-full bg-angie-cream text-angie-noir">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-28 text-center timeline-view animate-range-entry animate-rise">
+      <p class="font-Frauce text-3xl md:text-5xl leading-[1.15] text-balance">
+        Most of us don't need more information. We need a <span class="text-angie-burgundy">clear order</span> to walk it in.
+      </p>
+      <p class="mt-6 text-angie-noir/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        Skim the names now. Then work them one at a time. The order is the point.
+      </p>
+    </div>
+  </section>
+
+  {/* ============================================================
+      THE 5 STEPS — numbered cards
+  ============================================================ */}
+  <section class="w-full bg-angie-wine text-angie-cream">
+    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <div class="max-w-2xl timeline-view animate-range-entry animate-rise">
+        <p class="text-angie-rose uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">The framework</p>
+        <h2 class="mt-3 font-Frauce font-bold text-3xl md:text-5xl leading-tight">Five movements, walked in order.</h2>
       </div>
 
-      {/* Typographic sequence. Hairline rule across the top on md+. */}
-      <div class="relative mt-20">
-        <div aria-hidden="true" class="hidden md:block absolute top-7 left-0 right-0 h-px bg-angie-cream/20"></div>
+      <ol class="mt-12 grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        {steps.map((s, i) => (
+          <li class="group relative rounded-3xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 hover:border-angie-rose/50 timeline-view animate-range-entry animate-rise">
+            <span class="text-angie-rose/80 text-xs font-Grotesk-bold tracking-[0.25em]">0{i + 1}</span>
+            <p class="mt-3 font-Frauce italic font-bold text-6xl leading-none text-angie-cream transition-transform duration-300 group-hover:scale-110 origin-left">{s.letter}</p>
+            <h3 class="mt-4 font-Frauce text-xl leading-snug">{s.name}</h3>
+            <p class="mt-2 text-angie-cream/70 text-sm leading-relaxed">{s.blurb}</p>
+          </li>
+        ))}
+      </ol>
 
-        <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10 md:gap-4">
-          {steps.map((s, i) => (
-            <li class:list={[
-              "text-center relative motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry",
-              [
-                "",
-                "motion-safe:animate-delay-100",
-                "motion-safe:animate-delay-200",
-                "motion-safe:animate-delay-300",
-                "motion-safe:animate-delay-400",
-              ][i],
-            ]}>
-              <div class="relative mx-auto w-14 h-14 grid place-items-center bg-transparent">
-                <span class="font-Frauce italic font-bold text-6xl md:text-7xl text-angie-cream leading-none">
-                  {s.letter}
-                </span>
-              </div>
-              <h3 class="mt-2 font-Frauce text-xl md:text-2xl text-angie-cream leading-snug">
-                {s.name}
-              </h3>
-              <p class="mt-2 text-angie-cream/65 font-Grotesk text-sm leading-relaxed px-2">
-                {s.blurb}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <div class="mt-16 text-center motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
+      <div class="mt-12 text-center md:text-left">
         <button
           type="button"
           id="open-modal-2"
-          class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-angie-cream/30 text-angie-cream font-Grotesk-bold text-sm hover:bg-angie-cream/10 transition-colors duration-300"
+          class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-angie-cream/40 text-angie-cream font-Grotesk-bold text-sm transition-all duration-300 hover:bg-angie-cream hover:text-angie-noir"
         >
           Send me all five
           <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
@@ -193,102 +213,98 @@ const offerSchema = {
   </section>
 
   {/* ============================================================
-      TWO WAYS IN — asymmetric 7/5 grid with a left hairline
-      on the second column. Replaces the old "How to use it".
+      TWO WAYS IN — two cards (host / seeker)
   ============================================================ */}
-  <section class="text-angie-cream py-20 md:py-28 w-full lg:w-screen bg-angie-noir">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="flex items-end justify-between gap-6 flex-wrap motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-        <div class="max-w-2xl">
-          <p class="text-angie-rose/90 uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">
-            Two ways in
-          </p>
-          <h2 class="mt-3 font-Frauce text-3xl md:text-5xl text-angie-cream leading-[1.05]">
-            A guide for the host.<br/>
-            <span class="text-angie-cream/70">A guide for the seeker.</span>
-          </h2>
-        </div>
-        <p class="text-angie-cream/70 font-Grotesk italic text-sm md:text-base max-w-sm leading-relaxed">
-          The same five movements — used very differently depending on whether you’re standing in front of a room, or sitting alone with your journal.
+  <section class="w-full bg-angie-cream text-angie-noir">
+    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <div class="max-w-2xl timeline-view animate-range-entry animate-rise">
+        <p class="text-angie-burgundy uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">Two ways in</p>
+        <h2 class="mt-3 font-Frauce font-bold text-3xl md:text-5xl leading-[1.05]">
+          A guide for the host. <span class="text-angie-burgundy">A guide for the seeker.</span>
+        </h2>
+        <p class="mt-4 text-angie-noir/70 text-base md:text-lg leading-relaxed">
+          The same five movements, used very differently depending on whether you're standing in front of a room or sitting alone with your journal.
         </p>
       </div>
 
-      <div class="mt-14 grid md:grid-cols-12 md:gap-12 lg:gap-16">
-        <div class="md:col-span-7 motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-          <p class="text-angie-rose/90 uppercase tracking-[0.25em] text-[10px] md:text-xs font-Grotesk-bold motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-100">
-            01 &nbsp;·&nbsp; For the host
-          </p>
-          <h3 class="mt-3 font-Frauce text-2xl md:text-3xl text-angie-cream leading-snug motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-200">
-            Print the PDF as-is. Customize the DOCX.
-          </h3>
-          <ul class="mt-6 space-y-3 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-300"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span><strong class="text-angie-cream font-Grotesk-bold">The PDF</strong> is a complete, print-ready reflection guide with built-in journal space — print and hand it out at your event, retreat, or small group with no setup required.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-400"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span><strong class="text-angie-cream font-Grotesk-bold">The DOCX</strong> is the editable version — swap in your church or ministry logo, change the colors, and adapt the language for your community. Built to be rebranded.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-500"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Use the built-in reflection questions as small-group prompts — each of the 5 letters has its own set, plus three ready-to-go practices: the <em>Flip It Practice</em>, the <em>3 &amp; 1 Practice</em>, and a <em>One-week challenge</em>.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-700"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Pick the format that matches your event. <strong class="text-angie-cream font-Grotesk-bold">PDF</strong> = fast, no setup. <strong class="text-angie-cream font-Grotesk-bold">DOCX</strong> = you’re putting your brand on it.</span></li>
+      <div class="mt-12 grid md:grid-cols-2 gap-5 md:gap-6">
+        <article class="rounded-3xl bg-white p-7 md:p-9 shadow-xl shadow-angie-burgundy/10 border border-angie-burgundy/10 timeline-view animate-range-entry animate-rise">
+          <p class="text-angie-burgundy uppercase tracking-[0.25em] text-xs font-Grotesk-bold">01 · For the host</p>
+          <h3 class="mt-3 font-Frauce text-2xl md:text-3xl leading-snug">Print the PDF as-is. Customize the DOCX.</h3>
+          <ul class="mt-6 space-y-4 text-angie-noir/80 text-sm md:text-base leading-relaxed">
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-burgundy shrink-0">→</span><span><strong class="text-angie-noir">The PDF</strong> is a complete, print-ready reflection guide with built-in journal space. Print and hand it out at your event, retreat, or small group with no setup.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-burgundy shrink-0">→</span><span><strong class="text-angie-noir">The DOCX</strong> is the editable version: swap in your church or ministry logo, change the colors, and adapt the language for your community.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-burgundy shrink-0">→</span><span>Use the built-in reflection questions as small-group prompts, plus three ready-to-go practices: <em>Flip It</em>, <em>3 &amp; 1</em>, and a <em>One-week challenge</em>.</span></li>
           </ul>
-        </div>
+        </article>
 
-        <div class="mt-10 md:mt-0 md:col-span-5 md:pl-10 md:border-l md:border-angie-cream/15 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-200">
-          <p class="text-angie-rose/90 uppercase tracking-[0.25em] text-[10px] md:text-xs font-Grotesk-bold motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-300">
-            02 &nbsp;·&nbsp; For the seeker
-          </p>
-          <h3 class="mt-3 font-Frauce text-2xl md:text-3xl text-angie-cream leading-snug motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-400">
-            Pick your format. Take your time.
-          </h3>
-          <ul class="mt-6 space-y-3 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-500"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span><strong class="text-angie-cream font-Grotesk-bold">PDF</strong> — print-ready, fixed layout. Print it, then write in the margins and the journal spaces by hand.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-700"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span><strong class="text-angie-cream font-Grotesk-bold">DOCX</strong> — fully editable. Type your answers directly, add your name, your church, your prayer routine — anything that makes it yours.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-900"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Don’t rush. The guide itself says: “Transformation does not require every answer today.” One letter per week if that works — come back to the sections that challenge you.</span></li>
-            <li class="flex gap-3 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry motion-safe:animate-delay-1000"><span aria-hidden="true" class="text-angie-rose shrink-0 mt-0.5">→</span><span>Try the practices in order: <em>Flip It</em> (rewrite one old thought), then <em>3 &amp; 1</em> (3 gratitudes + 1 growth step), then the <em>One-week challenge</em>.</span></li>
+        <article class="rounded-3xl bg-angie-noir text-angie-cream p-7 md:p-9 shadow-xl shadow-black/20 timeline-view animate-range-entry animate-rise">
+          <p class="text-angie-rose uppercase tracking-[0.25em] text-xs font-Grotesk-bold">02 · For the seeker</p>
+          <h3 class="mt-3 font-Frauce text-2xl md:text-3xl leading-snug">Pick your format. Take your time.</h3>
+          <ul class="mt-6 space-y-4 text-angie-cream/80 text-sm md:text-base leading-relaxed">
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0">→</span><span><strong class="text-angie-cream">PDF</strong>: print-ready, fixed layout. Write in the margins and journal spaces by hand.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0">→</span><span><strong class="text-angie-cream">DOCX</strong>: fully editable. Type your answers, add your name, your church, your prayer routine.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0">→</span><span>Don't rush. The guide itself says: “Transformation does not require every answer today.” One letter per week if that works.</span></li>
+            <li class="flex gap-3"><span aria-hidden="true" class="text-angie-rose shrink-0">→</span><span>Try the practices in order: <em>Flip It</em> (rewrite one old thought), then <em>3 &amp; 1</em> (3 gratitudes + 1 growth step), then the <em>One-week challenge</em>.</span></li>
           </ul>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
   {/* ============================================================
-      FAQ — re-titled to drop the "Common questions" AI-tell.
-      Each item gets a Q.01 / Q.02 index for editorial feel.
+      HOW IT WORKS — numbered 3-step process
   ============================================================ */}
-  <section class="text-angie-cream py-20 md:py-28 w-full lg:w-screen bg-angie-wine">
-    <div class="max-w-3xl mx-auto px-6">
-      <div class="mb-12 motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-        <p class="text-angie-rose/90 uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">
-          Before you download
-        </p>
-        <h2 class="mt-3 font-Frauce text-3xl md:text-5xl text-angie-cream leading-tight">
-          Questions people ask first.
-        </h2>
-        <p class="mt-3 text-angie-cream/70 font-Grotesk italic text-sm md:text-base">
-          The honest answers, before you give us your email.
-        </p>
+  <section class="w-full bg-angie-burgundy text-angie-cream">
+    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <h2 class="font-Frauce font-bold text-3xl md:text-5xl leading-tight text-center timeline-view animate-range-entry animate-rise">Three steps. Two minutes.</h2>
+      <ol class="mt-12 grid md:grid-cols-3 gap-8 md:gap-10">
+        {[
+          { n: "01", t: "Enter your email", d: "One field. No account, no password." },
+          { n: "02", t: "Choose your format", d: "Print-ready PDF or the editable DOCX. Take both if you like." },
+          { n: "03", t: "Walk the sequence", d: "Start with A. Take one letter per week, or all five in a sitting." },
+        ].map((s) => (
+          <li class="text-center md:text-left timeline-view animate-range-entry animate-rise">
+            <p class="font-Frauce italic font-bold text-6xl md:text-7xl text-angie-cream/30 leading-none">{s.n}</p>
+            <h3 class="mt-3 font-Frauce text-2xl">{s.t}</h3>
+            <p class="mt-2 text-angie-cream/80 leading-relaxed">{s.d}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="mt-12 text-center">
+        <button
+          type="button"
+          id="open-modal-3"
+          class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold text-base transition-all duration-300 hover:bg-white hover:scale-[1.03] active:scale-[0.98]"
+        >
+          Get the free guide
+          <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {/* ============================================================
+      FAQ
+  ============================================================ */}
+  <section class="w-full bg-angie-cream text-angie-noir">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
+      <div class="mb-10 timeline-view animate-range-entry animate-rise">
+        <p class="text-angie-burgundy uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">Before you download</p>
+        <h2 class="mt-3 font-Frauce font-bold text-3xl md:text-5xl leading-tight">Questions people ask first.</h2>
       </div>
 
-      <div class="space-y-1">
+      <div>
         {faqs.map((f, i) => (
-          <details class:list={[
-            "group/bg border-b border-angie-cream/15 py-5 motion-safe:timeline-view motion-safe:animate-fade-in-up motion-safe:animate-range-entry",
-            [
-              "",
-              "motion-safe:animate-delay-100",
-              "motion-safe:animate-delay-200",
-              "motion-safe:animate-delay-300",
-              "motion-safe:animate-delay-400",
-            ][i],
-          ]}>
-            <summary class="font-Frauce text-lg md:text-xl text-angie-cream cursor-pointer list-none flex justify-between items-center gap-4 [&::-webkit-details-marker]:hidden">
+          <details class="group/bg border-b border-angie-noir/15 py-5">
+            <summary class="font-Frauce text-lg md:text-xl cursor-pointer list-none flex justify-between items-center gap-4 [&::-webkit-details-marker]:hidden">
               <span class="flex items-baseline gap-3 md:gap-4">
-                <span class="text-angie-rose/80 text-[10px] md:text-xs font-Grotesk-bold tracking-[0.25em] shrink-0 mt-1">
-                  Q.{String(i + 1).padStart(2, "0")}
-                </span>
+                <span class="text-angie-burgundy text-[10px] md:text-xs font-Grotesk-bold tracking-[0.25em] shrink-0">Q.{String(i + 1).padStart(2, "0")}</span>
                 <span>{f.q}</span>
               </span>
-              <span aria-hidden="true" class="shrink-0 text-angie-rose text-2xl leading-none transition-transform duration-300 group-open/bg:rotate-45">+</span>
+              <span aria-hidden="true" class="shrink-0 text-angie-burgundy text-2xl leading-none transition-transform duration-300 group-open/bg:rotate-45">+</span>
             </summary>
-            <p class="mt-4 md:ml-12 text-angie-cream/80 font-Grotesk text-sm md:text-base leading-relaxed">
-              {f.a}
-            </p>
+            <p class="mt-4 md:ml-12 text-angie-noir/75 text-sm md:text-base leading-relaxed">{f.a}</p>
           </details>
         ))}
       </div>
@@ -296,37 +312,28 @@ const offerSchema = {
   </section>
 
   {/* ============================================================
-      FINAL CTA — drop the "Ready to go deeper" AI-tell.
-      Hairline + kicker + conversational copy.
+      FINAL CTA
   ============================================================ */}
-  <section class="py-20 md:py-28 text-angie-cream text-center w-full lg:w-screen bg-gradient-zion">
-    <div class="max-w-3xl mx-auto px-6">
-      <div aria-hidden="true" class="flex items-center justify-center gap-4 mb-8 motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in">
-        <span class="h-px w-12 md:w-16 bg-angie-cream/30"></span>
-        <span class="text-angie-rose/85 text-[10px] md:text-xs uppercase tracking-[0.35em] font-Grotesk-bold">
-          If you want a guide, not just a guide
-        </span>
-        <span class="h-px w-12 md:w-16 bg-angie-cream/30"></span>
-      </div>
-
-      <h2 class="font-Frauce text-3xl md:text-5xl leading-[1.1] motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up">
-        The free field guide is the start.<br class="hidden md:block"/>
-        <span class="text-angie-cream/85">The 30-minute call is where the fit-check happens.</span>
+  <section class="w-full py-20 md:py-28 text-angie-cream text-center bg-gradient-zion">
+    <div class="max-w-3xl mx-auto px-6 timeline-view animate-range-entry animate-rise">
+      <h2 class="font-Frauce font-bold text-3xl md:text-5xl leading-[1.1] text-balance">
+        The free guide is the start.
+        <span class="block text-angie-cream/85">The 30-minute call is where the fit-check happens.</span>
       </h2>
-      <p class="mt-5 font-Grotesk text-base md:text-lg text-angie-cream/80 leading-relaxed max-w-xl mx-auto motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up motion-safe:animate-delay-200">
+      <p class="mt-5 text-base md:text-lg text-angie-cream/85 leading-relaxed max-w-xl mx-auto">
         If the framework resonated and you want someone to walk the sequence with you, the discovery call is the next honest move.
       </p>
-
       <a
         href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
         rel="noopener"
-        class="group/cta mt-10 inline-flex items-center gap-2 px-8 py-4 bg-angie-cream text-angie-noir font-Grotesk-bold rounded-full hover:bg-white transition-colors duration-300 motion-safe:timeline-view motion-safe:animate-range-entry motion-safe:animate-fade-in-up motion-safe:animate-delay-500"
+        class="group/cta mt-10 inline-flex items-center gap-2 px-8 py-4 bg-angie-cream text-angie-noir font-Grotesk-bold rounded-full transition-all duration-300 hover:bg-white hover:scale-[1.03]"
       >
         Book a Free Discovery Call
         <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
       </a>
     </div>
   </section>
+
 
   {/* ============================================================
       DOWNLOAD MODAL — same MailerLite pop-up look, in our code
@@ -391,7 +398,7 @@ const offerSchema = {
           <button
             type="submit"
             id="submit-btn"
-            class="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 active:scale-[0.99] transition-all duration-200 shadow-sm"
+            class="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-angie-burgundy text-white font-semibold text-sm hover:bg-angie-wine active:scale-[0.99] transition-all duration-200 shadow-sm"
           >
             <span id="btn-label">Download</span>
             <span id="btn-arrow" aria-hidden="true">→</span>
@@ -414,16 +421,16 @@ const offerSchema = {
         </p>
 
         <div class="mt-7 flex flex-col sm:flex-row gap-3">
-          <a href={PDF_URL} download class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 transition-colors">
+          <a href={PDF_URL} download class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-angie-burgundy text-white font-semibold text-sm hover:bg-angie-wine transition-colors">
             Download PDF version
           </a>
-          <a href={DOCX_URL} download class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-teal-600 text-white font-semibold text-sm hover:bg-teal-700 transition-colors">
+          <a href={DOCX_URL} download class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-angie-burgundy text-white font-semibold text-sm hover:bg-angie-wine transition-colors">
             Download Editable Version
           </a>
         </div>
 
         <p class="mt-5 text-[11px] text-angie-noir/45">
-          Both versions are also in your inbox if you need them later.
+          Save both versions somewhere handy so you can come back to them anytime.
         </p>
       </div>
     </div>
@@ -490,7 +497,7 @@ const offerSchema = {
     }
 
     function bindOpeners() {
-      var ids = ["open-modal", "open-modal-2"];
+      var ids = ["open-modal", "open-modal-2", "open-modal-3"];
       ids.forEach(function (id) {
         var el = document.getElementById(id);
         if (el) el.addEventListener("click", open);
