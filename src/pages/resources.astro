@@ -103,7 +103,7 @@ const howSteps = [
 >
 
   {/* HERO — copy 5/12, product photo 7/12, one primary CTA */}
-  <section class="w-full bg-angie-noir text-angie-cream">
+  <section class="relative isolate overflow-hidden w-full bg-gradient-nocturne text-angie-cream">
     <div class="max-w-7xl mx-auto px-6 md:px-10 pt-28 md:pt-40 pb-14 md:pb-24 grid md:grid-cols-12 gap-x-12 gap-y-10 items-center">
       <div class="md:col-span-5">
         <h1 class="font-Frauce font-bold leading-[1] text-[clamp(2.5rem,6vw,4.75rem)] tracking-tight text-balance animate-rise">
@@ -115,7 +115,7 @@ const howSteps = [
         </p>
 
         <div class="mt-8 animate-rise" style="animation-delay:240ms">
-          <button type="button" id="open-modal" class="btn btn-light hover:animate-tada">
+          <button type="button" id="open-modal" class="btn btn-glass hover:animate-tada">
             Send me the field guide
           </button>
           <p class="mt-4 text-sm text-angie-cream/80 max-w-sm">
@@ -140,14 +140,14 @@ const howSteps = [
   </section>
 
   {/* THE FIVE STEPS — narrow heading, hairline rows */}
-  <section class="w-full bg-angie-cream text-angie-noir">
+  <section class="relative isolate overflow-hidden w-full bg-[linear-gradient(160deg,#FFF5FA_0%,#FBC2EB_55%,#E8A0B8_100%)] text-angie-noir">
     <div class="max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-16 md:pb-20 grid md:grid-cols-12 gap-x-12 gap-y-8">
       <div class="md:col-span-4">
         <h2 class="font-Frauce font-bold text-[clamp(2rem,4vw,3rem)] leading-[1.08] text-balance">The five steps of the A.L.I.G.N. framework</h2>
       </div>
 
       <div class="md:col-span-8">
-        <ol class="border-t border-angie-noir/20">
+        <ol class="card-glass-light px-6">
           {steps.map((s) => (
             <li class="grid sm:grid-cols-12 gap-x-6 gap-y-1 py-5 md:py-6 border-b border-angie-noir/15">
               <h3 class="sm:col-span-5 font-Frauce font-bold text-2xl leading-snug">{s.name}</h3>
@@ -156,7 +156,7 @@ const howSteps = [
           ))}
         </ol>
 
-        <button type="button" id="open-modal-2" class="btn btn-dark mt-9">
+        <button type="button" id="open-modal-2" class="btn btn-glass-dark mt-9">
           Send me all five
         </button>
       </div>
@@ -164,7 +164,7 @@ const howSteps = [
   </section>
 
   {/* TWO WAYS IN — host (wide, marble) / seeker (narrow, offset, dark wood) */}
-  <section class="w-full bg-angie-wine text-angie-cream">
+  <section class="relative isolate overflow-hidden w-full bg-gradient-nocturne text-angie-cream">
     <div class="max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-20 md:pb-28">
       <div class="max-w-3xl">
         <h2 class="font-Frauce font-bold text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.05] text-balance">
@@ -188,7 +188,7 @@ const howSteps = [
           />
           <h3 class="mt-7 font-Frauce font-bold text-3xl">For the host</h3>
           <p class="mt-2 font-Frauce text-xl text-angie-cream/90">Print the PDF as-is. Customize the DOCX.</p>
-          <ul class="mt-6 border-t border-angie-cream/25">
+          <ul class="mt-6 card-glass px-5">
             {hostPoints.map((p) => (
               <li class="py-4 border-b border-angie-cream/15 text-angie-cream/90 text-lg leading-relaxed">
                 <strong class="text-angie-cream">{p.lead}</strong> {p.text}
@@ -212,7 +212,7 @@ const howSteps = [
           />
           <h3 class="mt-7 font-Frauce font-bold text-3xl">For the seeker</h3>
           <p class="mt-2 font-Frauce text-xl text-angie-cream/90">Pick your format. Take your time.</p>
-          <ul class="mt-6 border-t border-angie-cream/25">
+          <ul class="mt-6 card-glass px-5">
             {seekerPoints.map((p) => (
               <li class="py-4 border-b border-angie-cream/15 text-angie-cream/90 text-lg leading-relaxed">
                 <strong class="text-angie-cream">{p.lead}</strong> {p.text}
@@ -231,25 +231,25 @@ const howSteps = [
   </section>
 
   {/* HOW TO GET IT + FAQ — one cream spread */}
-  <section class="w-full bg-angie-cream text-angie-noir">
+  <section class="relative isolate overflow-hidden w-full bg-[linear-gradient(160deg,#FFF5FA_0%,#FBC2EB_55%,#E8A0B8_100%)] text-angie-noir">
     <div class="max-w-6xl mx-auto px-6 pt-14 md:pt-20 pb-12 md:pb-16">
       <h2 class="font-Frauce font-bold text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1]">How to get the guide</h2>
-      <ol class="mt-8 grid md:grid-cols-3 gap-x-10">
+      <ol class="mt-8 grid md:grid-cols-3 gap-4 md:gap-6">
         {howSteps.map((s, i) => (
-          <li class="py-5 border-t border-angie-noir/25">
+          <li class="card-glass-light p-6">
             <p class="font-Grotesk-bold text-lg"><span class="text-angie-burgundy tabular-nums">{i + 1}.</span> {s.t}</p>
             <p class="mt-1 text-angie-noir/80 leading-relaxed">{s.d}</p>
           </li>
         ))}
       </ol>
-      <button type="button" id="open-modal-3" class="btn btn-burgundy mt-6">
+      <button type="button" id="open-modal-3" class="btn btn-glass-dark mt-6">
         Get the free guide
       </button>
     </div>
 
     <div class="max-w-3xl mx-auto px-6 pt-8 md:pt-12 pb-16 md:pb-24">
       <h2 class="font-Frauce font-bold text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1]">Before you download</h2>
-      <div class="mt-8 border-t border-angie-noir/20">
+      <div class="mt-8 card-glass-light px-6">
         {faqs.map((f) => (
           <details class="group/faq border-b border-angie-noir/15">
             <summary class="cursor-pointer list-none flex justify-between items-center gap-4 min-h-14 py-4 font-Frauce font-bold text-lg md:text-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-angie-burgundy [&::-webkit-details-marker]:hidden">
@@ -264,7 +264,7 @@ const howSteps = [
   </section>
 
   {/* FINAL CTA — solid burgundy plane, left-aligned */}
-  <section class="w-full bg-angie-burgundy text-angie-cream">
+  <section class="w-full bg-gradient-zion text-angie-cream">
     <div class="max-w-6xl mx-auto px-6 py-14 md:py-20 grid md:grid-cols-12 gap-x-12 gap-y-8 items-end">
       <div class="md:col-span-8">
         <h2 class="font-Frauce font-bold text-[clamp(2rem,4.6vw,3.5rem)] leading-[1.05] text-balance">
@@ -278,7 +278,7 @@ const howSteps = [
         <a
           href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
           rel="noopener"
-          class="btn btn-light"
+          class="btn btn-glass-dark"
         >
           Book a Free Discovery Call
         </a>

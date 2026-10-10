@@ -1,40 +1,29 @@
 ---
 const currentYear = new Date().getFullYear();
 
-const siteLinks = [
+const resources = [
   { href: "/", label: "home" },
   { href: "/aboutme", label: "about me" },
   { href: "/store", label: "store" },
-  { href: "/wellness", label: "wellness" },
-  { href: "/resources", label: "free resources" },
-];
-
-const workLinks = [
   { href: "/services/coaching", label: "coaching" },
   { href: "/services/keynote-speaking", label: "keynote speaking" },
   { href: "/services/podcast-guest", label: "podcast guest" },
+  { href: "/wellness", label: "wellness" },
+  { href: "/resources", label: "free resources" },
 ];
 
 const repoUrl = "https://github.com/Jhondev-30/Angie-website.astro.git";
 const githubUrl = "https://github.com/Jhondev-30";
 const linkedinUrl = "https://www.linkedin.com/in/jhon-cordero/";
-const bookUrl = "https://tidycal.com/angiepspeaks/30min-purpose-discoverycall";
 
 // Angie's real social profiles (verified public URLs)
-const socials = [
-  { href: "https://www.instagram.com/angie.p.speaks", label: "Angie on Instagram", icon: "icon-instagram" },
-  { href: "https://www.facebook.com/people/Angie-Pichardo/61579911753681/", label: "Angie on Facebook", icon: "icon-facebook" },
-  { href: "https://www.linkedin.com/in/angie-pichardo", label: "Angie on LinkedIn", icon: "icon-linkedin" },
-  { href: "https://www.youtube.com/@angie.p.speaks", label: "Angie on YouTube", icon: "icon-youtube" },
-];
-
-const focus =
-  "focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-angie-rose";
-const link =
-  "inline-flex min-h-11 items-center text-angie-cream/85 transition-colors hover:text-angie-cream hover:underline underline-offset-4 decoration-angie-rose decoration-2";
+const angieInstagram = "https://www.instagram.com/angie.p.speaks";
+const angieFacebook = "https://www.facebook.com/people/Angie-Pichardo/61579911753681/";
+const angieLinkedin = "https://www.linkedin.com/in/angie-pichardo";
+const angieYoutube = "https://www.youtube.com/@angie.p.speaks";
 ---
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hidden" aria-hidden="true">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hidden">
   <symbol id="icon-github" viewBox="0 0 24 24">
     <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z" clip-rule="evenodd"/>
   </symbol>
@@ -54,34 +43,44 @@ const link =
   </symbol>
 </svg>
 
-<footer class="w-full border-t border-angie-cream/15 bg-angie-noir font-Grotesk text-angie-cream">
-  <div class="mx-auto w-full max-w-7xl px-5 pt-14 pb-8 md:px-8 lg:pt-20">
-    <div class="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-10">
-      <div class="md:col-span-6 lg:col-span-5">
-        <p class="font-Frauce text-3xl font-semibold leading-tight lg:text-4xl">Angie Pichardo</p>
-        <p class="mt-4 max-w-[34ch] text-[1.0625rem] leading-relaxed text-angie-cream/85">
-          Christian motivational speaker and life coach. Keynotes, coaching and mobile wellness.
+<footer
+  class="font-Frauce w-full bg-linear-to-br from-angie-noir via-angie-wine to-angie-burgundy text-angie-cream"
+>
+  <div class="mx-auto w-full max-w-7xl px-6 py-12 lg:py-16">
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-4">
+      <div class="lg:col-span-1">
+        <h2 class="text-2xl lg:text-3xl font-semibold leading-tight">
+          Designed with care, built with love.
+        </h2>
+        <p class="mt-4 text-sm text-angie-cream/80 leading-relaxed">
+          A space dedicated to wellbeing, balance and inner growth.
         </p>
-        <a href={bookUrl} target="_blank" rel="noopener noreferrer" class:list={["btn btn-outline-light mt-7", focus]}>
-          Book a call<span class="sr-only"> (opens in a new tab)</span>
-        </a>
-        <ul class="mt-8 flex flex-wrap gap-2">
+        <p class="mt-6 text-sm text-angie-cream/90">
+          Developed by 
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-semibold underline decoration-angie-rose/60 underline-offset-4 hover:text-angie-rose transition-colors"
+          >
+            Jhon Cordero
+          </a>
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-5 text-sm font-semibold uppercase tracking-widest text-angie-rose">
+          Resources
+        </h2>
+        <ul class="space-y-3 text-sm font-medium">
           {
-            socials.map(({ href, label, icon }) => (
+            resources.map(({ href, label }) => (
               <li>
                 <a
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${label} (opens in a new tab)`}
-                  class:list={[
-                    "grid size-12 place-items-center rounded-md border border-angie-cream/25 text-angie-cream transition-colors hover:bg-angie-cream hover:text-angie-noir",
-                    focus,
-                  ]}
+                  class="text-angie-cream/90 hover:text-angie-rose transition-colors"
                 >
-                  <svg width="20" height="20" aria-hidden="true">
-                    <use href={`#${icon}`} />
-                  </svg>
+                  {label}
                 </a>
               </li>
             ))
@@ -89,84 +88,113 @@ const link =
         </ul>
       </div>
 
-      <nav aria-label="Site" class="md:col-span-3 lg:col-start-7 lg:col-span-3">
-        <h2 class="font-Grotesk-bold text-base text-angie-rose">Explore</h2>
-        <ul class="mt-3 border-t border-angie-cream/15 pt-2">
-          {
-            siteLinks.map(({ href, label }) => (
-              <li>
-                <a href={href} class:list={[link, focus]}>
-                  {label}
-                </a>
-              </li>
-            ))
-          }
+      <div>
+        <h2 class="mb-5 text-sm font-semibold uppercase tracking-widest text-angie-rose">
+          Follow up
+        </h2>
+        <ul class="space-y-3 text-sm font-medium">
+          <li>
+            <a
+              href={repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-angie-cream/90 hover:text-angie-rose transition-colors inline-flex items-center gap-2 break-all"
+            >
+              <svg width="16" height="16" aria-hidden="true" class="shrink-0"><use href="#icon-github" /></svg>
+              <span>Source repository</span>
+            </a>
+          </li>
         </ul>
-      </nav>
+      </div>
 
-      <nav aria-label="Work with Angie" class="md:col-span-3 lg:col-span-3">
-        <h2 class="font-Grotesk-bold text-base text-angie-rose">Work with Angie</h2>
-        <ul class="mt-3 border-t border-angie-cream/15 pt-2">
-          {
-            workLinks.map(({ href, label }) => (
-              <li>
-                <a href={href} class:list={[link, focus]}>
-                  {label}
-                </a>
-              </li>
-            ))
-          }
+      <div>
+        <h2 class="mb-5 text-sm font-semibold uppercase tracking-widest text-angie-rose">
+          Connect
+        </h2>
+        <ul class="space-y-3 text-sm font-medium">
+          <li>
+            <a
+              href={angieInstagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-angie-cream/90 hover:text-angie-rose transition-colors inline-flex items-center gap-2"
+            >
+              <svg width="16" height="16" aria-hidden="true" class="shrink-0"><use href="#icon-instagram" /></svg>
+              <span>Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={angieFacebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-angie-cream/90 hover:text-angie-rose transition-colors inline-flex items-center gap-2"
+            >
+              <svg width="16" height="16" aria-hidden="true" class="shrink-0"><use href="#icon-facebook" /></svg>
+              <span>Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={angieLinkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-angie-cream/90 hover:text-angie-rose transition-colors inline-flex items-center gap-2"
+            >
+              <svg width="16" height="16" aria-hidden="true" class="shrink-0"><use href="#icon-linkedin" /></svg>
+              <span>LinkedIn</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={angieYoutube}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-angie-cream/90 hover:text-angie-rose transition-colors inline-flex items-center gap-2"
+            >
+              <svg width="16" height="16" aria-hidden="true" class="shrink-0"><use href="#icon-youtube" /></svg>
+              <span>YouTube</span>
+            </a>
+          </li>
         </ul>
-      </nav>
+      </div>
     </div>
 
-    <div class="mt-14 flex flex-col gap-4 border-t border-angie-cream/15 pt-6 text-sm text-angie-cream/80 md:flex-row md:items-center md:justify-between">
-      <p>
-        © {currentYear} Angie Pichardo · Built by
+    <hr class="my-10 border-angie-cream/15" />
+
+    <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+      <span class="text-xs sm:text-sm text-angie-cream/80 text-center sm:text-left">
+        © {currentYear} · Built by   
         <a
           href={githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class:list={["font-Grotesk-bold text-angie-cream underline underline-offset-4 decoration-angie-rose decoration-2 hover:text-angie-rose", focus]}
+          class="font-semibold text-angie-cream hover:text-angie-rose transition-colors"
         >
-          Jhon Cordero<span class="sr-only"> (opens in a new tab)</span>
+          Jhon Cordero
         </a>
-      </p>
-      <ul class="flex flex-wrap items-center gap-x-5 gap-y-1">
-        <li>
-          <a
-            href={repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class:list={["inline-flex min-h-11 items-center gap-2 hover:text-angie-cream hover:underline underline-offset-4", focus]}
-          >
-            <svg width="16" height="16" aria-hidden="true" class="shrink-0"><use href="#icon-github"></use></svg>
-            Source repository<span class="sr-only"> (opens in a new tab)</span>
-          </a>
-        </li>
-        <li>
-          <a
-            href={githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Jhon Cordero on GitHub (opens in a new tab)"
-            class:list={["grid size-11 place-items-center rounded-md hover:text-angie-cream", focus]}
-          >
-            <svg width="18" height="18" aria-hidden="true"><use href="#icon-github"></use></svg>
-          </a>
-        </li>
-        <li>
-          <a
-            href={linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Jhon Cordero on LinkedIn (opens in a new tab)"
-            class:list={["grid size-11 place-items-center rounded-md hover:text-angie-cream", focus]}
-          >
-            <svg width="18" height="18" aria-hidden="true"><use href="#icon-linkedin"></use></svg>
-          </a>
-        </li>
-      </ul>
+      </span>
+
+      <div class="flex items-center gap-3">
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub profile"
+          class="grid place-items-center w-10 h-10 rounded-full border border-angie-cream/20 text-angie-cream/90 hover:bg-angie-cream/10 hover:text-angie-rose transition-colors"
+        >
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-github" /></svg>
+        </a>
+        <a
+          href={linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn profile"
+          class="grid place-items-center w-10 h-10 rounded-full border border-angie-cream/20 text-angie-cream/90 hover:bg-angie-cream/10 hover:text-angie-rose transition-colors"
+        >
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-linkedin" /></svg>
+        </a>
+      </div>
     </div>
   </div>
 </footer>

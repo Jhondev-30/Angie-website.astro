@@ -1,245 +1,215 @@
----
-/**
- * Shared body of the service pages. Order: what it is, who it is for,
- * what to expect, details + investment, FAQ, one CTA band.
- * Slots: mission-intro, mission-text, note, investment-note.
- */
-interface Item {
-  title: string;
-  text: string;
-}
-interface Offer {
-  name: string;
-  price: string;
-  text: string;
-  meta?: string;
-}
-interface Detail {
-  label: string;
-  value: string;
-}
-interface Faq {
-  q: string;
-  a: string;
-}
-interface Props {
-  whoFor: Item[];
-  steps: Item[];
-  offers: Offer[];
-  details: Detail[];
-  faq: Faq[];
-  whatTitle?: string;
-  stepsTitle?: string;
-  stepsIntro?: string;
-}
 
-const {
-  whoFor,
-  steps,
-  offers,
-  details,
-  faq,
-  whatTitle = "About this service",
-  stepsTitle = "What to expect",
-  stepsIntro,
-} = Astro.props;
-
-const BOOK = "https://tidycal.com/angiepspeaks/30min-purpose-discoverycall";
----
-
-<div class="flex flex-col font-Grotesk">
-  <!-- What it is -->
-  <section class="bg-angie-cream text-angie-noir py-16 md:py-24">
-    <div
-      class="max-w-6xl mx-auto px-5 md:px-8 grid md:grid-cols-12 gap-8 md:gap-14 timeline-view animate-range-[5%_10%] animate-fade-in"
-    >
-      <h2
-        class="md:col-span-4 font-Frauce font-bold text-3xl md:text-4xl leading-tight text-balance md:sticky md:top-28 md:self-start"
-      >
-        {whatTitle}
-      </h2>
-      <div class="md:col-span-8 flex flex-col gap-6">
-        <p class="font-Frauce text-2xl md:text-3xl leading-snug text-angie-burgundy text-pretty">
+<div class="flex flex-col">
+  <!-- ============================================================ -->
+  <!-- SECTION 1 — About This Service (Our Mission)               -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 ">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10 md:mb-14">
+      
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-angie-noir mt-2 leading-tight"
+        >
+          About This Service
+        </h2>
+        <p
+          class="mt-4 max-w-2xl mx-auto text-angie-noir/75 font-Grotesk text-base md:text-lg leading-relaxed"
+        >
           <slot name="mission-intro" />
         </p>
-        <div class="measure text-lg leading-relaxed space-y-5 text-angie-noir/85 text-pretty">
+      </div>
+
+      <!--
+        Card con degradado más contrastante:
+        rose/40 → cream → burgundy/25
+        Tiene un glow blur detrás que aparece en hover (group-hover)
+      -->
+      <div
+        class="group relative grid md:grid-cols-2 gap-0 md:gap-2 items-stretch rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-angie-rose/30 hover:shadow-[0_30px_60px_-15px_rgba(196,101,138,0.5)] transition-shadow duration-500 bg-linear-to-br from-angie-rose/40 via-angie-cream to-angie-burgundy/25"
+      >
+        <!-- Glow blur decorativo detras de la card (aparece en hover) -->
+        <div
+          class="absolute -inset-2 bg-linear-to-br from-angie-rose/40 to-angie-burgundy/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-700 -z-10"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div class="aspect-4/3 md:aspect-auto md:min-h-90 overflow-hidden">
+          <slot name="mission-image" />
+        </div>
+        <div
+          class="p-6 md:p-10 lg:p-12 text-angie-noir font-Grotesk text-base md:text-lg leading-loose space-y-5 md:space-y-6 text-pretty flex flex-col justify-center"
+        >
           <slot name="mission-text" />
         </div>
-        {
-          Astro.slots.has("note") && (
-            <div class="measure text-sm leading-relaxed text-angie-noir/75 border-t border-angie-noir/15 pt-4">
-              <slot name="note" />
-            </div>
-          )
-        }
       </div>
     </div>
   </section>
 
-  <!-- Who it is for -->
-  <section class="bg-white text-angie-noir py-14 md:py-20">
-    <div class="max-w-6xl mx-auto px-5 md:px-8 timeline-view animate-range-[5%_10%] animate-fade-in">
-      <h2 class="font-Frauce font-bold text-3xl md:text-5xl leading-tight">Who it is for</h2>
-      <ul class="mt-8 md:mt-12 grid md:grid-cols-2 gap-x-14 list-none p-0">
-        {
-          whoFor.map((item) => (
-            <li class="border-t border-angie-noir/15 py-6">
-              <h3 class="font-Frauce font-bold text-xl md:text-2xl">{item.title}</h3>
-              <p class="mt-2 text-angie-noir/80 leading-relaxed measure">{item.text}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <!-- What to expect -->
-  <section class="bg-angie-cream text-angie-noir py-16 md:py-28">
-    <div class="max-w-6xl mx-auto px-5 md:px-8 timeline-view animate-range-[5%_10%] animate-fade-in">
-      <div class="md:grid md:grid-cols-12">
-        <h2 class="md:col-span-7 font-Frauce font-bold text-3xl md:text-5xl leading-tight text-balance">
-          {stepsTitle}
+  <!-- ============================================================ -->
+  <!-- SECTION 2 — Best For (3-4 cards claras)                     -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10 md:mb-14">
+        <p
+          class="text-angie-burgundy uppercase tracking-[0.2em] text-xs md:text-sm font-Grotesk-bold"
+        >
+          Designed For
+        </p>
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-angie-noir mt-2 leading-tight"
+        >
+          Best For
         </h2>
       </div>
-      {stepsIntro && <p class="mt-4 measure text-lg text-angie-noir/80">{stepsIntro}</p>}
-      <ol class="mt-8 md:mt-14 list-none p-0">
-        {
-          steps.map((step) => (
-            <li class="border-t border-angie-noir/15 py-7 md:py-9 md:grid md:grid-cols-12 md:gap-10">
-              <h3 class="md:col-span-4 font-Frauce font-bold text-xl md:text-2xl text-angie-burgundy">
-                {step.title}
-              </h3>
-              <p class="mt-2 md:mt-0 md:col-span-7 md:col-start-6 text-lg leading-relaxed text-angie-noir/85 text-pretty">
-                {step.text}
-              </p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <!-- Details + investment -->
-  <section id="details" class="bg-angie-wine text-angie-cream py-20 md:py-32 scroll-mt-20">
-    <div class="max-w-6xl mx-auto px-5 md:px-8">
-      <h2 class="font-Frauce font-bold text-3xl md:text-5xl leading-tight">Pricing and details</h2>
-
-      <ul class="mt-10 md:mt-14 list-none p-0">
-        {
-          offers.map((offer) => (
-            <li class="border-t border-angie-cream/20 py-8 md:py-10 md:grid md:grid-cols-12 md:gap-10">
-              <div class="md:col-span-4">
-                <h3 class="font-Grotesk-bold text-lg text-angie-cream">{offer.name}</h3>
-                <p class="mt-1 font-Frauce font-bold text-4xl md:text-5xl text-angie-rose">
-                  {offer.price}
-                </p>
-              </div>
-              <div class="mt-4 md:mt-0 md:col-span-8">
-                <p class="text-lg leading-relaxed text-angie-cream/90 measure text-pretty">
-                  {offer.text}
-                </p>
-                {offer.meta && (
-                  <p class="mt-3 text-sm text-angie-cream/75">{offer.meta}</p>
-                )}
-                <div class="mt-4 flex flex-wrap gap-x-6">
-                  <a
-                    href={BOOK}
-                    rel="noopener"
-                    class="link-arrow min-h-11 text-angie-cream"
-                    aria-label={`Book a call about ${offer.name}`}
-                  >
-                    Book a call
-                  </a>
-                  {/* Inert placeholder: no payment URL is wired yet. No href keeps it out of
-                      the tab order and stops "#" jumping to the top. A future script can set
-                      href and remove aria-disabled via [data-stripe-link]. */}
-                  <a
-                    role="link"
-                    aria-disabled="true"
-                    data-stripe-link
-                    rel="noopener"
-                    class="link-arrow min-h-11 text-angie-cream"
-                    aria-label={`Pay now for ${offer.name}`}
-                  >
-                    Pay now
-                  </a>
-                </div>
-              </div>
-            </li>
-          ))
-        }
-      </ul>
-
-      <dl class="mt-6 md:mt-10 grid sm:grid-cols-3 gap-x-10 border-t border-angie-cream/20">
-        {
-          details.map((d) => (
-            <div class="py-5 sm:py-7">
-              <dt class="text-sm text-angie-cream/75">{d.label}</dt>
-              <dd class="mt-1 font-Frauce font-bold text-xl md:text-2xl">{d.value}</dd>
-            </div>
-          ))
-        }
-      </dl>
-
-      {
-        Astro.slots.has("investment-note") && (
-          <p class="mt-4 measure text-sm text-angie-cream/75">
-            <slot name="investment-note" />
-          </p>
-        )
-      }
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="bg-angie-cream text-angie-noir py-14 md:py-24">
-    <div class="max-w-6xl mx-auto px-5 md:px-8 md:grid md:grid-cols-12 md:gap-14">
-      <h2 class="md:col-span-4 font-Frauce font-bold text-3xl md:text-4xl leading-tight">
-        Questions
-      </h2>
-      <div class="mt-8 md:mt-0 md:col-span-8 border-b border-angie-noir/15">
-        {
-          faq.map((item) => (
-            <details class="group border-t border-angie-noir/15">
-              <summary class="flex items-center justify-between gap-6 min-h-14 py-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden font-Grotesk-bold text-lg focus-visible:outline-3 focus-visible:outline-angie-burgundy">
-                <span>{item.q}</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.75"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="shrink-0 text-angie-burgundy transition-transform duration-300 group-open:rotate-45"
-                  aria-hidden="true"
-                >
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-              </summary>
-              <p class="pb-6 measure leading-relaxed text-angie-noir/85" set:html={item.a} />
-            </details>
-          ))
-        }
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        <slot name="best-for" />
       </div>
     </div>
   </section>
 
-  <!-- Final CTA -->
-  <section class="bg-angie-noir text-angie-cream py-20 md:py-28">
-    <div class="max-w-6xl mx-auto px-5 md:px-8 md:grid md:grid-cols-12 md:gap-14 md:items-end">
-      <h2 class="md:col-span-7 font-Frauce font-bold text-4xl md:text-6xl leading-[1.05] text-balance">
+  <!-- ============================================================ -->
+  <!-- SECTION 3 — Investment / Pricing (cards oscuras)            -->
+  <!-- El grid se renderiza automaticamente; las paginas pasan     -->
+  <!-- las cards individuales como children del slot "investment" -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 bg-angie-noir text-white relative overflow-hidden">
+    <!-- Decoracion de fondo: gradiente radial sutil -->
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-150 bg-angie-rose/10 rounded-full blur-3xl pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 md:px-6 relative">
+      <div class="text-center mb-10 md:mb-14">
+        <p
+          class="text-angie-rose uppercase tracking-[0.2em] text-xs md:text-sm font-Grotesk-bold"
+        >
+          Investment
+        </p>
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-white mt-2 leading-tight"
+        >
+          Pricing & Details
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-5 md:gap-6">
+        <slot name="investment" />
+      </div>
+
+      <p
+        class="text-center text-white/70 font-Grotesk text-sm mt-10 max-w-2xl mx-auto"
+      >
+        <slot name="investment-note" />
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4 — How to Book (3 pasos numerados con conectores)  -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 relative overflow-hidden bg-[linear-gradient(135deg,#FFF5FA_0%,#FBE0EB_25%,#FBC2EB_55%,#E89BB8_100%)] bg-linear-to-br">
+    <!-- Decoracion de fondo -->
+    <div
+      class="absolute -top-20 -right-20 w-72 h-72 bg-angie-rose/15 rounded-full blur-3xl pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="absolute -bottom-20 -left-20 w-72 h-72 bg-angie-burgundy/10 rounded-full blur-3xl pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 md:px-6 relative">
+      <div class="text-center mb-12 md:mb-16">
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-angie-noir mt-2 leading-tight"
+        >
+          How to Book
+        </h2>
+      </div>
+
+      <!--
+        Grid relativo para permitir conectores absolute entre cards.
+        En mobile: 1 col, conector vertical.
+        En md+: 3 cols, conectores horizontales.
+      -->
+      <div class="relative grid md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Conector horizontal (solo desktop) -->
+        <div
+          class="hidden md:block absolute top-12 left-[16.66%] right-[16.66%] h-0.5 bg-linear-to-r from-angie-burgundy/20 via-angie-rose/40 to-angie-burgundy/20 z-0"
+          aria-hidden="true"
+        >
+        </div>
+
+        <slot name="how-to-book" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5 — FAQ (4 <details>, importante para SEO)         -->
+  <!-- ============================================================ -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10 md:mb-14">
+        <p
+          class="text-angie-burgundy uppercase tracking-[0.2em] text-xs md:text-sm font-Grotesk-bold"
+        >
+          Common Questions
+        </p>
+        <h2
+          class="font-Frauce text-3xl md:text-5xl text-angie-noir mt-2 leading-tight"
+        >
+          FAQ
+        </h2>
+      </div>
+      <div class="space-y-3">
+        <slot name="faq" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6 — Final CTA (gradient burgundy → noir)            -->
+  <!-- ============================================================ -->
+  <section
+    class="py-16 md:py-20 bg-linear-to-br from-angie-burgundy to-angie-noir text-white text-center relative overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)] pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 md:px-6 relative">
+      <h2 class="font-Frauce text-3xl md:text-5xl leading-tight">
         Still here for a reason.
       </h2>
-      <div class="mt-6 md:mt-0 md:col-span-5">
-        <p class="text-lg leading-relaxed text-angie-cream/85">
-          Book a free 30-minute discovery call. We will talk about where you are and where you
-          want to go. No pressure, just a real conversation.
-        </p>
-        <a href={BOOK} rel="noopener" class="btn btn-light mt-7">Book a free discovery call</a>
-      </div>
+      <p
+        class="mt-4 font-Grotesk text-base md:text-lg text-white/90 leading-relaxed"
+      >
+        Book a free 30-minute discovery call. Let's talk about where you are
+        and where you want to go — no pressure, just a real conversation.
+      </p>
+      <a
+        href="https://tidycal.com/angiepspeaks/30min-purpose-discoverycall"
+        rel="noopener"
+        class="group/cta inline-block mt-8 px-8 py-4 bg-angie-rose text-angie-noir font-Grotesk-bold rounded-full hover:bg-white transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-angie-rose/40 hover:-translate-y-0.5"
+      >
+        <span class="inline-flex items-center gap-2">
+          Book a Free Discovery Call
+          <span
+            class="inline-block transition-transform duration-300 group-hover/cta:translate-x-1"
+            aria-hidden="true"
+            >→</span
+          >
+        </span>
+      </a>
     </div>
   </section>
 </div>

@@ -158,7 +158,7 @@ const breadcrumbSchema = {
 >
 
   {/* HERO — headline + waitlist CTA, one mood photo */}
-  <section aria-labelledby="store-hero-heading" class="w-full bg-angie-noir text-angie-cream">
+  <section aria-labelledby="store-hero-heading" class="relative isolate overflow-hidden w-full bg-gradient-nocturne text-angie-cream">
     <div class="max-w-7xl mx-auto px-6 md:px-10 pt-28 md:pt-40 pb-14 md:pb-24 grid md:grid-cols-12 gap-x-12 gap-y-10 items-end">
       <div class="md:col-span-7">
         <h1 id="store-hero-heading" class="font-Frauce font-bold leading-[1] text-[clamp(2.5rem,6.4vw,5rem)] tracking-tight text-balance animate-rise">
@@ -173,7 +173,7 @@ const breadcrumbSchema = {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Join the waitlist (opens in a new tab)"
-            class="btn btn-light hover:animate-tada self-start"
+            class="btn btn-glass hover:animate-tada self-start"
           >
             Join the waitlist
           </a>
@@ -182,7 +182,7 @@ const breadcrumbSchema = {
           </a>
         </div>
 
-        <ul class="mt-10 grid sm:grid-cols-3 border-t border-angie-cream/25 animate-rise" style="animation-delay:320ms">
+        <ul class="mt-10 grid sm:grid-cols-3 card-glass px-6 animate-rise" style="animation-delay:320ms">
           {perks.map((t) => (
             <li class="py-3 sm:pr-4 text-angie-cream/90 border-b border-angie-cream/15 sm:border-b-0">{t}</li>
           ))}
@@ -205,7 +205,7 @@ const breadcrumbSchema = {
   </section>
 
   {/* WHAT'S COMING — hairline rows, not cards */}
-  <section aria-labelledby="coming-soon-heading" class="w-full bg-angie-cream text-angie-noir">
+  <section aria-labelledby="coming-soon-heading" class="relative isolate overflow-hidden w-full bg-[linear-gradient(160deg,#FFF5FA_0%,#FBC2EB_55%,#E8A0B8_100%)] text-angie-noir">
     <div class="max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-16 md:pb-24">
       <header class="max-w-3xl">
         <h2 id="coming-soon-heading" class="font-Frauce font-bold text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.05] text-balance">What's coming to the store</h2>
@@ -214,7 +214,7 @@ const breadcrumbSchema = {
         </p>
       </header>
 
-      <ul class="mt-10 md:mt-14 border-t border-angie-noir/30">
+      <ul class="mt-10 md:mt-14 card-glass-light px-6">
         {resources.map((r) => (
           <li class="grid md:grid-cols-12 gap-x-10 gap-y-3 py-7 md:py-9 border-b border-angie-noir/20">
             <div class="md:col-span-3">
@@ -231,7 +231,7 @@ const breadcrumbSchema = {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Notify me when ${r.title} is available (opens in a new tab)`}
-                class="btn btn-outline-dark"
+                class="btn btn-glass-dark"
               >
                 Notify me
               </a>
@@ -244,7 +244,7 @@ const breadcrumbSchema = {
   </section>
 
   {/* NOTE — wine plane, two columns */}
-  <section aria-label="A note on the store timeline" class="w-full bg-angie-wine text-angie-cream">
+  <section aria-label="A note on the store timeline" class="relative isolate overflow-hidden w-full bg-gradient-nocturne text-angie-cream">
     <div class="max-w-6xl mx-auto px-6 py-14 md:py-20 grid md:grid-cols-12 gap-x-12 gap-y-6 items-end">
       <p class="md:col-span-7 font-Frauce font-bold text-2xl md:text-4xl leading-[1.2] text-balance">
         Most offerings are launching in 2026 alongside the book release. The self-paced A.L.I.G.N. course and the Still Here devotional are the first two to open.
@@ -256,10 +256,10 @@ const breadcrumbSchema = {
   </section>
 
   {/* WHY JOIN — two plain definitions beside the heading */}
-  <section aria-labelledby="why-waitlist-heading" class="w-full bg-angie-cream text-angie-noir">
+  <section aria-labelledby="why-waitlist-heading" class="relative isolate overflow-hidden w-full bg-[linear-gradient(160deg,#FFF5FA_0%,#FBC2EB_55%,#E8A0B8_100%)] text-angie-noir">
     <div class="max-w-6xl mx-auto px-6 py-14 md:py-20 grid md:grid-cols-12 gap-x-12 gap-y-8">
       <h2 id="why-waitlist-heading" class="md:col-span-4 font-Frauce font-bold text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1]">Why join the waitlist?</h2>
-      <dl class="md:col-span-8 border-t border-angie-noir/25 grid sm:grid-cols-2 gap-x-10">
+      <dl class="md:col-span-8 card-glass-light px-6 grid sm:grid-cols-2 gap-x-10">
         {reasons.map((r) => (
           <div class="py-5 border-b border-angie-noir/15 sm:border-b-0">
             <dt class="font-Frauce font-bold text-2xl">{r.t}</dt>
@@ -271,13 +271,13 @@ const breadcrumbSchema = {
   </section>
 
   {/* FAQ — noir plane, details rows */}
-  <section id="faq" aria-labelledby="store-faq-heading" class="w-full bg-angie-noir text-angie-cream">
+  <section id="faq" aria-labelledby="store-faq-heading" class="relative isolate overflow-hidden w-full bg-gradient-nocturne text-angie-cream">
     <div class="max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-x-12 gap-y-8">
       <header class="md:col-span-4">
         <h2 id="store-faq-heading" class="font-Frauce font-bold text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1]">About the A.L.I.G.N. resources</h2>
         <p class="mt-4 text-angie-cream/85 text-lg leading-relaxed">The same questions I get after every keynote and coaching call. If yours isn't here, send it over.</p>
       </header>
-      <div class="md:col-span-8 border-t border-angie-cream/25">
+      <div class="md:col-span-8 card-glass px-6">
         {faqs.map((faq) => (
           <details class="group/faq border-b border-angie-cream/20">
             <summary class="cursor-pointer list-none flex justify-between items-center gap-4 min-h-14 py-4 font-Frauce font-bold text-lg md:text-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-angie-rose [&::-webkit-details-marker]:hidden">
@@ -292,7 +292,7 @@ const breadcrumbSchema = {
   </section>
 
   {/* FINAL CTA — solid burgundy plane */}
-  <section aria-label="Join the waitlist and book a purpose discovery call" class="w-full bg-angie-burgundy text-angie-cream">
+  <section aria-label="Join the waitlist and book a purpose discovery call" class="w-full bg-gradient-zion text-angie-cream">
     <div class="max-w-6xl mx-auto px-6 py-14 md:py-20 grid md:grid-cols-12 gap-x-12 gap-y-8 items-end">
       <div class="md:col-span-8">
         <h2 class="font-Frauce font-bold text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-balance">
@@ -308,7 +308,7 @@ const breadcrumbSchema = {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Book Your Free Call (opens in a new tab)"
-          class="btn btn-light"
+          class="btn btn-glass-dark"
         >
           Book Your Free Call
         </a>
