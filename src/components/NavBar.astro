@@ -299,6 +299,13 @@ const links = [
     opacity: 0;
     will-change: transform, opacity;
     pointer-events: none;
+    /* visibility:hidden saca los links del orden de tab y del arbol de
+       accesibilidad; se aplica al final de la animacion de salida. */
+    visibility: hidden;
+    transition:
+      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.35s ease,
+      visibility 0s linear 0.5s;
   }
   /* Mobile: el boton del menu queda siempre fijo y visible */
   @media (max-width: 767px) {
@@ -306,6 +313,7 @@ const links = [
       transform: none;
       opacity: 1;
       pointer-events: auto;
+      visibility: visible;
     }
   }
   /* Accesibilidad: si el usuario pide reduced-motion, no animamos */

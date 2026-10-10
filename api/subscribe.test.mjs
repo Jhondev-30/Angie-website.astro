@@ -128,6 +128,51 @@ test("does not call Resend when the DB save succeeds", async () => {
   assert.equal(calls.some((c) => c.url.includes("api.resend.com")), false);
 });
 
+test("non-string email (number, array, object) is a 400, not a 500", async () => {
+  mockFetch({ supabase: ok() });
+  for (const email of [123, ["a@b.co"], { a: 1 }, null]) {
+    const res = await post({ email });
+    assert.equal(res.status, 400, `email=${JSON.stringify(email)}`);
+    assert.equal(res.body.ok, false);
+  }
+  assert.equal(calls.length, 0);
+});
+
+test("responds before the Resend fallback finishes", async () => {
+  process.env.RESEND_API_KEY = "re_test";
+  process.env.LEAD_NOTIFY_EMAIL = "owner@example.com";
+  const order = [];
+  mockFetch({
+    supabase: ok(500),
+    resend: async () => {
+      await new Promise((r) => setTimeout(r, 30));
+      order.push("resend-done");
+      return { ok: true, status: 200 };
+    },
+  });
+  const res = makeRes();
+  const realEnd = res.end.bind(res);
+  res.end = (payload) => { order.push("responded"); realEnd(payload); };
+  await handler({ method: "POST", body: { email: "a@b.co" } }, res);
+  assert.deepEqual(order, ["responded", "resend-done"]);
+  assert.equal(res.status, 200);
+});
+
+test("logs LEAD_LOST when the DB fails and Resend is not configured", async () => {
+  mockFetch({ supabase: ok(500) });
+  const logged = [];
+  const realError = console.error;
+  console.error = (...args) => logged.push(args.join(" "));
+  try {
+    const res = await post({ email: "lost@example.com" });
+    assert.equal(res.status, 200);
+    assert.equal(res.body.saved, false);
+  } finally {
+    console.error = realError;
+  }
+  assert.ok(logged.some((l) => l.includes("LEAD_LOST") && l.includes("lost@example.com")));
+});
+
 test("a failing Resend call never breaks the download", async () => {
   process.env.RESEND_API_KEY = "re_test";
   process.env.LEAD_NOTIFY_EMAIL = "owner@example.com";

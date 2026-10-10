@@ -58,7 +58,9 @@ export default async function handler(req, res) {
     return res.end(JSON.stringify({ ok: true, downloadUrl: PDF_URL, alsoAvailable: DOCX_URL, _honeypot: true }));
   }
 
-  const email = (body.email || "").trim().toLowerCase();
+  // A non-string email (number, array, object) is just an invalid email.
+  const rawEmail = typeof body.email === "string" ? body.email : "";
+  const email = rawEmail.trim().toLowerCase();
   if (!EMAIL_RE.test(email)) {
     console.log("[subscribe] invalid email format:", JSON.stringify(email));
     res.writeHead(400, { ...corsHeaders, "Content-Type": "application/json" });
@@ -104,18 +106,20 @@ export default async function handler(req, res) {
     }
   }
 
-  if (!saved) {
-    console.error("[subscribe] DB save failed, using fallback:", failReason);
-    await notifyViaResend(email, failReason);
-  }
-
+  // Answer first so the visitor never waits on the Resend fallback; the
+  // function keeps running until the handler promise settles.
   res.writeHead(200, { ...corsHeaders, "Content-Type": "application/json" });
-  return res.end(JSON.stringify({
+  res.end(JSON.stringify({
     ok: true,
     saved,
     downloadUrl: PDF_URL,
     alsoAvailable: DOCX_URL,
   }));
+
+  if (!saved) {
+    console.error("[subscribe] DB save failed, using fallback:", failReason);
+    await notifyViaResend(email, failReason);
+  }
 }
 
 // Emails the lead to the site owner so it is not lost while Supabase is down.
@@ -124,7 +128,8 @@ async function notifyViaResend(email, reason) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_NOTIFY_EMAIL;
   if (!apiKey || !to) {
-    console.error("[subscribe] Resend not configured; lead NOT persisted:", email);
+    // Greppable marker: this is the only trace of the lead in the Vercel logs.
+    console.error("[subscribe] LEAD_LOST: DB failed and Resend not configured:", email, "reason:", reason);
     return;
   }
   const controller = new AbortController();
