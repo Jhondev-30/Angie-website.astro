@@ -78,6 +78,17 @@
     --color-angie-cream: #FFF5FA;
     --color-gradient-blue:#A6C1EE;
     --color-gradient-rose: #FBC2EB;
+    /* Warm accents close to the rose family (store / highlights) */
+    --color-angie-gold: #E3B778;
+    --color-angie-peach: #F7C9B6;
+    --color-angie-plum: #6B1D44;
+
+    /* Horizontal phrase carousel (duplicate the track content for a seamless loop) */
+    --animate-marquee: marquee 45s linear infinite;
+    @keyframes marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+    }
 
     /* ── Softer motion: same personality (tada / scale / zoom) with smaller
        amplitudes and easing curves, so it feels lighter on low-end phones. */
@@ -183,7 +194,7 @@
         gap: 0.6rem;
         min-height: 3rem;
         padding: 0.7rem 1.6rem;
-        border-radius: 0.375rem;
+        border-radius: 9999px;
         border: 1.5px solid transparent;
         font-family: var(--font-Grotesk-bold);
         font-size: 0.95rem;
