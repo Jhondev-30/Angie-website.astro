@@ -159,3 +159,53 @@
         scroll-behavior: auto !important;
     }
 }
+
+/* ── Design system primitives (see design-system/angie/MASTER.md) ────────── */
+@layer components {
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        min-height: 3rem;
+        padding: 0.7rem 1.6rem;
+        border-radius: 0.375rem;
+        border: 1.5px solid transparent;
+        font-family: var(--font-Grotesk-bold);
+        font-size: 0.95rem;
+        line-height: 1.2;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-light  { background: var(--color-angie-cream); color: var(--color-angie-noir); }
+    .btn-light:hover  { background: #fff; }
+    .btn-dark   { background: var(--color-angie-noir); color: var(--color-angie-cream); }
+    .btn-dark:hover   { background: var(--color-angie-burgundy); }
+    .btn-burgundy { background: var(--color-angie-burgundy); color: #fff; }
+    .btn-burgundy:hover { background: var(--color-angie-wine); }
+    .btn-outline-light { border-color: rgb(255 245 250 / 0.7); color: var(--color-angie-cream); }
+    .btn-outline-light:hover { background: var(--color-angie-cream); color: var(--color-angie-noir); }
+    .btn-outline-dark  { border-color: var(--color-angie-noir); color: var(--color-angie-noir); }
+    .btn-outline-dark:hover  { background: var(--color-angie-noir); color: var(--color-angie-cream); }
+
+    /* Tertiary text link with an animated underline */
+    .link-arrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-Grotesk-bold);
+        text-decoration: underline;
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: 0.35em;
+        transition: text-underline-offset 0.2s ease, color 0.2s ease;
+    }
+    .link-arrow:hover { text-underline-offset: 0.5em; }
+    .link-arrow:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+
+    /* Readable measure for long copy */
+    .measure { max-width: 62ch; }
+}

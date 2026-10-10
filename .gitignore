@@ -28,3 +28,8 @@ scripts/
 
 # Playwright MCP artifacts
 .playwright-mcp/
+
+# Local tool installs (ui-ux-pro-max, impeccable) and Playwright artifacts
+.claude/skills/
+.claude/agents/
+.claude/settings.local.json
