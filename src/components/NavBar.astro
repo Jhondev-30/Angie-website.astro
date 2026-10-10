@@ -4,178 +4,113 @@ import { Menu } from "lucide";
 
 const currentPath = Astro.url.pathname;
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/store", label: "Store" },
-  { href: "/wellness", label: "Wellness" },
-  { href: "/aboutme", label: "About me" },
-  { href: "/resources", label: "Resources" },
+  { href: "/", label: "home" },
+  { href: "/store", label: "store" },
+  { href: "/wellness", label: "wellness" },
+  { href: "/aboutme", label: "about me" },
+  { href: "/resources", label: "resources" },
 ];
-const serviceLinks = [
-  { href: "/services/coaching", label: "Coaching" },
-  { href: "/services/keynote-speaking", label: "Keynote" },
-  { href: "/services/podcast-guest", label: "Podcast guest" },
-];
-const bookUrl = "https://tidycal.com/angiepspeaks/30min-purpose-discoverycall";
-
-const focus =
-  "focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-angie-rose";
-const item =
-  "flex min-h-14 w-full items-center text-2xl font-Frauce font-semibold text-angie-cream " +
-  "md:min-h-11 md:w-auto md:rounded-md md:px-3 md:font-Grotesk md:text-[0.95rem] md:font-medium " +
-  "md:text-angie-cream/85 md:hover:text-angie-cream md:underline-offset-[0.55rem] " +
-  "md:decoration-2 md:decoration-angie-rose md:aria-[current=page]:underline md:aria-[current=page]:text-angie-cream";
 ---
 
 <header
   data-nav-hider
-  class="fixed inset-x-0 top-0 z-999 border-b border-angie-cream/15 bg-angie-noir text-angie-cream"
+  class="fixed inset-x-0 top-0 z-999 md:top-2 md:inset-auto md:left-1/2 md:-translate-x-1/2 md:w-max md:grid md:place-content-center transition-transform duration-300"
 >
-  <div class="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
-    <a
-      href="/"
-      class:list={["inline-flex min-h-11 items-center gap-3 rounded-md font-Frauce text-lg font-semibold", focus]}
+  <button
+    id="menu-btn"
+    type="button"
+    class="md:hidden absolute top-3 right-3 z-60 p-2 cursor-pointer inline-flex items-center justify-center w-11 h-11 rounded-full bg-angie-noir/60 backdrop-blur-md border border-white/20 text-white shadow-lg"
+    aria-label="Menu"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+  >
+    <MorphIcon icon={Menu} id="menu-icon" size={24} strokeWidth={2.5} />
+  </button>
+
+  <nav
+    class="md:flex lg:max-w-200 font-Frauce relative text-white md:justify-center md:gap-1 md:px-4 md:rounded-full md:bg-angie-noir/40 md:backdrop-blur-xl md:border md:border-white/10 md:shadow-2xl md:shadow-black/30"
+    aria-label="main navigation"
+  >
+    <ul
+      id="mobile-menu"
+      data-open="false"
+      class="hidden md:flex flex-col items-center py-6 px-6 *:py-2 justify-center gap-3 fixed inset-0 bg-pink-nav-soft z-40
+                   md:flex-row md:static md:justify-center md:gap-5 md:py-1 md:px-2 md:bg-transparent md:z-auto md:w-auto md:h-auto md:inset-auto
+                   data-[open=true]:flex data-[open=true]:bg-pink-950
+                    "
     >
-      <span
-        aria-hidden="true"
-        class="grid size-9 place-items-center rounded-md bg-angie-cream font-Frauce text-base font-bold text-angie-noir"
-        >AP</span
-      >
-      <span>Angie Pichardo</span>
-    </a>
-
-    <button
-      id="menu-btn"
-      type="button"
-      class:list={[
-        "md:hidden inline-flex size-12 cursor-pointer items-center justify-center rounded-md border border-angie-cream/30 text-angie-cream transition-colors hover:bg-angie-cream/10",
-        focus,
-      ]}
-      aria-label="Open menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <MorphIcon icon={Menu} id="menu-icon" size={24} strokeWidth={2} />
-    </button>
-
-    <nav aria-label="main navigation" class="contents md:block md:ml-auto">
-      <ul
-        id="mobile-menu"
-        data-open="false"
-        class="hidden data-[open=true]:flex fixed inset-x-0 top-16 bottom-0 z-40 flex-col overflow-y-auto bg-angie-noir px-5 pt-2 pb-10
-               md:static md:flex md:flex-row md:items-center md:gap-1 md:overflow-visible md:bg-transparent md:p-0"
-      >
-        {
-          links.map(({ href, label }) => (
-            <li class="border-b border-angie-cream/15 md:border-0">
-              <a
-                href={href}
-                aria-current={currentPath === href ? "page" : undefined}
-                class:list={[item, focus]}
-              >
-                {label}
-              </a>
-            </li>
-          ))
-        }
-
-        <li
-          id="Services"
-          class="group/services relative border-b border-angie-cream/15 md:flex md:h-16 md:items-center md:border-0"
-        >
-          <button
-            type="button"
-            id="services-btn"
-            class:list={[item, "group/sb cursor-pointer justify-between gap-2 md:justify-start", focus]}
-            aria-expanded="false"
-            aria-controls="services-menu"
-          >
-            <span>Services</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.75"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              class="shrink-0 transition-transform duration-200 group-aria-expanded/sb:rotate-180"
+      {
+        links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              aria-current={currentPath === href ? "page" : undefined}
+              class:list={["text-sm px-3 py-2 rounded-full transition",
+              "text-white  hover:bg-white/5",
+              currentPath === href && " bg-white/10",]}
             >
-              <path d="m6 9 6 6 6-6"></path>
-            </svg>
-          </button>
-          <div
-            id="services-menu"
-            class="hidden data-[services-open=true]:flex flex-col pb-3 pl-4
-                   md:absolute md:top-full md:left-0 md:flex md:min-w-52 md:invisible md:translate-y-1 md:rounded-md md:border md:border-angie-cream/15 md:bg-angie-noir md:p-1.5 md:opacity-0 md:transition md:duration-150
-                   md:group-hover/services:visible md:group-hover/services:translate-y-0 md:group-hover/services:opacity-100
-                   md:group-focus-within/services:visible md:group-focus-within/services:translate-y-0 md:group-focus-within/services:opacity-100
-                   md:data-[services-open=true]:visible md:data-[services-open=true]:translate-y-0 md:data-[services-open=true]:opacity-100"
-          >
-            {
-              serviceLinks.map(({ href, label }) => (
-                <a
-                  href={href}
-                  aria-current={currentPath === href ? "page" : undefined}
-                  class:list={[
-                    "flex min-h-12 items-center rounded-md text-lg text-angie-cream/85 hover:text-angie-cream md:min-h-11 md:px-3 md:text-[0.95rem] md:hover:bg-angie-cream/10 aria-[current=page]:text-angie-cream aria-[current=page]:underline aria-[current=page]:decoration-angie-rose aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-4",
-                    focus,
-                  ]}
-                >
-                  {label}
-                </a>
-              ))
-            }
-          </div>
-        </li>
+              {label}
+            </a>
+          </li>
+        ))
+      }
 
-        <li class="pt-6 md:hidden">
-          <a
-            href={bookUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class:list={["btn btn-light w-full", focus]}
-          >
-            Book a call<span class="sr-only"> (opens in a new tab)</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <a
-      href={bookUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class:list={["btn btn-light hidden md:inline-flex min-h-11! py-2! px-5! text-sm", focus]}
-    >
-      Book a call<span class="sr-only"> (opens in a new tab)</span>
-    </a>
-  </div>
+      <li id="Services" class="relative group/services rounded-full">
+        <button
+          type="button"
+          id="services-btn"
+          class="text-sm px-3 py-2 rounded-full transition cursor-pointer flex items-center gap-1 hover:bg-white/10"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="services-menu"
+        >
+          services
+        </button>
+        <div
+          id="services-menu"
+          role="menu"
+          tabindex="-1"
+          class="invisible opacity-0 -translate-y-1 flex flex-col items-stretch px-1.5 py-1.5 gap-1 rounded-2xl
+                 absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50
+                 bg-angie-noir/95 backdrop-blur-xl border border-white/10 shadow-2xl text-white
+                 transition-all duration-200
+                 group-hover/services:visible group-hover/services:opacity-100 group-hover/services:translate-y-0 group-hover/services:translate-x-[-50%]
+                 group-focus-within/services:visible group-focus-within/services:opacity-100 group-focus-within/services:translate-y-0 group-focus-within/services:translate-x-[-50%]
+                 data-[services-open=true]:visible data-[services-open=true]:opacity-100 data-[services-open=true]:translate-y-0 data-[services-open=true]:translate-x-[-50%]
+                 md:flex-row md:items-center md:rounded-full
+                 *:text-sm *:px-3 *:py-2 *:rounded-full *:hover:bg-white/10 *:transition *:whitespace-nowrap *:text-center"
+        >
+          <a href="/services/coaching" role="menuitem">coaching</a>
+          <a href="/services/keynote-speaking" role="menuitem">keynote</a>
+          <a href="/services/podcast-guest" role="menuitem" class="text-balance">podcast guest</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
 </header>
+<style>
+    /* El control de visibilidad del mobile menu y del dropdown de services
+       se hace 100% con data-attribute selectors de Tailwind v4 en el markup.
+       No se necesita CSS adicional aquí. */
+</style>
 
 <script>
   import { Menu, X } from "lucide";
   import type { MorphIconElement } from "morphicons/element";
 
-  // Astro uses <ClientRouter /> (View Transitions): the DOM is swapped
-  // in-place, so the nav logic is re-run on every "astro:page-load".
-  // Document/window level listeners share one AbortController so they
-  // never stack up between navigations.
-  let controller: AbortController | null = null;
+  // Astro usa <ClientRouter /> (View Transitions) en MainLayout.
+  // Eso significa que al navegar entre paginas NO se recarga la pagina:
+  // el DOM se actualiza in-place. Por eso envolvemos toda la logica
+  // en initNav() y la re-ejecutamos en cada navegacion via
+  // el evento "astro:page-load". Si no, los event listeners se
+  // quedan atados al DOM viejo y desaparecen al navegar.
+  //
+  // Tambien guardamos la referencia del scroll handler a nivel de
+  // modulo para poder removerlo en cada re-init (sino se acumulan
+  // listeners duplicados en window cada vez que cambia la pagina).
   let scrollHandler: (() => void) | null = null;
 
   function initNav() {
-    controller?.abort();
-    controller = null;
-    if (scrollHandler) {
-      window.removeEventListener("scroll", scrollHandler);
-      scrollHandler = null;
-    }
-    // Always release a scroll lock left over from a previous page.
-    document.documentElement.style.overflow = "";
-
     const btn = document.querySelector<HTMLButtonElement>("#menu-btn");
     const menu = document.getElementById("mobile-menu");
     const iconEl = document.querySelector<MorphIconElement>("#menu-icon");
@@ -184,197 +119,172 @@ const item =
     const servicesLi = document.getElementById("Services");
     const header = document.querySelector<HTMLElement>("[data-nav-hider]");
 
+    // Si los elementos requeridos no existen en esta pagina, salir.
+    // (Todos deberian existir porque el NavBar esta en MainLayout, pero
+    // es defensivo por si el NavBar se reusa sin la <ul> mobile-menu.)
     if (!btn || !menu || !iconEl || !servicesBtn || !servicesMenu || !servicesLi || !header) {
       return;
     }
 
-    const ac = new AbortController();
-    controller = ac;
-    const { signal } = ac;
-
+    // Limpiar scroll handler previo (importante en View Transitions)
+    if (scrollHandler) {
+      window.removeEventListener("scroll", scrollHandler);
+      scrollHandler = null;
+    }
+    // Siempre arrancar visible al cargar / cambiar de pagina
     header.classList.remove("nav-hidden");
 
     let open = false;
     let servicesToggled = false;
-    // Escape pressed while the hover/focus-opened menu was showing (WCAG 1.4.13)
-    let servicesDismissed = false;
+    // Detectar si el dispositivo soporta hover real (mouse/trackpad).
+    // En touch puro (mobile/tablet) el :hover no aplica de forma persistente,
+    // asi que el click en services-btn debe actuar como toggle.
     const hasHover = window.matchMedia("(hover: hover)").matches;
-    const desktop = window.matchMedia("(min-width: 768px)");
 
-    const syncServicesExpanded = () => {
-      const hovered = servicesMenu.matches(":hover") || servicesBtn.matches(":hover");
-      const focused = servicesBtn.matches(":focus") || servicesMenu.matches(":focus-within");
-      const opened = servicesToggled || (!servicesDismissed && (hovered || focused));
-      servicesBtn.setAttribute("aria-expanded", String(opened));
-      servicesMenu.dataset.servicesOpen = String(opened);
-      servicesLi.dataset.dismissed = String(servicesDismissed);
-    };
+    // En touch devices desactivamos el auto-hide del navbar al hacer scroll.
+    // El patron "ocultar navbar al scrollear" rompe UX mobile porque el boton
+    // queda fuera de pantalla y con pointer-events:none, asi que el usuario
+    // tiene que scrollear arriba para volver a abrir el menu.
+    const supportsNavHiding = hasHover;
 
     const setOpen = (next: boolean) => {
       open = next;
       menu.dataset.open = String(open);
       btn.setAttribute("aria-expanded", String(open));
-      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       iconEl.morphTo(open ? X : Menu);
-      // Scroll lock while the full-screen menu is open
-      document.documentElement.style.overflow = open ? "hidden" : "";
-      // Page behind the full-screen menu must not be reachable by keyboard / AT
-      document.querySelectorAll("main, footer").forEach((el) => el.toggleAttribute("inert", open));
-      if (!open) {
+      if (!next) {
+        // Al cerrar el menu principal, reseteamos tambien el dropdown de services
         servicesToggled = false;
         syncServicesExpanded();
       }
     };
 
-    btn.addEventListener("click", () => setOpen(!open), { signal });
+    btn.addEventListener("click", () => setOpen(!open));
 
     menu.querySelectorAll("a").forEach((a) => {
-      a.addEventListener(
-        "click",
-        () => {
-          if (open) setOpen(false);
-        },
-        { signal },
-      );
+      a.addEventListener("click", () => {
+        if (open) setOpen(false);
+      });
     });
 
-    // Services: on hover devices hover/focus opens it; on touch it toggles.
-    servicesBtn.addEventListener(
-      "click",
-      (e) => {
-        if (hasHover && desktop.matches) return;
-        e.preventDefault();
-        e.stopPropagation();
-        servicesToggled = !servicesToggled;
+    const syncServicesExpanded = () => {
+      const hovered =
+        servicesMenu.matches(":hover") || servicesBtn.matches(":hover");
+      const focused =
+        servicesBtn.matches(":focus") || servicesMenu.matches(":focus-within");
+      const opened = hovered || focused || servicesToggled;
+      servicesBtn.setAttribute("aria-expanded", String(opened));
+      servicesMenu.dataset.servicesOpen = String(opened);
+    };
+
+    // Click en services-btn: en desktop el hover ya abre el menu,
+    // asi que el click es no-op. En mobile (sin hover) toggle persistente.
+    servicesBtn.addEventListener("click", (e) => {
+      if (hasHover) return;
+      e.preventDefault();
+      e.stopPropagation();
+      servicesToggled = !servicesToggled;
+      syncServicesExpanded();
+    });
+
+    servicesBtn.addEventListener("focus", syncServicesExpanded);
+    servicesBtn.addEventListener("blur", () =>
+      queueMicrotask(syncServicesExpanded),
+    );
+    servicesMenu.addEventListener("mouseenter", syncServicesExpanded);
+    servicesMenu.addEventListener("mouseleave", syncServicesExpanded);
+    servicesMenu.addEventListener("focusin", syncServicesExpanded);
+    servicesMenu.addEventListener("focusout", () =>
+      queueMicrotask(syncServicesExpanded),
+    );
+
+    // Click fuera del LI de services cierra el dropdown (mobile)
+    document.addEventListener("click", (e) => {
+      if (!servicesLi.contains(e.target as Node)) {
+        servicesToggled = false;
         syncServicesExpanded();
-      },
-      { signal },
-    );
-    servicesBtn.addEventListener("focus", syncServicesExpanded, { signal });
-    servicesBtn.addEventListener("blur", () => queueMicrotask(syncServicesExpanded), { signal });
-    servicesMenu.addEventListener("mouseenter", syncServicesExpanded, { signal });
-    servicesMenu.addEventListener("mouseleave", syncServicesExpanded, { signal });
-    servicesMenu.addEventListener("focusin", syncServicesExpanded, { signal });
-    servicesMenu.addEventListener("focusout", () => queueMicrotask(syncServicesExpanded), { signal });
-
-    // Re-arm hover/focus opening once the user has actually left the item
-    servicesLi.addEventListener(
-      "focusout",
-      (e) => {
-        if (!servicesLi.contains(e.relatedTarget as Node | null)) {
-          servicesDismissed = false;
-          queueMicrotask(syncServicesExpanded);
-        }
-      },
-      { signal },
-    );
-    servicesLi.addEventListener(
-      "mouseleave",
-      () => {
-        if (!servicesLi.matches(":focus-within")) {
-          servicesDismissed = false;
-          syncServicesExpanded();
-        }
-      },
-      { signal },
-    );
-
-    // A nav item receiving keyboard focus while the header is hidden must reveal it
-    header.addEventListener("focusin", () => header.classList.remove("nav-hidden"), { signal });
-
-    document.addEventListener(
-      "click",
-      (e) => {
-        if (!servicesLi.contains(e.target as Node)) {
-          servicesToggled = false;
-          syncServicesExpanded();
-        }
-      },
-      { signal },
-    );
-
-    servicesMenu.querySelectorAll("a").forEach((a) => {
-      a.addEventListener(
-        "click",
-        () => {
-          servicesToggled = false;
-          syncServicesExpanded();
-        },
-        { signal },
-      );
+      }
     });
 
-    // Escape closes the menu (and returns focus to the toggle button)
-    document.addEventListener(
-      "keydown",
-      (e) => {
-        if (e.key !== "Escape") return;
-        if (open) {
-          setOpen(false);
-          btn.focus();
-        } else if (
-          servicesToggled ||
-          servicesLi.contains(document.activeElement) ||
-          servicesLi.matches(":hover")
-        ) {
-          const focusInside = servicesLi.contains(document.activeElement);
-          servicesToggled = false;
-          servicesDismissed = true;
-          // Return focus to the disclosure button instead of dropping it on <body>
-          if (focusInside && document.activeElement !== servicesBtn) servicesBtn.focus();
-          syncServicesExpanded();
-        }
-      },
-      { signal },
-    );
+    // Click en un link del menu de services cierra el dropdown
+    servicesMenu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        servicesToggled = false;
+        syncServicesExpanded();
+      });
+    });
 
-    // Leaving the mobile layout while open: release the lock
-    desktop.addEventListener(
-      "change",
-      () => {
-        if (desktop.matches && open) setOpen(false);
-      },
-      { signal },
-    );
+  
+    const SCROLL_HIDE_THRESHOLD = 10; // solo ocultar despues de 10px de scroll
+    const SHOW_AT_TOP = 10; // siempre visible cerca del top
+    const SCROLL_DELTA = 2; // minimo delta para considerar scroll "intencional"
 
-    // Auto-hide on scroll only where there is a real pointer
-    const SCROLL_DELTA = 2;
-    const SHOW_AT_TOP = 10;
     let lastScrollY = window.scrollY;
 
     scrollHandler = () => {
+      // En touch devices no aplicar auto-hide (el boton queda inaccesible)
+      if (!supportsNavHiding) {
+        header.classList.remove("nav-hidden");
+        lastScrollY = window.scrollY;
+        return;
+      }
+
       const currentY = window.scrollY;
-      if (!hasHover || open || currentY < SHOW_AT_TOP) {
+      const delta = currentY - lastScrollY;
+
+      // Siempre visible cerca del top de la pagina
+      if (currentY < SHOW_AT_TOP) {
         header.classList.remove("nav-hidden");
         lastScrollY = currentY;
         return;
       }
-      const delta = currentY - lastScrollY;
-      if (delta > SCROLL_DELTA) header.classList.add("nav-hidden");
-      else if (delta < -SCROLL_DELTA) header.classList.remove("nav-hidden");
+
+      // Si el menu mobile esta abierto, no ocultar (sino el X
+      // desaparece y el usuario no puede cerrar el menu)
+      if (open) {
+        lastScrollY = currentY;
+        return;
+      }
+
+      // Scrolleando hacia abajo → ocultar
+      if (delta > SCROLL_DELTA && currentY > SCROLL_HIDE_THRESHOLD) {
+        header.classList.add("nav-hidden");
+      }
+      // Scrolleando hacia arriba → mostrar
+      else if (delta < -SCROLL_DELTA) {
+        header.classList.remove("nav-hidden");
+      }
+
       lastScrollY = currentY;
     };
 
     window.addEventListener("scroll", scrollHandler, { passive: true });
   }
 
+  // Carga inicial
   initNav();
+  // Re-init en cada navegacion SPA (Astro View Transitions)
   document.addEventListener("astro:page-load", initNav);
 </script>
 
 <style is:global>
   #menu-btn morph-icon {
-    color: currentColor;
+    color: white;
   }
-  /* morphicons may render an empty <span> label above the icon */
+  /* morphicons puede renderizar un <span> con el label del icono
+     (aunque la prop label="" evite el texto, el span vacio se ve
+     como una barrita arriba del icono). Lo ocultamos por defensa. */
   #menu-btn morph-icon > span {
     display: none !important;
   }
-
-  /* Escape-dismissed Services menu stays closed while focus/hover remains (SC 1.4.13) */
-  #Services[data-dismissed="true"] #services-menu {
-    visibility: hidden;
-    opacity: 0;
+  /* CRÍTICO: backdrop-filter en el nav crea un nuevo containing block
+     para position:fixed de sus hijos. Eso hace que el UL mobile-menu
+     con fixed inset-0 se posicione relativo al nav (chiquito) y no
+     al viewport. Cuando el menu está abierto, quitamos el backdrop
+     del nav para que el UL pueda cubrir toda la pantalla. */
+  nav[aria-label="main navigation"]:has(> #mobile-menu[data-open="true"]) {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   [data-nav-hider] {
@@ -385,6 +295,7 @@ const item =
     will-change: transform;
     pointer-events: none;
   }
+  /* Accesibilidad: si el usuario pide reduced-motion, no animamos */
   @media (prefers-reduced-motion: reduce) {
     [data-nav-hider] {
       transition: none;

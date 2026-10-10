@@ -228,6 +228,47 @@
 
     /* Readable measure for long copy */
     .measure { max-width: 62ch; }
+
+    /* ── Glassmorphism (buttons + cards). Needs a gradient plane behind it
+       (bg-gradient-nocturne on dark, the soft rose gradient on light). ── */
+    .btn-glass {
+        background: rgb(255 255 255 / 0.12);
+        border-color: rgb(255 255 255 / 0.3);
+        color: var(--color-angie-cream);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.25), inset 0 1px 0 rgb(255 255 255 / 0.2);
+    }
+    .btn-glass:hover { background: rgb(255 255 255 / 0.24); border-color: rgb(255 255 255 / 0.5); }
+
+    .btn-glass-dark {
+        background: rgb(31 6 18 / 0.85);
+        border-color: rgb(255 255 255 / 0.18);
+        color: var(--color-angie-cream);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 8px 24px rgb(138 38 84 / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.12);
+    }
+    .btn-glass-dark:hover { background: rgb(138 38 84 / 0.9); }
+
+    .card-glass {
+        background: rgb(255 255 255 / 0.06);
+        border: 1px solid rgb(255 255 255 / 0.14);
+        border-radius: 1.25rem;
+        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 20px 50px rgb(0 0 0 / 0.3), inset 0 1px 0 rgb(255 255 255 / 0.12);
+    }
+    .card-glass-light {
+        background: rgb(255 255 255 / 0.55);
+        border: 1px solid rgb(255 255 255 / 0.75);
+        border-radius: 1.25rem;
+        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 20px 50px rgb(138 38 84 / 0.16), inset 0 1px 0 rgb(255 255 255 / 0.8);
+    }
+    /* last row of a glass list has no divider */
+    .card-glass > :last-child, .card-glass-light > :last-child { border-bottom-width: 0; }
 }
 
 /* Browser surfaces themed from the palette (selection, caret, form accents,

@@ -1,14 +1,5 @@
 ---
 import MainLayout from "../layout/MainLayout.astro";
-
-const facts = [
-  { label: "Based in", value: "Lemoyne, Pennsylvania" },
-  { label: "Creator of", value: "The A.L.I.G.N. Framework" },
-  { label: "Speaks in", value: "English and Spanish" },
-  { label: "Trained through", value: "Les Brown's Speaking for a Living" },
-  { label: "Works with", value: "Women, churches, and recovery communities" },
-  { label: "Available", value: "In person nationwide, or on Zoom" },
-];
 ---
 
 <MainLayout
@@ -22,147 +13,295 @@ const facts = [
     "Suicide survivor turned coach",
   ]}
 >
-  <div class="font-Grotesk w-full">
-    <!-- Hero: headline, one promise, wide portrait -->
-    <section class="bg-angie-noir text-angie-cream">
-      <div class="max-w-6xl mx-auto px-5 md:px-8 pt-28 md:pt-40 pb-12 md:pb-20">
-        <div class="md:grid md:grid-cols-12 md:gap-14 md:items-end">
-          <h1
-            class="md:col-span-7 font-Frauce font-bold text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.02] text-balance animate-rise"
-          >
-            You're still here for a reason.
-          </h1>
-          <div
-            class="mt-6 md:mt-0 md:col-span-5 animate-rise"
-            style="animation-delay:140ms"
-          >
-            <p class="text-lg md:text-xl leading-relaxed text-angie-cream/85">
-              I'm a faith-based motivational speaker, life coach, and living proof
-              that God can pull you out of the darkest places and give your life new
-              meaning.
-            </p>
-            <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <a href="/#services" class="btn btn-light hover:animate-tada">Work with me</a>
-              <a href="#story" class="link-arrow min-h-11 text-angie-cream">Read my story</a>
-            </div>
-          </div>
-        </div>
 
+  {/* =====================================================
+      SECCIÓN 1 — HERO
+      Fondo gradient dark (wine → burgundy → noir)
+      Layout 2 columnas: texto a la izquierda, imagen a la derecha
+      Equivalente al hero de Kate: "CREATE the GOOD"
+      Adaptado a Angie: "You're still here for a reason."
+  ===================================================== */}
+  <section
+    class="relative md:min-h-dvh overflow-hidden
+           bg-[linear-gradient(135deg,#4A0D28_0%,#8A2654_55%,#1F0612_100%)]"
+  >
+
+    {/* HERO — columna de texto (izquierda, ~55% del width) */}
+    <div class="w-full mx-auto px-6 md:px-10 pt-28 md:pt-40 pb-12 md:pb-16
+                grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center md:min-h-[80dvh]">
+
+      {/* Texto principal del hero */}
+      <div class="md:col-span-7 text-white flex flex-col gap-6">
+
+        {/* Heading principal: tagline icónica de Angie en Frauce italic */}
+        <h1 class="font-Frauce text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] animate-slide-in-bottom animate-delay-100">
+          You're still here<br/>
+          <span class="text-angie-rose">for a reason.</span>
+        </h1>
+        {/* Descripción corta — su esencia */}
+        <p class="text-white/85 text-base md:text-lg leading-relaxed max-w-xl animate-fade-in animate-delay-300">
+          I'm a faith-based motivational speaker, life coach, and living proof that God can pull you out of the darkest places and give your life new meaning.
+        </p>
+
+        {/* CTAs: 1 filled + 1 outlined, lado a lado */}
+        <div class="flex flex-wrap gap-3 md:gap-4 mt-2 animate-fade-in animate-delay-500">
+          <a
+            href="/#services"
+            class="group relative inline-flex items-center justify-center overflow-hidden
+                   px-6 py-3 bg-white text-angie-noir rounded-full font-Grotesk-bold text-sm
+                   transition-all duration-300 hover:shadow-lg"
+          >
+            <span aria-hidden="true" class="absolute inset-0 bg-angie-rose
+                     transition-transform duration-500 ease-out translate-y-full
+                     group-hover:translate-y-0"></span>
+            <span class="relative group-hover:text-white transition-colors duration-300">
+              Work with me
+            </span>
+          </a>
+          <a
+            href="#story"
+            class="group relative inline-flex items-center justify-center overflow-hidden
+                   px-6 py-3 border-2 border-white text-white rounded-full font-Grotesk-bold text-sm
+                   transition-all duration-300 hover:shadow-lg"
+          >
+            <span aria-hidden="true" class="absolute inset-0 bg-white
+                     transition-transform duration-500 ease-out translate-y-full
+                     group-hover:translate-y-0"></span>
+            <span class="relative group-hover:text-angie-noir transition-colors duration-300">
+              Read my story ↓
+            </span>
+          </a>
+        </div>
+      </div>
+
+      {/* HERO — columna de imagen (derecha, ~45% del width) */}
+      <div class="md:col-span-5 relative animate-zoom-in animate-delay-300">
+        {/* Glow rose detrás de la imagen — patrón consistente con el index */}
+        <span
+          aria-hidden="true"
+          class="absolute inset-0 rounded-3xl
+                 bg-[radial-gradient(circle_at_center,#C4658A_0%,#8A2654_45%,transparent_80%)]
+                 blur-3xl scale-110 z-0"
+        ></span>
+        {/* Imagen hero de Angie — la 16:9 que generamos antes */}
         <img
           src="/images/about/angie-hero.webp"
-          alt="Angie Pichardo looking toward a sunlit window, wearing a burgundy plaid blazer"
-          width="2752"
-          height="1536"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          class="mt-10 md:mt-16 w-full aspect-4/3 md:aspect-21/9 object-cover rounded-lg animate-rise"
-          style="object-position:62% 25%;animation-delay:260ms"
-        />
+          alt="Angie Pichardo — Christian motivational speaker and life coach"
+          class="relative z-10 w-full h-auto object-cover rounded-3xl shadow-2xl"
+        >
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Story -->
-    <section id="story" class="bg-angie-cream text-angie-noir py-16 md:py-28 scroll-mt-20">
-      <div class="max-w-6xl mx-auto px-5 md:px-8 md:grid md:grid-cols-12 md:gap-16">
-        <div class="md:col-span-5">
-          <div class="md:sticky md:top-28">
-            <img
-              src="/images/about/angie-aboutme-relaxed.webp"
-              alt="Angie Pichardo smiling, seated in a green armchair"
-              width="720"
-              height="1080"
-              loading="lazy"
-              decoding="async"
-              class="w-full max-w-sm md:max-w-none mx-auto aspect-4/5 object-cover rounded-lg"
-              style="object-position:50% 20%"
-            />
-          </div>
-        </div>
 
-        <div class="mt-10 md:mt-0 md:col-span-7">
-          <h2 class="font-Frauce font-bold text-4xl md:text-6xl leading-[1.05] text-balance">
-            Why I get it.
-          </h2>
+  {/* =====================================================
+      SECCIÓN 2 — FROM MY STORY
+      Extractos textuales 100% de Angie (de su "My Story" original).
+      Layout 2 columnas: imagen + 3 pull quotes con comillas decorativas.
+  ===================================================== */}
+  <section
+    id="from-the-story"
+    class="relative z-40 shadow-2xl shadow-black bg-angie-noir text-white py-20 md:py-32 px-6 md:px-10"
+  >
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
 
-          <div class="mt-8 measure text-lg leading-relaxed space-y-6 text-angie-noir/90 text-pretty">
-            <p>
-              I rebuilt my life after reaching the point of no return. There was a
-              season where everything looked fine on the outside, but inside I was
-              completely falling apart. Carrying depression, anxiety, alcohol,
-              self-doubt, and the weight of not knowing my purpose, I reached a
-              moment where giving up felt easier than keeping going. I was
-              functioning, but I wasn't living.
-            </p>
-
-            <blockquote class="font-Frauce text-2xl md:text-3xl leading-snug text-angie-burgundy border-t border-angie-burgundy/30 pt-6 my-10">
-              "I smiled in public and cried in private. I looked strong while
-              secretly battling exhaustion, empty, and lost."
-            </blockquote>
-
-            <p>
-              And then came the moment that changed everything. I survived what
-              should have taken me out. In my lowest, darkest moment, when I felt
-              like I had nothing left, God gave me what I can only call a second
-              chance. He reminded me that my pain had purpose, my survival had
-              meaning, and my life was never mine to throw away.
-            </p>
-
-            <p class="font-Grotesk-bold">
-              That moment became the foundation of everything I do today.
-            </p>
-
-            <p>
-              Through my A.L.I.G.N. Framework:
-              <strong>A</strong>wareness, <strong>L</strong>ove Yourself,
-              <strong>I</strong>nvite God In, <strong>G</strong>ratitude &amp; Growth,
-              and <strong>N</strong>urture Positivity, I now help other women trade
-              survival mode for the life God actually planned for them.
-            </p>
-          </div>
+      {/* Columna izquierda: imagen de Angie */}
+      <div class="md:col-span-5 flex justify-center">
+        <div class="relative w-64 h-80 md:w-72 md:h-112">
+          <span
+            aria-hidden="true"
+            class="absolute inset-0 rounded-3xl
+                   bg-[radial-gradient(circle_at_center,#8A2654_0%,transparent_75%)]
+                   blur-2xl scale-110"
+          ></span>
+          <img
+            src="/images/services/keynote.webp"
+            alt="Angie Pichardo"
+            class="relative z-10 w-full h-full object-cover rounded-3xl shadow-2xl"
+          >
         </div>
       </div>
-    </section>
 
-    <!-- Facts -->
-    <section class="bg-white text-angie-noir py-14 md:py-20">
-      <div class="max-w-6xl mx-auto px-5 md:px-8 md:grid md:grid-cols-12 md:gap-16">
-        <h2 class="md:col-span-5 font-Frauce font-bold text-3xl md:text-4xl leading-tight">
-          A few things to know
-        </h2>
-        <dl class="mt-6 md:mt-0 md:col-span-7 border-b border-angie-noir/15">
-          {
-            facts.map((f) => (
-              <div class="border-t border-angie-noir/15 py-4 sm:grid sm:grid-cols-3 sm:gap-6">
-                <dt class="text-sm text-angie-noir/70 sm:pt-1">{f.label}</dt>
-                <dd class="mt-1 sm:mt-0 sm:col-span-2 font-Grotesk-bold text-lg">{f.value}</dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
-    </section>
+      {/* Columna derecha: heading + 3 extractos textuales de My Story */}
+      <div class="md:col-span-7 flex flex-col gap-8 md:gap-10">
 
-    <!-- Closing -->
-    <section id="contact" class="bg-angie-wine text-angie-cream py-20 md:py-32 scroll-mt-20">
-      <div class="max-w-6xl mx-auto px-5 md:px-8 md:grid md:grid-cols-12 md:gap-16 md:items-end">
-        <div class="md:col-span-7">
-          <h2 class="font-Frauce font-bold text-4xl md:text-6xl leading-[1.05] text-balance">
-            Survived. Transformed. Purpose-driven.
-          </h2>
-          <p class="mt-6 measure text-lg md:text-xl leading-relaxed text-angie-cream/85">
-            Because God woke me up, but purpose keeps me going. And if you're
-            reading this right now, I believe this with my whole heart:
+        <div>
+          <p class="font-Grotesk-bold text-xs md:text-sm tracking-[0.18em] uppercase text-angie-rose mb-3">
+            From my story
           </p>
-          <p class="mt-4 font-Frauce text-2xl md:text-3xl leading-snug text-angie-rose">
-            "You're still here for a reason, too."
-          </p>
+          <h2 class="font-Frauce text-3xl md:text-5xl lg:text-6xl leading-[1.05]">
+            What it looked like<br/>
+            from the <span class="italic text-angie-rose">inside.</span>
+          </h2>
         </div>
-        <div class="mt-9 md:mt-0 md:col-span-5 flex flex-wrap items-center gap-x-6 gap-y-3 md:justify-end">
-          <a href="/#services" class="btn btn-light">Book a free discovery call</a>
-          <a href="/#services" class="link-arrow min-h-11 text-angie-cream">Explore services</a>
+
+        {/* Pull quote 1 — extracto textual del My Story de Angie */}
+        <blockquote class="border-l-2 border-angie-rose pl-5 md:pl-6 timeline-view animate-range-[5%_10%] animate-slide-in-bottom animate-delay-100">
+          <p class="font-Frauce italic text-lg md:text-xl lg:text-2xl text-white/95 leading-snug">
+            "I smiled in public and cried in private. I looked strong while secretly battling exhaustion, empty, and lost."
+          </p>
+        </blockquote>
+
+        {/* Pull quote 2 — extracto textual del My Story de Angie */}
+        <blockquote class="border-l-2 border-angie-rose pl-5 md:pl-6 timeline-view animate-range-[5%_10%] animate-slide-in-bottom animate-delay-300">
+          <p class="font-Frauce italic text-lg md:text-xl lg:text-2xl text-white/95 leading-snug">
+            "A suicide attempt that could have been the end of my story became the place where God began rewriting it."
+          </p>
+        </blockquote>
+
+        {/* Pull quote 3 — extracto textual del My Story de Angie */}
+        <blockquote class="border-l-2 border-angie-rose pl-5 md:pl-6 timeline-view animate-range-[5%_10%] animate-slide-in-bottom animate-delay-500">
+          <p class="font-Frauce italic text-lg md:text-xl lg:text-2xl text-white/95 leading-snug">
+            "He reminded me that my pain had purpose, my survival had meaning, and my life was never mine to throw away."
+          </p>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+
+  {/* =====================================================
+      SECCIÓN 3 — ANGIE'S STORY
+      Fondo cream (light) para contraste con la sección dark
+      Equivalente al "KATE'S STORY" + "Why Kate gets it" de Kate
+      2 columnas: imagen circular a la izquierda, testimonio a la derecha
+  ===================================================== */}
+  <section
+    id="story"
+    class="relative bg-angie-cream py-20 md:py-32 px-6 md:px-10 overflow-hidden"
+  >
+
+    {/* Header grande de la sección con decoración tipo sparkle */}
+    <div class="max-w-7xl mx-auto text-center mb-12 md:mb-20 relative">
+      <h2 class="font-Frauce text-5xl md:text-7xl lg:text-8xl font-bold text-angie-noir leading-none">
+        MY <span class="text-angie-rose">STORY</span>
+      </h2>
+      {/* Sparkle decoration simple — un diamante entre las dos palabras */}
+      <div class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                  text-angie-rose text-3xl opacity-40 pointer-events-none">
+        ✦
+      </div>
+    </div>
+
+    {/* 2 columnas: imagen + testimonio */}
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+
+      {/* Columna izquierda: imagen con forma de elipse/rounded */}
+      <div class="md:col-span-5 flex justify-center timeline-view animate-range-[5%_10%] animate-zoom-in">
+        <div class="relative w-75 md:w-95 aspect-3/4">
+          <span
+            aria-hidden="true"
+            class="absolute inset-0 rounded-[40%]
+                   bg-[radial-gradient(circle_at_center,#8A2654_0%,transparent_70%)]
+                   blur-2xl scale-110"
+          ></span>
+          <img
+            src="/images/about/angie-aboutme-relaxed.webp"
+            alt="Angie Pichardo"
+            class="relative z-10 w-full h-full object-cover rounded-[40%] shadow-2xl"
+          >
         </div>
       </div>
-    </section>
-  </div>
+
+      {/* Columna derecha: heading + párrafos + CTA */}
+      <div class="md:col-span-7 flex flex-col gap-5 timeline-view animate-range-[5%_10%] animate-fade-in">
+        <h3 class="font-Frauce text-3xl md:text-4xl lg:text-5xl text-angie-noir leading-tight">
+          Why I <span class="italic text-angie-burgundy">get it.</span>
+        </h3>
+
+        <p class="text-angie-noir/85 text-base md:text-lg leading-relaxed">
+          I rebuilt my life after reaching the point of no return. There was a season where everything looked fine on the outside — but inside, I was completely falling apart. Carrying depression, anxiety, alcohol, self-doubt, and the weight of not knowing my purpose, I reached a moment where giving up felt easier than keeping going. I was functioning, but I wasn't living.
+        </p>
+
+        <p class="text-angie-noir/85 text-base md:text-lg leading-relaxed">
+          And then came the moment that changed everything. I survived what should have taken me out. In my lowest, darkest moment — when I felt like I had nothing left — God gave me what I can only call a second chance. He reminded me that my pain had purpose, my survival had meaning, and my life was never mine to throw away.
+        </p>
+
+        <p class="text-angie-noir/85 text-base md:text-lg leading-relaxed font-Grotesk-bold">
+          That moment became the foundation of everything I do today.
+        </p>
+
+        <p class="text-angie-noir/85 text-base md:text-lg leading-relaxed">
+          Through my A.L.I.G.N. Framework — <span class="font-Grotesk-bold">A</span>wareness, <span class="font-Grotesk-bold">L</span>ove Yourself, <span class="font-Grotesk-bold">I</span>nvite God In, <span class="font-Grotesk-bold">G</span>ratitude &amp; Growth, and <span class="font-Grotesk-bold">N</span>urture Positivity — I now help other women trade survival mode for the life God actually planned for them.
+        </p>
+
+        {/* CTA final de la sección */}
+        <div class="pt-4">
+          <a
+            href="#contact"
+            class="group relative inline-flex items-center justify-center overflow-hidden
+                   px-6 py-3 bg-angie-noir text-white rounded-full font-Grotesk-bold text-sm
+                   transition-all duration-300 hover:shadow-lg"
+          >
+            <span aria-hidden="true" class="absolute inset-0 bg-angie-rose
+                     transition-transform duration-500 ease-out translate-y-full
+                     group-hover:translate-y-0"></span>
+            <span class="relative">Read my story</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  {/* =====================================================
+      SECCIÓN 4 — CLOSING / SOCIAL PROOF
+      Fondo gradient wine/burgundy oscuro para cerrar fuerte
+      Equivalente al "Trusted. Proven. Battle-Tested." de Kate
+      Adaptado a Angie: "Survived. Transformed. Purpose-driven."
+  ===================================================== */}
+  <section
+    id="contact"
+    class="relative py-20 md:py-32 px-6 md:px-10 overflow-hidden
+           bg-[linear-gradient(180deg,#1F0612_0%,#4A0D28_50%,#8A2654_100%)]"
+  >
+    <div class="max-w-4xl mx-auto text-center text-white flex flex-col gap-8">
+
+      {/* Heading tipo "Trusted. Proven. Battle-Tested." */}
+      <h2 class="font-Frauce text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] timeline-view animate-range-[5%_10%] animate-fade-in">
+        Survived. Transformed.<br/>
+        <span class="text-angie-rose italic">Purpose-driven.</span>
+      </h2>
+
+      {/* Cierre con la frase icónica */}
+      <p class="text-white/85 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+        Because God woke me up… but purpose keeps me going. And if you're reading this right now, I believe this with my whole heart:
+      </p>
+
+      <p class="font-Frauce text-2xl md:text-3xl lg:text-4xl text-angie-rose leading-tight max-w-2xl mx-auto">
+        "You're still here for a reason, too."
+      </p>
+
+      {/* CTA principal final */}
+      <div class="flex flex-wrap gap-3 md:gap-4 justify-center pt-4">
+        <a
+          href="/#services"
+          class="group relative inline-flex items-center justify-center overflow-hidden
+                 px-7 py-3.5 bg-white text-angie-noir rounded-full font-Grotesk-bold text-sm md:text-base
+                 transition-all duration-300 hover:shadow-lg"
+        >
+          <span aria-hidden="true" class="absolute inset-0 bg-angie-rose
+                   transition-transform duration-500 ease-out translate-y-full
+                   group-hover:translate-y-0"></span>
+          <span class="relative group-hover:text-white transition-colors duration-300">
+            Book a free discovery call
+          </span>
+        </a>
+        <a
+          href="/#services"
+          class="group relative inline-flex items-center justify-center overflow-hidden
+                 px-7 py-3.5 border-2 border-white text-white rounded-full font-Grotesk-bold text-sm md:text-base
+                 transition-all duration-300 hover:shadow-lg"
+        >
+          <span aria-hidden="true" class="absolute inset-0 bg-white
+                   transition-transform duration-500 ease-out translate-y-full
+                   group-hover:translate-y-0"></span>
+          <span class="relative group-hover:text-angie-noir transition-colors duration-300">
+            Explore services
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </MainLayout>
