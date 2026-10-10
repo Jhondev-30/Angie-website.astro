@@ -78,4 +78,84 @@
     --color-angie-cream: #FFF5FA;
     --color-gradient-blue:#A6C1EE;
     --color-gradient-rose: #FBC2EB;
+
+    /* ── Softer motion: same personality (tada / scale / zoom) with smaller
+       amplitudes and easing curves, so it feels lighter on low-end phones. */
+    --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    --animate-tada: tada-soft 0.9s ease-in-out both;
+    --animate-scale: scale-soft 0.45s var(--ease-soft) both;
+    --animate-zoom-in: zoom-in-soft 0.7s var(--ease-soft) both;
+    --animate-rise: rise 0.7s var(--ease-soft) both;
+    --animate-float-soft: float-soft 6s ease-in-out infinite;
+
+    @keyframes tada-soft {
+        0%   { transform: scale(1); }
+        15%  { transform: scale(0.96) rotate(-1.5deg); }
+        35%  { transform: scale(1.05) rotate(1.5deg); }
+        55%  { transform: scale(1.05) rotate(-1deg); }
+        75%  { transform: scale(1.03) rotate(0.5deg); }
+        100% { transform: scale(1) rotate(0); }
+    }
+    @keyframes scale-soft {
+        0%   { transform: scale(1); }
+        100% { transform: scale(1.06); }
+    }
+    @keyframes zoom-in-soft {
+        0%   { opacity: 0; transform: scale(0.88); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes rise {
+        0%   { opacity: 0; transform: translateY(24px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float-soft {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-8px); }
+    }
+}
+
+/* ── Performance ─────────────────────────────────────────────────────────── */
+
+/* Same fixed rose→noir gradient as `bg-fixed`, but painted once on its own
+   compositor layer: no repaint on scroll and it also works on iOS Safari. */
+.body-fixed-gradient {
+    background-color: #1f0612;
+    position: relative;
+    isolation: isolate;
+}
+.body-fixed-gradient::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, #c4658a, #1f0612);
+    transform: translateZ(0);
+}
+
+/* Decorative blobs used `blur-[100px..120px]` on 300-400px elements, which is
+   very expensive on mobile GPUs. A radial mask gives the same soft glow with
+   no filter at all. */
+[aria-hidden="true"][class*="blur-"] {
+    filter: none !important;
+    -webkit-mask-image: radial-gradient(closest-side, #000 25%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 25%, transparent 100%);
+}
+
+/* Glass cards: big backdrop blur is the heaviest effect on phones. */
+@media (max-width: 767px) {
+    .backdrop-blur-xl,
+    .backdrop-blur-md {
+        -webkit-backdrop-filter: blur(8px) !important;
+        backdrop-filter: blur(8px) !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
 }
