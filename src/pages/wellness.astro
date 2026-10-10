@@ -121,6 +121,40 @@ const businessSchema = {
     ],
   },
 };
+
+const BOOK_URL = "https://tidycal.com/angiepspeaks/experiencebooking";
+
+const experience = [
+  { t: "Holistic Care", d: "A reset for mind, body, and spirit in one session." },
+  { t: "Personal Service", d: "One-on-one with Angie." },
+  { t: "Easy Booking", d: "$20 deposit. Confirmed within 24 hours." },
+];
+
+const perfectFor = [
+  { t: "Moms", d: "You've been holding everyone else. Your turn." },
+  { t: "Busy Women", d: "Wellness that comes to you." },
+  { t: "Leaders", d: "Refill the cup you pour from all day." },
+];
+
+const services = [
+  { t: "Scratch Therapy", d: "Relieves tension and promotes deep relaxation." },
+  { t: "Scalp Therapy", d: "Nourishes the scalp, improves circulation, and supports healthy hair." },
+  { t: "Relaxing Music", d: "Soothing sounds to calm your mind and help you unwind." },
+  { t: "3-Min Gratitude", d: "A guided moment to reset your mind and uplift your spirit." },
+  { t: "Optional Prayer", d: "Available on request for peace, strength, and clarity." },
+];
+
+const steps = [
+  { t: "Book online", d: "Reserve your spot with a $20 deposit." },
+  { t: "Angie reaches out", d: "Within 24 hours, Angie personally contacts you to confirm details." },
+  { t: "Confirm location", d: "We verify your address is within our 20-mile Lemoyne service radius." },
+  { t: "Your session", d: "Angie arrives at your home and the session begins." },
+];
+
+const cities = [
+  ["Harrisburg", "~3 mi"], ["Camp Hill", "~3 mi"], ["New Cumberland", "~4 mi"], ["Mechanicsburg", "~8 mi"],
+  ["Steelton", "~5 mi"], ["Shiremanstown", "~7 mi"], ["Wormleysburg", "~4 mi"], ["Enola", "~6 mi"],
+];
 ---
 
 <MainLayout
@@ -146,37 +180,27 @@ const businessSchema = {
     crossorigin=""
   />
 
-  {/* ============================================================
-      HERO — split layout (copy + photo), mobile-first.
-      Phone button keeps the data-phone-* wiring used by the script below.
-  ============================================================ */}
-  <section aria-labelledby="wellness-hero-heading" class="relative isolate overflow-hidden w-full bg-angie-noir text-angie-cream">
-    <div aria-hidden="true" class="absolute -top-32 -right-24 w-[26rem] h-[26rem] rounded-full bg-angie-rose/25 blur-3xl pointer-events-none"></div>
-    <div aria-hidden="true" class="absolute -bottom-40 -left-24 w-[28rem] h-[28rem] rounded-full bg-angie-burgundy/40 blur-3xl pointer-events-none"></div>
-
-    <div class="relative max-w-6xl mx-auto px-6 pt-28 md:pt-36 pb-16 md:pb-24 grid md:grid-cols-12 gap-10 md:gap-12 items-center">
-      <div class="md:col-span-7 text-center md:text-left">
-        <p class="inline-flex items-center gap-2 text-angie-rose uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold animate-rise">
-          <span aria-hidden="true" class="hidden md:block h-px w-8 bg-angie-rose"></span>
-          Zion Lounge · Mobile wellness
-        </p>
-        <h1 id="wellness-hero-heading" class="mt-5 font-Frauce font-bold leading-[1] text-[clamp(2.25rem,7vw,4.5rem)] tracking-tight text-balance animate-rise" style="animation-delay:120ms">
-          Mobile Wellness Therapy in <span class="text-angie-rose">Lemoyne, PA</span> | Zion Lounge
+  {/* HERO — copy left, photo bleeding to the section floor on the right.
+      Phone button keeps the data-phone-* wiring used by the script below. */}
+  <section aria-labelledby="wellness-hero-heading" class="w-full bg-angie-noir text-angie-cream">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-12 md:items-stretch">
+      <div class="md:col-span-7 px-6 md:pl-10 lg:pl-16 md:pr-12 pt-28 md:pt-44 pb-12 md:pb-24 self-center">
+        <h1 id="wellness-hero-heading" class="font-Frauce font-bold leading-[1.02] text-[clamp(2.25rem,6.2vw,4.5rem)] tracking-tight text-balance animate-rise">
+          Mobile Wellness Therapy in Lemoyne, PA<span class="sr-only"> | </span><span class="block mt-3 text-[0.45em] leading-tight font-Grotesk-bold tracking-normal text-angie-rose">Zion Lounge</span>
         </h1>
-        <p class="mt-6 max-w-xl mx-auto md:mx-0 text-angie-cream/85 text-base md:text-xl leading-relaxed animate-rise" style="animation-delay:240ms">
+        <p class="mt-6 measure text-angie-cream/85 text-lg md:text-xl leading-relaxed animate-rise" style="animation-delay:120ms">
           A moment of peace, delivered to your door. $20 deposit, confirmed within 24 hours.
         </p>
 
-        <div class="mt-9 flex flex-col sm:flex-row gap-3 items-center justify-center md:justify-start animate-rise" style="animation-delay:360ms">
+        <div class="mt-9 flex flex-col sm:flex-row gap-3 animate-rise" style="animation-delay:240ms">
           <a
-            href="https://tidycal.com/angiepspeaks/experiencebooking"
+            href={BOOK_URL}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Book your experience on TidyCal (opens in a new tab)"
-            class="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold shadow-xl shadow-black/30 transition-all duration-300 hover:bg-white hover:scale-[1.03] active:scale-[0.98]"
+            class="btn btn-light hover:animate-tada"
           >
-            <span>Book your experience</span>
-            <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            Book your experience
           </a>
 
           <button
@@ -187,13 +211,13 @@ const businessSchema = {
             aria-expanded="false"
             aria-controls="phone-reveal"
             aria-label="Reveal Angie's contact number"
-            class="inline-flex items-center justify-center gap-2 min-w-52 px-7 py-4 rounded-full border border-angie-cream/40 text-angie-cream font-Grotesk-bold cursor-pointer transition-all duration-300 hover:bg-angie-cream hover:text-angie-noir"
+            class="btn btn-outline-light min-w-52"
           >
             <span class="sr-only" data-phone-sr>Contact number</span>
-            <svg data-phone-icon-default class="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg data-phone-icon-default class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
             </svg>
-            <svg data-phone-icon-revealed class="hidden w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg data-phone-icon-revealed class="hidden w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
             </svg>
             <span data-phone-label>Contact number</span>
@@ -201,155 +225,125 @@ const businessSchema = {
         </div>
       </div>
 
-      <div class="md:col-span-5 animate-zoom-in" style="animation-delay:200ms">
-        <div class="relative mx-auto max-w-sm md:max-w-none">
-          <div aria-hidden="true" class="absolute inset-4 rounded-[2rem] bg-angie-rose/40 blur-2xl"></div>
+      <div class="md:col-span-5 px-6 md:px-0 md:pt-28 animate-zoom-in" style="animation-delay:160ms">
+        <div class="relative aspect-[4/3] md:aspect-auto md:h-full md:min-h-[30rem] overflow-hidden rounded-t-lg">
           <img
             src="/images/yoga/relax.webp"
             alt="Woman relaxing during a Zion Lounge mobile wellness session"
-            width="800"
-            height="1000"
+            width="683"
+            height="1024"
             loading="eager"
             fetchpriority="high"
             decoding="async"
-            class="relative w-full aspect-[4/5] object-cover rounded-[2rem] border border-white/15 shadow-2xl shadow-black/50"
+            class="absolute inset-0 w-full h-full object-cover object-[50%_30%]"
           />
         </div>
       </div>
     </div>
   </section>
 
-  {/* ============================================================
-      WHY US — intro + three pillars + "perfect for"
-  ============================================================ */}
+  {/* WHY ZION — type-led: statement left, hairline facts right */}
   <section aria-labelledby="why-heading" class="w-full bg-angie-cream text-angie-noir">
-    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28 grid md:grid-cols-12 gap-12 items-center">
-      <div class="md:col-span-5 timeline-view animate-range-entry animate-zoom-in">
-        <img
-          src="/images/yoga/wellnes.webp"
-          alt="Zion Lounge wellness experience — woman enjoying a relaxing scalp therapy session"
-          width="800"
-          height="900"
-          loading="lazy"
-          decoding="async"
-          class="w-full aspect-[4/5] object-cover rounded-[2rem] shadow-2xl shadow-angie-burgundy/20"
-        />
-      </div>
+    <div class="max-w-6xl mx-auto px-6 pt-16 md:pt-28 pb-20 md:pb-24 grid md:grid-cols-12 gap-x-12 gap-y-12">
       <div class="md:col-span-7">
-        <div class="timeline-view animate-range-entry animate-rise">
-          <p class="text-angie-burgundy uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">Why Zion</p>
-          <h2 id="why-heading" class="mt-3 font-Frauce font-bold text-3xl md:text-5xl leading-[1.05] text-balance">A Moment of Peace, <span class="text-angie-burgundy">Delivered to Your Door</span></h2>
-          <p class="mt-5 text-angie-noir/75 text-base md:text-lg leading-relaxed">
-            Zion Lounge brings the full wellness experience to your home, office, or private event — anywhere within 20 miles of Lemoyne, PA. No drive, no waiting room, no pressure. Just you, Angie, and an hour that belongs to you.
-          </p>
-        </div>
-
-        <h3 class="mt-10 font-Frauce font-bold text-xl">The Zion Experience</h3>
-        <ul class="mt-4 grid sm:grid-cols-3 gap-3">
-          {[
-            { t: "Holistic Care", d: "A reset for mind, body, and spirit — all in one session." },
-            { t: "Personal Service", d: "One-on-one with Angie. No rotating staff, no rush." },
-            { t: "Easy Booking", d: "$20 deposit. Confirmed within 24 hours." },
-          ].map((c) => (
-            <li class="rounded-2xl bg-white border border-angie-burgundy/10 shadow-lg shadow-angie-burgundy/5 p-5 timeline-view animate-range-entry animate-rise">
-              <h4 class="font-Grotesk-bold text-angie-burgundy">{c.t}</h4>
-              <p class="mt-1 text-sm text-angie-noir/70 leading-relaxed">{c.d}</p>
-            </li>
-          ))}
-        </ul>
-
-        <h3 class="mt-8 font-Frauce font-bold text-xl">Perfect For</h3>
-        <ul class="mt-4 grid sm:grid-cols-3 gap-3">
-          {[
-            { t: "Moms", d: "You've been holding everyone else. Your turn." },
-            { t: "Busy Women", d: "Wellness that comes to you. No drive, no waiting." },
-            { t: "Leaders", d: "Refill the cup you pour from all day." },
-          ].map((c) => (
-            <li class="rounded-2xl bg-angie-noir text-angie-cream p-5 timeline-view animate-range-entry animate-rise">
-              <h4 class="font-Grotesk-bold text-angie-rose">{c.t}</h4>
-              <p class="mt-1 text-sm text-angie-cream/75 leading-relaxed">{c.d}</p>
-            </li>
-          ))}
-        </ul>
-
+        <h2 id="why-heading" class="font-Frauce font-bold text-[clamp(2rem,4.6vw,3.5rem)] leading-[1.05] text-balance">
+          A Moment of Peace, Delivered to Your Door
+        </h2>
+        <p class="mt-6 measure text-angie-noir/80 text-lg leading-relaxed">
+          Zion Lounge brings the full wellness experience to your home, office, or private event, anywhere within 20 miles of Lemoyne, PA. One hour, one-on-one with Angie.
+        </p>
         <a
-          href="https://tidycal.com/angiepspeaks/experiencebooking"
+          href={BOOK_URL}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Book your Zion Experience on TidyCal (opens in a new tab)"
-          class="group mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full bg-angie-noir text-angie-cream font-Grotesk-bold transition-all duration-300 hover:bg-angie-burgundy hover:scale-[1.03]"
+          class="link-arrow mt-8 text-angie-burgundy min-h-11"
         >
-          <span>Book Your Experience</span>
-          <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          Book Your Experience
         </a>
       </div>
-    </div>
-  </section>
 
-  {/* ============================================================
-      SERVICES — five included elements
-  ============================================================ */}
-  <section id="services" aria-labelledby="services-heading" class="w-full bg-angie-wine text-angie-cream">
-    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
-      <header class="max-w-2xl timeline-view animate-range-entry animate-rise">
-        <p class="text-angie-rose uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">What's included</p>
-        <h2 id="services-heading" class="mt-3 font-Frauce font-bold text-3xl md:text-5xl leading-tight">Our Wellness Services</h2>
-        <p class="mt-4 text-angie-cream/80 text-base md:text-lg leading-relaxed">
-          Every Zion Experience includes these five elements, tailored to what you need that day. You choose what resonates — Angie guides the rest.
-        </p>
-      </header>
+      <div class="md:col-span-5 md:pt-2">
+        <h3 class="font-Grotesk-bold text-sm text-angie-burgundy">The Zion Experience</h3>
+        <dl class="mt-3 border-t border-angie-noir/20">
+          {experience.map((c) => (
+            <div class="py-4 border-b border-angie-noir/15">
+              <dt class="font-Frauce font-bold text-xl">{c.t}</dt>
+              <dd class="mt-1 text-angie-noir/75 leading-relaxed">{c.d}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
 
-      <div class="mt-12 grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {[
-          { t: "Scratch Therapy", d: "Relieves tension and promotes deep relaxation." },
-          { t: "Scalp Therapy", d: "Nourishes the scalp, improves circulation, and supports healthy hair." },
-          { t: "Relaxing Music", d: "Soothing sounds to calm your mind and help you unwind." },
-          { t: "3-Min Gratitude", d: "A guided moment to reset your mind and uplift your spirit." },
-          { t: "Optional Prayer", d: "Available on request for peace, strength, and clarity." },
-        ].map((s, i) => (
-          <article class="group rounded-3xl border border-white/10 bg-white/5 p-7 transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 hover:border-angie-rose/50 timeline-view animate-range-entry animate-rise">
-            <span class="text-angie-rose/80 text-xs font-Grotesk-bold tracking-[0.25em]">0{i + 1}</span>
-            <h3 class="mt-3 font-Frauce font-bold text-2xl">{s.t}</h3>
-            <p class="mt-2 text-angie-cream/75 leading-relaxed">{s.d}</p>
-          </article>
-        ))}
+      <div class="md:col-span-12 md:mt-6">
+        <h3 class="font-Grotesk-bold text-sm text-angie-burgundy">Perfect For</h3>
+        <ul class="mt-3 grid md:grid-cols-3 border-t border-angie-noir/20">
+          {perfectFor.map((c) => (
+            <li class="py-5 md:pr-8 border-b border-angie-noir/15 md:border-b-0">
+              <p class="font-Frauce font-bold text-2xl">{c.t}</p>
+              <p class="mt-1 text-angie-noir/75 leading-relaxed">{c.d}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
-  {/* ============================================================
-      HOW IT WORKS — four numbered steps
-  ============================================================ */}
-  <section id="how-it-works" aria-labelledby="how-heading" class="w-full bg-angie-cream text-angie-noir">
-    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
-      <header class="max-w-2xl mx-auto text-center timeline-view animate-range-entry animate-rise">
-        <h2 id="how-heading" class="font-Frauce font-bold text-3xl md:text-5xl leading-tight">How the Zion Experience Works</h2>
-        <p class="mt-4 text-angie-noir/70 text-base md:text-lg">From booking to relaxation in four simple steps. No stress, no surprises.</p>
-      </header>
+  {/* SERVICES — hairline list with a cropped detail photo */}
+  <section id="services" aria-labelledby="services-heading" class="w-full bg-angie-wine text-angie-cream">
+    <div class="max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-x-12 gap-y-10">
+      <div class="md:col-span-4">
+        <h2 id="services-heading" class="font-Frauce font-bold text-[clamp(2rem,4vw,3rem)] leading-[1.08]">Our Wellness Services</h2>
+        <p class="mt-5 text-angie-cream/85 text-lg leading-relaxed">
+          Every Zion Experience includes these five elements, tailored to what you need that day. You choose what resonates and Angie guides the rest.
+        </p>
+        <div class="hidden md:block relative mt-10 w-full max-w-[16rem] aspect-[288/500] overflow-hidden rounded-lg">
+          <img
+            src="/images/yoga/therapy.webp"
+            alt="Close-up of hands during a relaxing scalp therapy session"
+            width="960"
+            height="1280"
+            loading="lazy"
+            decoding="async"
+            class="absolute max-w-none w-[333%] left-[-173%] top-[-20.4%]"
+          />
+        </div>
+      </div>
 
-      <ol class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          { n: "01", t: "Book Online", d: "Reserve your spot with a $20 deposit. Takes about 2 minutes." },
-          { n: "02", t: "Angie Reaches Out", d: "Within 24 hours, Angie personally contacts you to confirm details." },
-          { n: "03", t: "Confirm Location", d: "We verify your address is within our 20-mile Lemoyne service radius." },
-          { n: "04", t: "Experience Peace", d: "Angie arrives at your home. You breathe. You reset. You deserve it." },
-        ].map((s) => (
-          <li class="timeline-view animate-range-entry animate-rise">
-            <p class="font-Frauce italic font-bold text-6xl text-angie-burgundy/30 leading-none">{s.n}</p>
-            <h3 class="mt-3 font-Frauce font-bold text-xl">{s.t}</h3>
-            <p class="mt-2 text-angie-noir/70 leading-relaxed">{s.d}</p>
+      <ul class="md:col-span-8 border-t border-angie-cream/25">
+        {services.map((s) => (
+          <li class="grid sm:grid-cols-12 gap-x-6 gap-y-1 py-6 md:py-7 border-b border-angie-cream/20">
+            <h3 class="sm:col-span-5 font-Frauce font-bold text-2xl leading-snug">{s.t}</h3>
+            <p class="sm:col-span-7 text-angie-cream/85 leading-relaxed">{s.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* HOW IT WORKS — plain steps, hairline separated */}
+  <section id="how-it-works" aria-labelledby="how-heading" class="w-full bg-angie-cream text-angie-noir">
+    <div class="max-w-6xl mx-auto px-6 py-14 md:py-20 grid md:grid-cols-12 gap-x-12 gap-y-8">
+      <div class="md:col-span-4">
+        <h2 id="how-heading" class="font-Frauce font-bold text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1]">How the Zion Experience Works</h2>
+        <p class="mt-4 text-angie-noir/75 text-lg leading-relaxed">From booking to your session in four steps.</p>
+      </div>
+      <ol class="md:col-span-8 border-t border-angie-noir/20">
+        {steps.map((s, i) => (
+          <li class="grid grid-cols-[2rem_1fr] sm:grid-cols-[2.5rem_14rem_1fr] gap-x-4 gap-y-1 py-5 border-b border-angie-noir/15">
+            <span class="font-Grotesk-bold text-angie-burgundy tabular-nums">{i + 1}</span>
+            <h3 class="font-Grotesk-bold text-lg">{s.t}</h3>
+            <p class="col-start-2 sm:col-start-3 text-angie-noir/75 leading-relaxed">{s.d}</p>
           </li>
         ))}
       </ol>
     </div>
   </section>
 
-  {/* ============================================================
-      ABOUT ANGIE — bio + credentials (E-E-A-T)
-  ============================================================ */}
-  <section id="about-angie" aria-labelledby="about-heading" class="w-full bg-angie-burgundy text-angie-cream">
-    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28 grid md:grid-cols-12 gap-12 items-center">
-      <div class="md:col-span-5 timeline-view animate-range-entry animate-zoom-in">
+  {/* ABOUT ANGIE — photo + bio (E-E-A-T) */}
+  <section id="about-angie" aria-labelledby="about-heading" class="w-full bg-angie-noir text-angie-cream">
+    <div class="max-w-6xl mx-auto px-6 py-16 md:py-28 grid md:grid-cols-12 gap-x-14 gap-y-10 items-center">
+      <div class="md:col-span-5 timeline-view animate-range-entry animate-rise">
         <img
           src="/images/angie-practitioner.webp"
           alt="Angie Pichardo — Wellness Practitioner and Life Purpose Coach, founder of Zion Lounge"
@@ -357,70 +351,62 @@ const businessSchema = {
           height="1280"
           loading="lazy"
           decoding="async"
-          class="w-full max-w-sm mx-auto aspect-square object-cover rounded-[2rem] border border-white/20 shadow-2xl shadow-black/40"
+          class="w-full max-w-sm md:max-w-none aspect-[4/5] object-cover object-[62%_15%] rounded-lg"
         />
       </div>
-      <div class="md:col-span-7 timeline-view animate-range-entry animate-rise">
-        <p class="text-angie-rose uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">Meet Your Practitioner</p>
-        <h2 id="about-heading" class="mt-3 font-Frauce font-bold text-3xl md:text-5xl leading-tight">Hi, I'm Angie Pichardo.</h2>
-        <p class="mt-5 text-angie-cream/85 text-base md:text-lg leading-relaxed">
-          I'm a certified <strong>Wellness Practitioner</strong> and <strong>Life Purpose Coach</strong>, and the founder of <strong>Zion Lounge</strong>. I created the Zion Experience to give women in central Pennsylvania a place to exhale — without leaving home.
+      <div class="md:col-span-7">
+        <h2 id="about-heading" class="font-Frauce font-bold text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.05]">Hi, I'm Angie Pichardo.</h2>
+        <p class="mt-6 measure text-angie-cream/90 text-lg leading-relaxed">
+          I'm a certified <strong>Wellness Practitioner</strong> and <strong>Life Purpose Coach</strong>, and the founder of <strong>Zion Lounge</strong>. I created the Zion Experience to give women in central Pennsylvania a place to exhale, without leaving home.
         </p>
-        <p class="mt-4 text-angie-cream/85 text-base md:text-lg leading-relaxed">
-          I bring the full wellness experience to your home, office, or private event — anywhere within 20 miles of Lemoyne. My approach is rooted in faith, peace, and the belief that <em>self-care isn't selfish — it's stewardship.</em>
+        <p class="mt-4 measure text-angie-cream/90 text-lg leading-relaxed">
+          I bring the full wellness experience to your home, office, or private event, anywhere within 20 miles of Lemoyne. My approach is rooted in faith, peace, and the belief that <em>self-care isn't selfish, it's stewardship.</em>
         </p>
-        <ul class="mt-6 flex flex-wrap gap-2">
+        <ul class="mt-7 border-t border-angie-cream/25 max-w-md">
           {["Certified Wellness Practitioner", "Life Purpose Coach", "Founder, Zion Lounge"].map((b) => (
-            <li class="px-4 py-2 rounded-full border border-white/25 bg-white/10 text-sm font-Grotesk-bold">{b}</li>
+            <li class="py-3 border-b border-angie-cream/15 font-Grotesk-bold">{b}</li>
           ))}
         </ul>
         <a
           href="tel:+17172980240"
           aria-label="Call or text Angie at 717-298-0240"
-          class="mt-8 inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold transition-all duration-300 hover:bg-white hover:scale-[1.03]"
+          class="btn btn-light mt-9"
         >
-          <span>Have a question? Text me directly</span>
+          Have a question? Text me directly
         </a>
       </div>
     </div>
   </section>
 
-  {/* ============================================================
-      SERVICE AREA — cities + interactive Leaflet map
-  ============================================================ */}
+  {/* SERVICE AREA + FAQ — one cream spread, split by a hairline */}
   <section id="service-area" aria-labelledby="area-heading" class="w-full bg-angie-cream text-angie-noir">
-    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
-      <header class="max-w-2xl timeline-view animate-range-entry animate-rise">
-        <p class="text-angie-burgundy uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">Where We Come to You</p>
-        <h2 id="area-heading" class="mt-3 font-Frauce font-bold text-3xl md:text-5xl leading-tight">Serving Lemoyne, PA and Within 20 Miles</h2>
-        <p class="mt-4 text-angie-noir/70 text-base md:text-lg leading-relaxed">
+    <div class="max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-14 md:pb-20">
+      <header class="max-w-3xl">
+        <h2 id="area-heading" class="font-Frauce font-bold text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.05] text-balance">Serving Lemoyne, PA and Within 20 Miles</h2>
+        <p class="mt-5 measure text-angie-noir/80 text-lg leading-relaxed">
           Mobile wellness delivered to your home, office, or private event across central Pennsylvania. Not sure if you're in our area? Just text Angie.
         </p>
       </header>
 
-      <div class="mt-12 grid lg:grid-cols-12 gap-6 items-start">
+      <div class="mt-10 grid lg:grid-cols-12 gap-x-10 gap-y-8 items-start">
         <div class="lg:col-span-5">
-          <p class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-angie-burgundy text-angie-cream text-sm font-Grotesk-bold">
-            <span aria-hidden="true">●</span> Lemoyne, PA — Headquarters
-          </p>
-          <ul class="mt-5 grid grid-cols-2 gap-3">
-            {[
-              ["Harrisburg", "~3 mi"], ["Camp Hill", "~3 mi"], ["New Cumberland", "~4 mi"], ["Mechanicsburg", "~8 mi"],
-              ["Steelton", "~5 mi"], ["Shiremanstown", "~7 mi"], ["Wormleysburg", "~4 mi"], ["Enola", "~6 mi"],
-            ].map(([city, dist]) => (
-              <li class="rounded-2xl bg-white border border-angie-burgundy/10 px-4 py-3">
-                <p class="font-Grotesk-bold">{city}</p>
-                <p class="text-sm text-angie-noir/60">{dist}</p>
+          <p class="font-Frauce font-bold text-2xl text-angie-burgundy">Lemoyne, PA</p>
+          <p class="text-angie-noir/75">Headquarters</p>
+          <ul class="mt-5 grid grid-cols-2 gap-x-6 border-t border-angie-noir/20">
+            {cities.map(([city, dist]) => (
+              <li class="flex items-baseline justify-between gap-3 py-3 border-b border-angie-noir/15">
+                <span class="font-Grotesk-bold">{city}</span>
+                <span class="text-sm text-angie-noir/70 tabular-nums">{dist}</span>
               </li>
             ))}
           </ul>
-          <p class="mt-6 text-angie-noir/70">Not sure if you're in our service area?</p>
+          <p class="mt-7 text-angie-noir/80">Not sure if you're in our service area?</p>
           <a
             href="tel:+17172980240"
             aria-label="Text Angie at 717-298-0240 to check your service area"
-            class="mt-3 inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-angie-noir text-angie-cream font-Grotesk-bold transition-all duration-300 hover:bg-angie-burgundy"
+            class="btn btn-dark mt-3"
           >
-            <span>Text Angie: 717-298-0240</span>
+            Text Angie: 717-298-0240
           </a>
         </div>
 
@@ -429,59 +415,44 @@ const businessSchema = {
             id="service-map"
             role="region"
             aria-label="Interactive service area map centered on Lemoyne, PA with a 20-mile radius"
-            class="relative z-0 w-full h-[340px] md:h-[480px] rounded-3xl overflow-hidden border border-angie-burgundy/15 shadow-xl shadow-angie-burgundy/10"
+            class="relative z-0 w-full h-[340px] md:h-[480px] rounded-lg overflow-hidden"
           ></div>
-          <p class="mt-3 text-xs text-angie-noir/60 flex flex-wrap gap-x-5 gap-y-1">
-            <span>● 20-mile service radius</span>
-            <span>● Zion Lounge — Lemoyne, PA</span>
+          <p class="mt-3 text-sm text-angie-noir/70">
+            The red circle marks the 20-mile service radius around Zion Lounge in Lemoyne, PA.
           </p>
         </div>
       </div>
     </div>
-  </section>
 
-  {/* ============================================================
-      FAQ
-  ============================================================ */}
-  <section id="faq" aria-labelledby="faq-heading" class="w-full bg-angie-noir text-angie-cream">
-    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28">
-      <header class="mb-10 timeline-view animate-range-entry animate-rise">
-        <p class="text-angie-rose uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">FAQ</p>
-        <h2 id="faq-heading" class="mt-3 font-Frauce font-bold text-3xl md:text-5xl leading-tight">Frequently Asked Questions</h2>
-        <p class="mt-3 text-angie-cream/75 text-base md:text-lg">
-          Everything you need to know before booking your Zion Experience — from how mobile wellness works to what to expect during your session.
-        </p>
-      </header>
+    <div id="faq" aria-labelledby="faq-heading" class="max-w-6xl mx-auto px-6">
+      <div class="border-t border-angie-noir/25 pt-14 md:pt-20 pb-16 md:pb-28 grid md:grid-cols-12 gap-x-12 gap-y-8">
+        <header class="md:col-span-4">
+          <h2 id="faq-heading" class="font-Frauce font-bold text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1]">Frequently Asked Questions</h2>
+          <p class="mt-4 text-angie-noir/75 text-lg leading-relaxed">Before you book your Zion Experience.</p>
+          <p class="mt-8 text-angie-noir/80">Still have questions? Angie personally responds within 24 hours.</p>
+          <a
+            href="tel:+17172980240"
+            aria-label="Call or text Angie at 717-298-0240"
+            class="link-arrow mt-2 min-h-11 text-angie-burgundy"
+          >
+            Text Angie at 717-298-0240
+          </a>
+        </header>
 
-      <div>
-        {faqs.map((faq, i) => (
-          <details class="group/faq border-b border-white/15 py-5">
-            <summary class="cursor-pointer list-none flex justify-between items-center gap-4 font-Frauce text-lg md:text-xl [&::-webkit-details-marker]:hidden">
-              <span class="flex items-baseline gap-3">
-                <span class="text-angie-rose text-[10px] md:text-xs font-Grotesk-bold tracking-[0.25em] shrink-0">Q.{String(i + 1).padStart(2, "0")}</span>
+        <div class="md:col-span-8 border-t border-angie-noir/20">
+          {faqs.map((faq) => (
+            <details class="group/faq border-b border-angie-noir/15">
+              <summary class="cursor-pointer list-none flex justify-between items-center gap-4 min-h-14 py-4 font-Frauce font-bold text-lg md:text-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-angie-burgundy [&::-webkit-details-marker]:hidden">
                 <span>{faq.question}</span>
-              </span>
-              <span aria-hidden="true" class="shrink-0 text-angie-rose text-2xl leading-none transition-transform duration-300 group-open/faq:rotate-45">+</span>
-            </summary>
-            <p class="mt-4 md:ml-12 text-angie-cream/80 text-sm md:text-base leading-relaxed">{faq.answer}</p>
-          </details>
-        ))}
-      </div>
-
-      <div class="mt-12 rounded-3xl border border-white/15 bg-white/5 p-8 text-center">
-        <h3 class="font-Frauce font-bold text-2xl">Still Have Questions?</h3>
-        <p class="mt-2 text-angie-cream/75">We're happy to answer anything else — just reach out. Angie personally responds within 24 hours.</p>
-        <a
-          href="tel:+17172980240"
-          aria-label="Call or text Angie at 717-298-0240"
-          class="mt-5 inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold transition-all duration-300 hover:bg-white hover:scale-[1.03]"
-        >
-          <span>Text Angie at 717-298-0240</span>
-        </a>
+                <svg aria-hidden="true" class="shrink-0 w-5 h-5 text-angie-burgundy transition-transform duration-300 group-open/faq:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              </summary>
+              <p class="pb-5 pr-9 measure text-angie-noir/80 leading-relaxed">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </div>
   </section>
-
 
   <!-- FAQ JSON-LD Schema — Google rich results + AI engine citation source -->
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)}></script>
@@ -598,49 +569,37 @@ const businessSchema = {
     })();
   </script>
 
-  {/* ============================================================
-      FINAL CTA — "You Deserve This Moment"
-  ============================================================ */}
-  <section aria-label="Book your Zion Experience" class="w-full py-20 md:py-28 text-angie-cream text-center bg-gradient-zion">
-    <div class="max-w-3xl mx-auto px-6 timeline-view animate-range-entry animate-rise">
-      <p class="text-angie-cream/80 uppercase tracking-[0.3em] text-[11px] md:text-xs font-Grotesk-bold">You Deserve This Moment</p>
-      <h2 class="mt-3 font-Frauce font-bold text-4xl md:text-6xl leading-[1.05] text-balance">Invest in You.</h2>
-      <p class="mt-5 text-base md:text-xl text-angie-cream/90 leading-relaxed max-w-2xl mx-auto">
-        Book your Zion Experience today. $20 deposit, confirmed within 24 hours, and peace delivered straight to your door.
-      </p>
-      <div class="mt-9 flex flex-col sm:flex-row gap-3 items-center justify-center">
+  {/* FINAL CTA — solid burgundy plane */}
+  <section aria-label="Book your Zion Experience" class="w-full bg-angie-burgundy text-angie-cream">
+    <div class="max-w-6xl mx-auto px-6 py-16 md:py-20 grid md:grid-cols-12 gap-x-12 gap-y-8 items-end">
+      <div class="md:col-span-7">
+        <h2 class="font-Frauce font-bold text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.02] text-balance">Invest in You.</h2>
+        <p class="mt-5 measure text-angie-cream/90 text-lg leading-relaxed">
+          Book your Zion Experience. $20 deposit, confirmed within 24 hours.
+        </p>
+      </div>
+      <div class="md:col-span-5 flex flex-col items-start md:items-end gap-3">
         <a
-          href="https://tidycal.com/angiepspeaks/experiencebooking"
+          href={BOOK_URL}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Book your Zion Experience on TidyCal (opens in a new tab)"
-          class="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-angie-cream text-angie-noir font-Grotesk-bold transition-all duration-300 hover:bg-white hover:scale-[1.03]"
+          class="btn btn-light"
         >
-          <span>Book Your Experience</span>
-          <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          Book Your Experience
         </a>
         <a
           href="tel:+17172980240"
           aria-label="Call or text Angie at 717-298-0240"
-          class="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-angie-cream/50 text-angie-cream font-Grotesk-bold transition-all duration-300 hover:bg-angie-cream hover:text-angie-noir"
+          class="link-arrow min-h-11"
         >
-          <span>Text Angie: 717-298-0240</span>
+          Text Angie: 717-298-0240
         </a>
+        <p class="text-angie-cream/90 text-sm">Angie personally responds within 24 hours.</p>
       </div>
-      <p class="mt-8 text-angie-cream/80 text-sm md:text-base">💜 Angie personally responds within 24 hours.</p>
     </div>
   </section>
 </MainLayout>
-<style>
-</style>
-
-
-
-
-
-
-
-
 
 <script>
   // Phone reveal: 1er click → muestra el número, 2do click → marca

@@ -33,8 +33,16 @@ const {
   <body
     class="body-fixed-gradient flex flex-col items-center font-Grotesk min-h-dvh overflow-x-hidden"
   >
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-1000 btn btn-light focus:outline-3 focus:outline-offset-2 focus:outline-angie-rose"
+    >
+      Skip to content
+    </a>
     <NavBar />
-    <slot />
+    <main id="main" tabindex="-1" class="flex w-full flex-col items-center outline-none">
+      <slot />
+    </main>
     <MainFooter />
   </body>
 </html>

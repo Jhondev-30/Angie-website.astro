@@ -1,7 +1,75 @@
 ---
+/**
+ * Photo-led hero shared by the three service pages.
+ * Slots: default = the single <h1>, "lead" = one-sentence promise.
+ */
+interface Props {
+  image: string;
+  alt: string;
+  width: number;
+  height: number;
+  /** CSS object-position, chosen so the face is never cropped */
+  position?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+}
 
+const {
+  image,
+  alt,
+  width,
+  height,
+  position = "50% 20%",
+  ctaHref = "https://tidycal.com/angiepspeaks/30min-purpose-discoverycall",
+  ctaLabel = "Book a free discovery call",
+} = Astro.props;
 ---
 
-<section class="min-h-[60svh] md:min-h-[85svh] px-6 pt-24 pb-12 rounded-b-[35%] md:rounded-b-[50%] gradient-services flex flex-col items-center justify-center text-white font-Frauce text-3xl sm:text-4xl md:text-6xl font-bold text-center text-balance">
+<section class="bg-angie-noir text-angie-cream">
+  <div
+    class="max-w-6xl mx-auto px-5 md:px-8 pt-28 md:pt-40 pb-14 md:pb-24 grid md:grid-cols-12 gap-10 md:gap-14 items-end"
+  >
+    <div class="md:col-span-7 flex flex-col gap-6">
+      <h1
+        class="font-Frauce font-bold text-[clamp(2.25rem,6.2vw,4.5rem)] leading-[1.05] text-balance animate-rise"
+      >
         <slot />
+      </h1>
+      <p
+        class="font-Grotesk text-lg md:text-xl leading-relaxed text-angie-cream/85 measure animate-rise"
+        style="animation-delay:120ms"
+      >
+        <slot name="lead" />
+      </p>
+      <div
+        class="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2 animate-rise"
+        style="animation-delay:240ms"
+      >
+        <a
+          href={ctaHref}
+          rel="noopener"
+          class="btn btn-light hover:animate-tada"
+        >
+          {ctaLabel}
+        </a>
+        <a href="#details" class="link-arrow min-h-11 text-angie-cream">
+          See formats and pricing
+        </a>
+      </div>
+    </div>
+
+    <div class="md:col-span-5 animate-rise" style="animation-delay:180ms">
+      <img
+        src={image}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="w-full aspect-5/4 md:aspect-4/5 object-cover rounded-lg"
+        style={`object-position:${position}`}
+      />
+    </div>
+  </div>
 </section>
