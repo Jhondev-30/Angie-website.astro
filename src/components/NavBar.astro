@@ -57,7 +57,7 @@ const item =
       <MorphIcon icon={Menu} id="menu-icon" size={24} strokeWidth={2} />
     </button>
 
-    <nav aria-label="main navigation" class="md:ml-auto">
+    <nav aria-label="main navigation" class="contents md:block md:ml-auto">
       <ul
         id="mobile-menu"
         data-open="false"
@@ -138,7 +138,7 @@ const item =
             rel="noopener noreferrer"
             class:list={["btn btn-light w-full", focus]}
           >
-            Book a call
+            Book a call<span class="sr-only"> (opens in a new tab)</span>
           </a>
         </li>
       </ul>
@@ -150,7 +150,7 @@ const item =
       rel="noopener noreferrer"
       class:list={["btn btn-light hidden md:inline-flex min-h-11! py-2! px-5! text-sm", focus]}
     >
-      Book a call
+      Book a call<span class="sr-only"> (opens in a new tab)</span>
     </a>
   </div>
 </header>
@@ -196,15 +196,18 @@ const item =
 
     let open = false;
     let servicesToggled = false;
+    // Escape pressed while the hover/focus-opened menu was showing (WCAG 1.4.13)
+    let servicesDismissed = false;
     const hasHover = window.matchMedia("(hover: hover)").matches;
     const desktop = window.matchMedia("(min-width: 768px)");
 
     const syncServicesExpanded = () => {
       const hovered = servicesMenu.matches(":hover") || servicesBtn.matches(":hover");
       const focused = servicesBtn.matches(":focus") || servicesMenu.matches(":focus-within");
-      const opened = hovered || focused || servicesToggled;
+      const opened = servicesToggled || (!servicesDismissed && (hovered || focused));
       servicesBtn.setAttribute("aria-expanded", String(opened));
       servicesMenu.dataset.servicesOpen = String(opened);
+      servicesLi.dataset.dismissed = String(servicesDismissed);
     };
 
     const setOpen = (next: boolean) => {
@@ -215,6 +218,8 @@ const item =
       iconEl.morphTo(open ? X : Menu);
       // Scroll lock while the full-screen menu is open
       document.documentElement.style.overflow = open ? "hidden" : "";
+      // Page behind the full-screen menu must not be reachable by keyboard / AT
+      document.querySelectorAll("main, footer").forEach((el) => el.toggleAttribute("inert", open));
       if (!open) {
         servicesToggled = false;
         syncServicesExpanded();
@@ -252,6 +257,31 @@ const item =
     servicesMenu.addEventListener("focusin", syncServicesExpanded, { signal });
     servicesMenu.addEventListener("focusout", () => queueMicrotask(syncServicesExpanded), { signal });
 
+    // Re-arm hover/focus opening once the user has actually left the item
+    servicesLi.addEventListener(
+      "focusout",
+      (e) => {
+        if (!servicesLi.contains(e.relatedTarget as Node | null)) {
+          servicesDismissed = false;
+          queueMicrotask(syncServicesExpanded);
+        }
+      },
+      { signal },
+    );
+    servicesLi.addEventListener(
+      "mouseleave",
+      () => {
+        if (!servicesLi.matches(":focus-within")) {
+          servicesDismissed = false;
+          syncServicesExpanded();
+        }
+      },
+      { signal },
+    );
+
+    // A nav item receiving keyboard focus while the header is hidden must reveal it
+    header.addEventListener("focusin", () => header.classList.remove("nav-hidden"), { signal });
+
     document.addEventListener(
       "click",
       (e) => {
@@ -282,9 +312,16 @@ const item =
         if (open) {
           setOpen(false);
           btn.focus();
-        } else if (servicesToggled || servicesLi.contains(document.activeElement)) {
+        } else if (
+          servicesToggled ||
+          servicesLi.contains(document.activeElement) ||
+          servicesLi.matches(":hover")
+        ) {
+          const focusInside = servicesLi.contains(document.activeElement);
           servicesToggled = false;
-          (document.activeElement as HTMLElement | null)?.blur();
+          servicesDismissed = true;
+          // Return focus to the disclosure button instead of dropping it on <body>
+          if (focusInside && document.activeElement !== servicesBtn) servicesBtn.focus();
           syncServicesExpanded();
         }
       },
@@ -332,6 +369,12 @@ const item =
   /* morphicons may render an empty <span> label above the icon */
   #menu-btn morph-icon > span {
     display: none !important;
+  }
+
+  /* Escape-dismissed Services menu stays closed while focus/hover remains (SC 1.4.13) */
+  #Services[data-dismissed="true"] #services-menu {
+    visibility: hidden;
+    opacity: 0;
   }
 
   [data-nav-hider] {

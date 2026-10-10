@@ -159,6 +159,20 @@
         scroll-behavior: auto !important;
     }
 }
+/* Scroll-driven (timeline-view) reveals ignore animation-duration, so they
+   must be detached from the scroll timeline. Base layer wins over the
+   !important utility declarations (important layer order is reversed). */
+@layer base {
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-timeline: auto !important;
+        }
+    }
+    /* Fixed 64px header must never cover a keyboard-focused element (WCAG 2.4.11) */
+    html {
+        scroll-padding-top: 4.5rem;
+    }
+}
 
 /* ── Design system primitives (see design-system/angie/MASTER.md) ────────── */
 @layer components {
@@ -178,7 +192,13 @@
         cursor: pointer;
         transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
-    .btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+    /* Two-tone ring: cream gap + noir outline stays >=3:1 on any plane
+       (currentColor vanished on btn-dark/burgundy over cream, btn-light over noir). */
+    .btn:focus-visible {
+        outline: 3px solid var(--color-angie-noir);
+        outline-offset: 3px;
+        box-shadow: 0 0 0 3px var(--color-angie-cream);
+    }
     .btn:active { transform: translateY(1px); }
 
     .btn-light  { background: var(--color-angie-cream); color: var(--color-angie-noir); }
@@ -204,7 +224,7 @@
         transition: text-underline-offset 0.2s ease, color 0.2s ease;
     }
     .link-arrow:hover { text-underline-offset: 0.5em; }
-    .link-arrow:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+    .link-arrow:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; border-radius: 0.25rem; }
 
     /* Readable measure for long copy */
     .measure { max-width: 62ch; }

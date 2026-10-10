@@ -30,8 +30,16 @@ const {
         <ClientRouter />
     </head>
     <body class="flex flex-col min-h-dvh md:min-h-screen  ">
+        <a
+          href="#main"
+          class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-1000 btn btn-light focus:outline-3 focus:outline-offset-2 focus:outline-angie-rose"
+        >
+          Skip to content
+        </a>
         <NavBar />
+        <main id="main" tabindex="-1" class="flex flex-col outline-none">
             <slot />
+        </main>
         <MainFooter />
     </body>
 </html>

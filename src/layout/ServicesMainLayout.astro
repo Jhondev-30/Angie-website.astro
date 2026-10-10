@@ -150,8 +150,12 @@ const BOOK = "https://tidycal.com/angiepspeaks/30min-purpose-discoverycall";
                   >
                     Book a call
                   </a>
+                  {/* Inert placeholder: no payment URL is wired yet. No href keeps it out of
+                      the tab order and stops "#" jumping to the top. A future script can set
+                      href and remove aria-disabled via [data-stripe-link]. */}
                   <a
-                    href="#"
+                    role="link"
+                    aria-disabled="true"
                     data-stripe-link
                     rel="noopener"
                     class="link-arrow min-h-11 text-angie-cream"
